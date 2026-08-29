@@ -359,7 +359,8 @@ synthétique ». Son sous-dossier `corpus/private/` n'est volontairement pas
 couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine, et
 le contenu synthétique doit être versionné pour que les tests tournent.
 
-CLI : `finreg-bench valider|executer|verifier-reproductibilite`.
+CLI : `finreg-bench valider|executer|verifier-reproductibilite`, et
+`finreg-bench rulebook qc|exporter-verification|appliquer-verification`.
 
 ### Regulatory Rulebook (phase 6)
 
@@ -398,6 +399,53 @@ sources primaires sont inaccessibles depuis l'environnement de génération
 (EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA bloqués par le proxy réseau). Les
 références proviennent de la connaissance du modèle et doivent être confrontées
 au texte par un humain. Le rapport `RULEBOOK_QC.md` le dit en tête.
+
+### Circuit de vérification (`verification.py`)
+
+Le verrou dit ce qu'une règle ne peut pas faire ; le circuit dit comment elle le
+fait. La vérification ne s'écrit jamais à la main dans `data/rules/` :
+
+```sh
+finreg-bench rulebook exporter-verification --sortie verification.csv
+finreg-bench rulebook appliquer-verification verification.csv
+finreg-bench rulebook qc --ecrire
+```
+
+- **Dossier de vérification** : un CSV (UTF-8 BOM, séparateur `;`, comme la file
+  de revue), une ligne par règle, trié par priorité — on vérifie d'abord ce
+  dont l'erreur coûte le plus cher.
+- **Quatre verdicts**, dont deux seulement promeuvent : `confirme` et `corrige`.
+  `refute` et `non_verifiable` enregistrent une consultation qui n'a rien
+  promu — on ne monte pas une règle en grade parce que sa vérification s'est
+  mal passée.
+- **Une correction reversionne** : `version` avance, `supersedes` nomme la
+  version remplacée. Un énoncé n'est jamais écrasé, pas plus qu'un gold.
+- **Lecture tout ou rien** : un dossier dont une ligne est irrecevable ne
+  s'applique pas à moitié, et rien n'est écrit.
+- **`validated` exige des exceptions connues** : une règle validée dont les
+  exceptions restent `unknown` se testerait comme un absolu qu'elle n'est pas.
+- **Registre** : `data/verification/rulebook-ledger.json`, hors de
+  `data/rules/`. `scripts/generer_rulebook.py` le réapplique après génération —
+  sans lui, régénérer le Rulebook effacerait le travail du vérificateur, seul
+  travail que le script ne sait pas refaire. `data/rules/*.json` est désormais
+  la sérialisation complète du modèle `Rule`, pour qu'une réinjection ne
+  produise pas de diff parasite.
+
+### Ce que le QC vérifie sans le texte primaire
+
+Quatre constats se déduisent de la citation elle-même :
+
+| Contrôle | Ce qu'il attrape |
+|---|---|
+| `version_date_placeholder` | version consultée antérieure à l'acte cité (l'année est dans son numéro) |
+| `url_acte_different` | l'URL désigne un autre acte que `source.text` — légitime pour un acte modificatif |
+| `ancrage_imprecis` | « Articles 8 à 13 », « Ensemble de la directive » : aucun gold ne pourra citer son article |
+| `verification_sans_promotion` | règle consultée mais restée `draft` — elle ne revient plus d'elle-même dans le dossier |
+
+`doublon_conceptuel` ne se déclenche que si deux règles du même article ont
+*aussi* des énoncés proches : un article porte couramment plusieurs obligations
+distinctes, et les signaler toutes noierait le vrai doublon dans le bruit. Le
+cas ordinaire ressort en `INFO meme_article`.
 
 ## 10. Conventions
 

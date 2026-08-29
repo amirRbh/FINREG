@@ -25,6 +25,7 @@
       "MIFID-R-002"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 24",
       "paragraph": "",
@@ -37,6 +38,7 @@
     "statement": "L'article 24 de la directive 2014/65/UE impose aux entreprises d'investissement d'agir d'une manière honnête, équitable et professionnelle qui serve au mieux les intérêts de leurs clients, et fixe les exigences générales d'information, notamment le caractère correct, clair et non trompeur des informations adressées aux clients.",
     "status": "draft",
     "subdomain": "Article 24 — principes généraux",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Agir de manière honnête, équitable et professionnelle",
     "valid_from": "2018-01-03",
@@ -76,6 +78,7 @@
       "MIFID-R-006"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 25",
       "paragraph": "paragraphe 2",
@@ -88,6 +91,7 @@
     "statement": "L'article 25 de la directive 2014/65/UE impose, lorsqu'un conseil en investissement ou un service de gestion de portefeuille est fourni, de se procurer les informations nécessaires sur les connaissances et l'expérience du client, sa situation financière y compris sa capacité à subir des pertes, et ses objectifs d'investissement y compris sa tolérance au risque, afin de recommander les services et instruments qui lui conviennent.",
     "status": "draft",
     "subdomain": "Article 25 — adéquation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Évaluation de l'adéquation dans le conseil et la gestion de portefeuille",
     "valid_from": "2018-01-03",
@@ -125,6 +129,7 @@
       "MIFID-R-004"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 25",
       "paragraph": "paragraphe 3",
@@ -137,6 +142,7 @@
     "statement": "L'article 25 impose, pour les services autres que le conseil en investissement et la gestion de portefeuille, de demander au client des informations sur ses connaissances et son expérience afin d'évaluer si le service ou l'instrument est approprié, et de l'avertir lorsque tel n'est pas le cas.",
     "status": "draft",
     "subdomain": "Article 25 — caractère approprié",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Évaluation du caractère approprié hors conseil",
     "valid_from": "2018-01-03",
@@ -174,6 +180,7 @@
       "MIFID-R-003"
     ],
     "rule_type": "EXCEPTION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 25",
       "paragraph": "paragraphe 4",
@@ -186,6 +193,7 @@
     "statement": "L'article 25 permet, à certaines conditions, de fournir des services de réception-transmission ou d'exécution d'ordres sans procéder à l'évaluation du caractère approprié, lorsque le service porte sur des instruments financiers non complexes, qu'il est fourni à l'initiative du client et que celui-ci a été averti.",
     "status": "draft",
     "subdomain": "Article 25 — exécution simple",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Régime d'exécution simple pour les instruments non complexes",
     "valid_from": "2018-01-03",
@@ -219,6 +227,7 @@
       "MIFID-R-002"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 25",
       "paragraph": "paragraphe 6",
@@ -231,6 +240,7 @@
     "statement": "L'article 25 impose, en cas de conseil en investissement à un client de détail, de lui fournir une déclaration d'adéquation précisant le conseil fourni et la manière dont il répond à ses préférences, objectifs et autres caractéristiques.",
     "status": "draft",
     "subdomain": "Article 25 — rapport d'adéquation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Rapport d'adéquation au client de détail",
     "valid_from": "2018-01-03",
@@ -271,6 +281,7 @@
       "SFDR-R-008"
     ],
     "rule_type": "DEFINITION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 2 et article 54 du règlement délégué (UE) 2017/565 modifié",
       "paragraph": "",
@@ -283,6 +294,7 @@
     "statement": "Le règlement délégué (UE) 2021/1253, qui modifie le règlement délégué (UE) 2017/565, introduit la notion de préférences en matière de durabilité et impose de les recueillir dans le cadre de l'évaluation de l'adéquation.",
     "status": "draft",
     "subdomain": "Préférences de durabilité",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Préférences en matière de durabilité",
     "valid_from": "2022-08-02",
@@ -308,8 +320,10 @@
     "id": "MIFID-R-007",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "Le texte fixerait une proportion minimale chiffrée d'investissements durables à proposer.",
         "note": "Les proportions minimales sont exprimées par le client dans ses préférences, non imposées par le texte.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -328,6 +342,7 @@
       "MIFID-R-006"
     ],
     "rule_type": "PROCEDURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 54",
       "paragraph": "",
@@ -340,6 +355,7 @@
     "statement": "Le règlement délégué (UE) 2017/565 modifié prévoit que, lorsqu'aucun instrument financier ne correspond aux préférences de durabilité exprimées par le client, celui-ci peut adapter ses préférences, l'entreprise devant consigner cette adaptation et la raison qui la motive.",
     "status": "draft",
     "subdomain": "Préférences de durabilité — adaptation",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Adaptation des préférences de durabilité",
     "valid_from": "2022-08-02",
@@ -376,6 +392,7 @@
       "LCBFT-R-011"
     ],
     "rule_type": "RECORD_KEEPING",
+    "secondary_sources": [],
     "source": {
       "article": "Article 16",
       "paragraph": "",
@@ -388,6 +405,7 @@
     "statement": "L'article 16 de la directive 2014/65/UE impose de conserver les enregistrements de tous les services, activités et transactions, d'une manière permettant à l'autorité compétente de reconstituer chaque étape essentielle du traitement de chaque transaction.",
     "status": "draft",
     "subdomain": "Article 16 — organisation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Conservation des enregistrements",
     "valid_from": "2018-01-03",
@@ -421,6 +439,7 @@
     "regulatory_status": "in_force",
     "related_rules": [],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 27",
       "paragraph": "",
@@ -433,6 +452,7 @@
     "statement": "L'article 27 de la directive 2014/65/UE impose de prendre toutes les mesures suffisantes pour obtenir, lors de l'exécution des ordres, le meilleur résultat possible pour le client, compte tenu du prix, du coût, de la rapidité, de la probabilité d'exécution et du règlement, de la taille et de la nature de l'ordre.",
     "status": "draft",
     "subdomain": "Article 27 — exécution",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Meilleure exécution",
     "valid_from": "2018-01-03",
@@ -466,6 +486,7 @@
       "DORA-R-002"
     ],
     "rule_type": "GOVERNANCE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 9",
       "paragraph": "",
@@ -478,6 +499,7 @@
     "statement": "L'article 9 de la directive 2014/65/UE fixe les exigences relatives à l'organe de direction des entreprises d'investissement, notamment sa responsabilité dans la définition et la surveillance des dispositifs de gouvernance assurant une gestion efficace et prudente.",
     "status": "draft",
     "subdomain": "Article 9 — gouvernance",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Responsabilité de l'organe de direction",
     "valid_from": "2018-01-03",
@@ -514,6 +536,7 @@
       "MIFID-R-006"
     ],
     "rule_type": "PROCEDURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 54",
       "paragraph": "",
@@ -526,6 +549,7 @@
     "statement": "Le règlement délégué (UE) 2017/565 précise les modalités de l'évaluation de l'adéquation, notamment l'étendue des informations à recueillir et les diligences à accomplir pour s'assurer de leur fiabilité.",
     "status": "draft",
     "subdomain": "Règlement délégué 2017/565",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Modalités de l'évaluation de l'adéquation au niveau 2",
     "valid_from": "2018-01-03",

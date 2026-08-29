@@ -4,19 +4,24 @@ Toutes les règles sortent en `status = draft` avec
 `verification_method = model_knowledge_unverified` : les sources primaires sont
 inaccessibles depuis cet environnement, et la spécification §1 et §15 interdit
 d'aller plus loin sans consultation du texte.
+
+Une exception, et une seule : les constats du **registre de vérification** sont
+réappliqués après génération. Sans cela, régénérer le Rulebook effacerait
+silencieusement le travail d'un vérificateur — le seul travail que ce fichier ne
+sait pas refaire.
 """
 
 from __future__ import annotations
 
-import datetime as dt
 from pathlib import Path
 
+from src.bench.qc_rulebook import construire_manifeste
 from src.bench.regles import Rule
+from src.bench.verification import VerificationInvalide, appliquer, charger_registre
 from src.io_utils import ecrire_json
 from scripts import rulebook_amf, rulebook_dora, rulebook_lcbft, rulebook_mifid, rulebook_sfdr
 
 SORTIE = Path("data/rules")
-VERSION_RULEBOOK = "v0.1.0"
 
 #: Aucune source n'a pu être consultée : le proxy réseau bloque EUR-Lex,
 #: Légifrance, l'AMF, l'ACPR, TRACFIN et l'ESMA.
@@ -95,6 +100,7 @@ def normaliser(brut: dict, fichier: str, domaine: str) -> dict:
 
 def generer() -> tuple[list[Rule], dict]:
     SORTIE.mkdir(parents=True, exist_ok=True)
+    registre = charger_registre()
     toutes: list[Rule] = []
     par_fichier: dict[str, int] = {}
 
@@ -102,46 +108,24 @@ def generer() -> tuple[list[Rule], dict]:
         regles = [normaliser(b, fichier, domaine) for b in brutes]
         # Validation avant écriture : un fichier de règles invalide ne doit pas exister.
         objets = [Rule.model_validate(r) for r in regles]
-        ecrire_json(SORTIE / f"{fichier}.json", regles)
+        # Le registre est réappliqué ici : ce que la génération ne sait pas refaire.
+        connus = {r.id for r in objets}
+        objets = appliquer(objets, [v for v in registre if v.rule_id in connus])
+        ecrire_json(SORTIE / f"{fichier}.json", [o.model_dump(mode="json") for o in objets])
         toutes.extend(objets)
         par_fichier[fichier] = len(objets)
+
+    # Un constat orphelin est du travail de vérification perdu : la règle qu'il
+    # nomme a été renommée ou retirée. Le signaler bruyamment, ne pas l'ignorer.
+    orphelins = sorted({v.rule_id for v in registre} - {r.id for r in toutes})
+    if orphelins:
+        raise VerificationInvalide(
+            [f"{rid} : constat de vérification sans règle correspondante" for rid in orphelins]
+        )
 
     manifeste = construire_manifeste(toutes, par_fichier)
     ecrire_json(SORTIE / "rulebook-manifest.json", manifeste)
     return toutes, manifeste
-
-
-def construire_manifeste(regles: list[Rule], par_fichier: dict[str, int]) -> dict:
-    def compter(cle) -> dict[str, int]:
-        valeurs: dict[str, int] = {}
-        for regle in regles:
-            v = cle(regle)
-            valeurs[v] = valeurs.get(v, 0) + 1
-        return dict(sorted(valeurs.items()))
-
-    return {
-        "rulebook_version": VERSION_RULEBOOK,
-        # Pas d'horodatage : le manifeste doit être reproductible à l'identique.
-        "generation_date": dt.date(2026, 8, 29).isoformat(),
-        "number_of_rules": len(regles),
-        "rules_per_domain": compter(lambda r: r.domain.value),
-        "rules_per_file": dict(sorted(par_fichier.items())),
-        "rules_per_type": compter(lambda r: r.rule_type.value),
-        "rules_per_priority": compter(lambda r: r.priority.value),
-        "rules_per_status": compter(lambda r: r.status.value),
-        "number_source_checked": sum(1 for r in regles if r.status.value == "source_checked"),
-        "number_validated": sum(1 for r in regles if r.status.value == "validated"),
-        "number_time_sensitive": sum(1 for r in regles if r.time_sensitive),
-        "number_critical": sum(1 for r in regles if r.priority.value == "CRITICAL"),
-        "number_needing_verification": sum(1 for r in regles if r.needs_verification),
-        "number_with_negative_claims": sum(1 for r in regles if r.negative_claims),
-        "verification_note": (
-            "Aucune règle n'a été confrontée à sa source primaire : EUR-Lex, Légifrance, "
-            "AMF, ACPR, TRACFIN et ESMA sont inaccessibles depuis l'environnement de "
-            "génération. Toutes les règles sont en « draft » et aucune n'est utilisable "
-            "pour ancrer un gold tant qu'un humain n'a pas vérifié la source."
-        ),
-    }
 
 
 if __name__ == "__main__":

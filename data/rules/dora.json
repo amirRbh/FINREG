@@ -29,6 +29,7 @@
       "DORA-R-011"
     ],
     "rule_type": "SCOPE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 2",
       "paragraph": "",
@@ -41,6 +42,7 @@
     "statement": "L'article 2 du règlement (UE) 2022/2554 énumère les catégories d'entités financières auxquelles le règlement s'applique, ainsi que les prestataires tiers de services TIC, et prévoit des exclusions pour certaines entités.",
     "status": "draft",
     "subdomain": "Article 2 — champ d'application",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Entités financières couvertes par DORA",
     "valid_from": "2025-01-17",
@@ -78,6 +80,7 @@
       "MIFID-R-010"
     ],
     "rule_type": "GOVERNANCE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 5",
       "paragraph": "",
@@ -90,6 +93,7 @@
     "statement": "L'article 5 du règlement (UE) 2022/2554 dispose que l'organe de direction de l'entité financière définit, approuve, supervise et est responsable de la mise en œuvre du cadre de gestion du risque lié aux TIC.",
     "status": "draft",
     "subdomain": "Article 5 — gouvernance",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Responsabilité de l'organe de direction sur le risque TIC",
     "valid_from": "2025-01-17",
@@ -127,6 +131,7 @@
       "DORA-R-010"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 6",
       "paragraph": "",
@@ -139,6 +144,7 @@
     "statement": "L'article 6 impose de disposer d'un cadre de gestion du risque lié aux TIC solide, complet et bien documenté, faisant partie du dispositif global de gestion des risques, et de le réexaminer au moins une fois par an.",
     "status": "draft",
     "subdomain": "Article 6 — cadre de gestion",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Cadre de gestion du risque lié aux TIC",
     "valid_from": "2025-01-17",
@@ -175,6 +181,7 @@
       "DORA-R-003"
     ],
     "rule_type": "PROCEDURE",
+    "secondary_sources": [],
     "source": {
       "article": "Articles 8 à 13",
       "paragraph": "",
@@ -187,6 +194,7 @@
     "statement": "Les articles 8 à 13 du règlement (UE) 2022/2554 organisent les fonctions du cadre de gestion du risque TIC : identification des fonctions et actifs, protection et prévention, détection des activités anormales, réponse et rétablissement, politiques de sauvegarde et de restauration, apprentissage et évolution.",
     "status": "draft",
     "subdomain": "Articles 8 à 13",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Identification, protection, détection, réponse et apprentissage",
     "valid_from": "2025-01-17",
@@ -224,6 +232,7 @@
       "DORA-R-003"
     ],
     "rule_type": "EXCEPTION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 16",
       "paragraph": "",
@@ -236,6 +245,7 @@
     "statement": "L'article 16 prévoit un cadre simplifié de gestion du risque lié aux TIC pour certaines entités financières limitativement énumérées.",
     "status": "draft",
     "subdomain": "Article 16 — cadre simplifié",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Cadre simplifié de gestion du risque TIC",
     "valid_from": "2025-01-17",
@@ -272,6 +282,7 @@
       "DORA-R-008"
     ],
     "rule_type": "PROCEDURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 17",
       "paragraph": "",
@@ -284,6 +295,7 @@
     "statement": "L'article 17 impose de définir, d'établir et de mettre en œuvre un processus de gestion des incidents liés aux TIC permettant de les détecter, de les gérer et de les notifier.",
     "status": "draft",
     "subdomain": "Article 17 — incidents",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Processus de gestion des incidents liés aux TIC",
     "valid_from": "2025-01-17",
@@ -308,8 +320,10 @@
     "id": "DORA-R-007",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "L'article 18 fixerait lui-même un nombre de clients affectés au-delà duquel l'incident est majeur.",
         "note": "Les seuils chiffrés relèvent des normes techniques ; à confronter au texte et aux RTS.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -328,6 +342,7 @@
       "DORA-R-008"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 18",
       "paragraph": "",
@@ -340,6 +355,7 @@
     "statement": "L'article 18 impose de classer les incidents liés aux TIC et de déterminer leur incidence selon des critères tels que le nombre de clients affectés, la durée, la répartition géographique, les pertes de données et la criticité des services touchés, les seuils étant précisés par des normes techniques.",
     "status": "draft",
     "subdomain": "Article 18 — classification",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Classification des incidents et détermination du caractère majeur",
     "valid_from": "2025-01-17",
@@ -365,8 +381,10 @@
     "id": "DORA-R-008",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "Le règlement DORA de niveau 1 fixerait un délai de notification initiale en heures.",
         "note": "Le délai relève des normes techniques d'exécution ; à confronter au texte et aux ITS.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -386,6 +404,7 @@
       "DORA-R-007"
     ],
     "rule_type": "DEADLINE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 19",
       "paragraph": "",
@@ -398,6 +417,7 @@
     "statement": "L'article 19 impose de notifier les incidents majeurs liés aux TIC à l'autorité compétente, selon un processus comportant une notification initiale, un rapport intermédiaire et un rapport final, dont les délais sont précisés par des normes techniques.",
     "status": "draft",
     "subdomain": "Article 19 — notification",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Notification des incidents majeurs à l'autorité compétente",
     "valid_from": "2025-01-17",
@@ -434,6 +454,7 @@
       "DORA-R-001"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Articles 24 à 26",
       "paragraph": "",
@@ -446,6 +467,7 @@
     "statement": "Les articles 24 à 26 du règlement (UE) 2022/2554 imposent un programme de tests de résilience opérationnelle numérique et prévoient, pour certaines entités, des tests de pénétration fondés sur la menace.",
     "status": "draft",
     "subdomain": "Articles 24 à 26 — tests",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Tests de résilience opérationnelle numérique",
     "valid_from": "2025-01-17",
@@ -483,6 +505,7 @@
       "DORA-R-012"
     ],
     "rule_type": "RECORD_KEEPING",
+    "secondary_sources": [],
     "source": {
       "article": "Article 28",
       "paragraph": "",
@@ -495,6 +518,7 @@
     "statement": "L'article 28 du règlement (UE) 2022/2554 impose de tenir et de mettre à jour un registre d'information relatif à l'ensemble des accords contractuels portant sur l'utilisation de services TIC fournis par des prestataires tiers, en distinguant ceux qui soutiennent des fonctions critiques ou importantes.",
     "status": "draft",
     "subdomain": "Article 28 — registre d'information",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Registre d'information des accords contractuels TIC",
     "valid_from": "2025-01-17",
@@ -533,6 +557,7 @@
       "DORA-R-012"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 30",
       "paragraph": "",
@@ -545,6 +570,7 @@
     "statement": "L'article 30 énumère les dispositions que doivent contenir les accords contractuels avec les prestataires tiers de services TIC, avec des exigences renforcées lorsque les services soutiennent des fonctions critiques ou importantes, notamment en matière d'accès, d'inspection, d'audit et de stratégies de sortie.",
     "status": "draft",
     "subdomain": "Article 30 — contrats",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Dispositions contractuelles essentielles avec les prestataires TIC",
     "valid_from": "2025-01-17",
@@ -582,6 +608,7 @@
       "DORA-R-011"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 31",
       "paragraph": "",
@@ -594,6 +621,7 @@
     "statement": "L'article 31 organise la désignation, par les autorités européennes de surveillance, des prestataires tiers de services TIC critiques, et les soumet à un cadre de supervision spécifique.",
     "status": "draft",
     "subdomain": "Article 31 — prestataires critiques",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Désignation des prestataires tiers critiques de services TIC",
     "valid_from": "2025-01-17",
@@ -629,6 +657,7 @@
       "DORA-R-001"
     ],
     "rule_type": "DEADLINE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 64",
       "paragraph": "",
@@ -641,6 +670,7 @@
     "statement": "Le règlement (UE) 2022/2554 est entré en vigueur après sa publication et s'applique à compter du 17 janvier 2025.",
     "status": "draft",
     "subdomain": "Application",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Date d'application du règlement DORA",
     "valid_from": "2025-01-17",

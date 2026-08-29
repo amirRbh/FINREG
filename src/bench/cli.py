@@ -11,12 +11,38 @@ import typer
 from src.bench.campagne import executer_campagne
 from src.bench.config import BenchConfig
 from src.bench.plan import coverage_report
+from src.bench.qc_rulebook import (
+    RACINE_RULEBOOK,
+    charger_par_fichier,
+    construire_manifeste,
+    controler,
+    erreurs,
+    rapport_markdown,
+)
 from src.bench.rapport import comparer_runs, ecrire_run
 from src.bench.registre import RegistreInvalide, charger_prive, charger_public
+from src.bench.verification import (
+    REGISTRE_VERIFICATION,
+    VERDICTS_PROMOTEURS,
+    VerificationInvalide,
+    appliquer,
+    ecrire_registre,
+    exporter_dossier,
+    fusionner_registre,
+    lire_dossier,
+)
 from src.bench.vocabulaires import Corpus
-from src.io_utils import lire_json
+from src.io_utils import ecrire_json, lire_json
 
 app = typer.Typer(help="FinReg-FR Bench V0.2.", no_args_is_help=True)
+
+rulebook = typer.Typer(
+    help="Regulatory Rulebook : contrôle qualité et circuit de vérification.",
+    no_args_is_help=True,
+)
+app.add_typer(rulebook, name="rulebook")
+
+RAPPORT_QC = Path("RULEBOOK_QC.md")
 
 CheminConfig = Annotated[Path, typer.Option("--config", help="Fichier de configuration.")]
 
@@ -89,6 +115,122 @@ def verifier_reproductibilite(
         )
         raise typer.Exit(code=1)
     typer.secho("Runs identiques sur tous les fichiers comparés.", fg=typer.colors.GREEN)
+
+
+# -- Rulebook ---------------------------------------------------------------------- #
+
+
+@rulebook.command("qc")
+def rulebook_qc(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    rapport: Annotated[
+        Path, typer.Option("--rapport", help="Rapport Markdown à écrire.")
+    ] = RAPPORT_QC,
+    ecrire: Annotated[
+        bool, typer.Option("--ecrire/--pas-ecrire", help="Réécrire le rapport.")
+    ] = False,
+) -> None:
+    """Contrôle qualité du Rulebook. Sort en erreur si un constat est bloquant."""
+    regles = [r for v in charger_par_fichier(racine).values() for r in v]
+    constats = controler(regles)
+    bloquants = erreurs(constats)
+
+    if ecrire:
+        rapport.write_text(rapport_markdown(regles, constats), encoding="utf-8")
+        typer.echo(f"Rapport écrit dans {rapport}")
+
+    typer.echo(
+        f"{len(regles)} règle(s) — {len(bloquants)} erreur(s), "
+        f"{sum(1 for c in constats if c.niveau == 'AVERTISSEMENT')} avertissement(s)"
+    )
+    typer.echo(
+        f"  utilisables pour ancrer un gold : {sum(1 for r in regles if r.is_usable)} / {len(regles)}"
+    )
+    for constat in bloquants:
+        typer.secho(f"  {constat}", fg=typer.colors.RED, err=True)
+    if bloquants:
+        raise typer.Exit(code=1)
+
+
+@rulebook.command("exporter-verification")
+def rulebook_exporter_verification(
+    sortie: Annotated[Path, typer.Option("--sortie", help="Dossier CSV à produire.")],
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    a_verifier: Annotated[
+        bool,
+        typer.Option(
+            "--a-verifier/--toutes",
+            help="N'exporter que les règles dont la source n'a pas été consultée.",
+        ),
+    ] = True,
+) -> None:
+    """Écrit le dossier de vérification : ce qu'il faut lire, et où le consigner."""
+    regles = [r for v in charger_par_fichier(racine).values() for r in v]
+    retenues = [r for r in regles if r.needs_verification] if a_verifier else regles
+    exporter_dossier(retenues, sortie)
+    typer.secho(f"{len(retenues)} règle(s) à vérifier dans {sortie}", fg=typer.colors.GREEN)
+    typer.echo("  remplir les colonnes de constat, puis : finreg-bench rulebook appliquer-verification")
+
+
+@rulebook.command("appliquer-verification")
+def rulebook_appliquer_verification(
+    dossier: Annotated[Path, typer.Argument(help="Dossier de vérification rempli.")],
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    registre: Annotated[
+        Path, typer.Option("--registre", help="Registre de vérification.")
+    ] = REGISTRE_VERIFICATION,
+    rapport: Annotated[
+        Path, typer.Option("--rapport", help="Rapport Markdown à réécrire.")
+    ] = RAPPORT_QC,
+) -> None:
+    """Réinjecte les constats. Rien n'est écrit si un seul constat est irrecevable."""
+    try:
+        verifications = lire_dossier(dossier)
+    except VerificationInvalide as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+
+    if not verifications:
+        typer.secho("Aucun verdict renseigné : rien à appliquer.", fg=typer.colors.YELLOW)
+        raise typer.Exit(code=1)
+
+    par_fichier = charger_par_fichier(racine)
+    toutes = [r for v in par_fichier.values() for r in v]
+    connus = {r.id for r in toutes}
+
+    try:
+        # Validation d'ensemble avant toute écriture : un identifiant inconnu ou
+        # une promotion irrecevable doit arrêter le lot entier.
+        appliquer(toutes, verifications)
+    except VerificationInvalide as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+
+    appliquees: list = []
+    compte_par_fichier: dict[str, int] = {}
+    for chemin, regles in par_fichier.items():
+        ids = {r.id for r in regles}
+        resultat = appliquer(regles, [v for v in verifications if v.rule_id in ids])
+        ecrire_json(chemin, [r.model_dump(mode="json") for r in resultat])
+        appliquees.extend(resultat)
+        compte_par_fichier[chemin.stem] = len(resultat)
+
+    ecrire_registre(fusionner_registre(verifications, registre), registre)
+    ecrire_json(racine / "rulebook-manifest.json", construire_manifeste(appliquees, compte_par_fichier))
+    rapport.write_text(
+        rapport_markdown(appliquees, controler(appliquees)), encoding="utf-8"
+    )
+
+    promues = sum(1 for v in verifications if v.verdict in VERDICTS_PROMOTEURS)
+    typer.secho(
+        f"{len(verifications)} constat(s) appliqué(s), {promues} promotion(s).",
+        fg=typer.colors.GREEN,
+    )
+    typer.echo(f"  utilisables pour ancrer un gold : {sum(1 for r in appliquees if r.is_usable)} / {len(appliquees)}")
+    typer.echo(f"  registre : {registre}")
+    inconnus = {v.rule_id for v in verifications} - connus
+    for identifiant in sorted(inconnus):  # pragma: no cover - déjà refusé plus haut
+        typer.secho(f"  règle inconnue ignorée : {identifiant}", fg=typer.colors.YELLOW)
 
 
 if __name__ == "__main__":

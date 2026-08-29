@@ -31,6 +31,7 @@
       "TAXO-R-001"
     ],
     "rule_type": "DEFINITION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 2",
       "paragraph": "point 17",
@@ -43,6 +44,7 @@
     "statement": "L'article 2 du règlement (UE) 2019/2088 définit l'« investissement durable » comme un investissement dans une activité économique qui contribue à un objectif environnemental ou social, sous réserve que cet investissement ne cause de préjudice important à aucun de ces objectifs et que les sociétés bénéficiaires appliquent des pratiques de bonne gouvernance.",
     "status": "draft",
     "subdomain": "Article 2 — définitions",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Définition de l'investissement durable",
     "valid_from": "2021-03-10",
@@ -78,6 +80,7 @@
       "SFDR-R-005"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 3",
       "paragraph": "",
@@ -90,6 +93,7 @@
     "statement": "L'article 3 impose aux acteurs des marchés financiers et aux conseillers financiers de publier sur leur site internet des informations sur leurs politiques d'intégration des risques en matière de durabilité dans leur processus de décision d'investissement ou de conseil.",
     "status": "draft",
     "subdomain": "Article 3",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Transparence des politiques de risques de durabilité sur le site web",
     "valid_from": "2021-03-10",
@@ -115,8 +119,10 @@
     "id": "SFDR-R-003",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "L'article 4 fixerait lui-même un seuil chiffré d'encours déclenchant la prise en compte des PAI.",
         "note": "Le seuil connu porte sur l'effectif de l'entité, pas sur l'encours ; à confronter au texte.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -135,6 +141,7 @@
       "SFDR-R-006"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 4",
       "paragraph": "",
@@ -147,6 +154,7 @@
     "statement": "L'article 4 impose de publier une déclaration sur les politiques de diligence raisonnable relatives aux principales incidences négatives des décisions d'investissement sur les facteurs de durabilité, ou d'expliquer clairement pourquoi ces incidences ne sont pas prises en compte.",
     "status": "draft",
     "subdomain": "Article 4 — PAI entité",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Transparence des principales incidences négatives au niveau de l'entité",
     "valid_from": "2021-03-10",
@@ -178,6 +186,7 @@
     "regulatory_status": "in_force",
     "related_rules": [],
     "rule_type": "GOVERNANCE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 5",
       "paragraph": "",
@@ -190,6 +199,7 @@
     "statement": "L'article 5 impose d'inclure dans les politiques de rémunération des informations sur la manière dont ces politiques sont cohérentes avec l'intégration des risques en matière de durabilité, et de les publier sur le site internet.",
     "status": "draft",
     "subdomain": "Article 5",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Politiques de rémunération et risques de durabilité",
     "valid_from": "2021-03-10",
@@ -227,6 +237,7 @@
       "SFDR-R-009"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 6",
       "paragraph": "",
@@ -239,6 +250,7 @@
     "statement": "L'article 6 impose d'inclure dans les informations précontractuelles la manière dont les risques en matière de durabilité sont intégrés dans les décisions d'investissement et les résultats de l'évaluation de leurs incidences probables sur le rendement, ou d'expliquer pourquoi ces risques sont jugés non pertinents.",
     "status": "draft",
     "subdomain": "Article 6",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Intégration des risques de durabilité dans l'information précontractuelle",
     "valid_from": "2021-03-10",
@@ -275,6 +287,7 @@
       "SFDR-R-003"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 7",
       "paragraph": "",
@@ -287,6 +300,7 @@
     "statement": "L'article 7 impose d'indiquer dans l'information précontractuelle si un produit financier prend en compte les principales incidences négatives sur les facteurs de durabilité, et le cas échéant comment.",
     "status": "draft",
     "subdomain": "Article 7 — PAI produit",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Incidences négatives au niveau du produit",
     "valid_from": "2021-03-10",
@@ -312,8 +326,10 @@
     "id": "SFDR-R-008",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "L'article 8 imposerait une part minimale d'investissements durables.",
         "note": "Confusion très répandue ; l'engagement sur une part résulte de la documentation du produit, pas de la classification.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -335,6 +351,7 @@
       "AMF-R-001"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 8",
       "paragraph": "",
@@ -347,6 +364,7 @@
     "statement": "L'article 8 vise les produits financiers qui promeuvent, entre autres caractéristiques, des caractéristiques environnementales ou sociales, et impose de préciser dans l'information précontractuelle comment ces caractéristiques sont respectées.",
     "status": "draft",
     "subdomain": "Article 8",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Produits promouvant des caractéristiques environnementales ou sociales",
     "valid_from": "2021-03-10",
@@ -385,6 +403,7 @@
       "TAXO-R-001"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 9",
       "paragraph": "",
@@ -397,6 +416,7 @@
     "statement": "L'article 9 vise les produits financiers qui ont l'investissement durable pour objectif et fixe les informations précontractuelles correspondantes, notamment l'explication de la manière dont cet objectif doit être atteint et, lorsqu'un indice est désigné comme indice de référence, la façon dont il est aligné sur cet objectif.",
     "status": "draft",
     "subdomain": "Article 9",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Produits ayant l'investissement durable pour objectif",
     "valid_from": "2021-03-10",
@@ -430,6 +450,7 @@
       "SFDR-R-012"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 10",
       "paragraph": "",
@@ -442,6 +463,7 @@
     "statement": "L'article 10 impose de publier et de tenir à jour, sur le site internet, des informations relatives aux produits relevant des articles 8 et 9, notamment la description des caractéristiques ou de l'objectif d'investissement durable et les méthodes utilisées pour les évaluer et les suivre.",
     "status": "draft",
     "subdomain": "Article 10",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Publication sur le site internet pour les produits 8 et 9",
     "valid_from": "2021-03-10",
@@ -477,6 +499,7 @@
       "SFDR-R-009"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Article 11",
       "paragraph": "",
@@ -489,6 +512,7 @@
     "statement": "L'article 11 impose d'inclure dans les rapports périodiques des produits relevant des articles 8 et 9 une description de la mesure dans laquelle les caractéristiques environnementales ou sociales sont respectées, ou de l'incidence globale du produit en matière de durabilité.",
     "status": "draft",
     "subdomain": "Article 11",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Information périodique des produits 8 et 9",
     "valid_from": "2021-03-10",
@@ -522,6 +546,7 @@
       "SFDR-R-010"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 12",
       "paragraph": "",
@@ -534,6 +559,7 @@
     "statement": "L'article 12 impose de tenir à jour les informations publiées au titre des articles 3, 5 et 10 et, en cas de modification d'une information, d'en publier une explication claire.",
     "status": "draft",
     "subdomain": "Article 12",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Mise à jour des informations publiées",
     "valid_from": "2021-03-10",
@@ -567,6 +593,7 @@
       "AMF-R-002"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 13",
       "paragraph": "",
@@ -579,6 +606,7 @@
     "statement": "L'article 13 impose que les communications publicitaires ne contredisent pas les informations publiées au titre du règlement.",
     "status": "draft",
     "subdomain": "Article 13",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Cohérence des communications publicitaires",
     "valid_from": "2021-03-10",
@@ -617,6 +645,7 @@
       "SFDR-R-009"
     ],
     "rule_type": "DISCLOSURE",
+    "secondary_sources": [],
     "source": {
       "article": "Ensemble du règlement délégué",
       "paragraph": "",
@@ -629,6 +658,7 @@
     "statement": "Le règlement délégué (UE) 2022/1288 précise le contenu, les méthodes et la présentation des informations SFDR, et fixe des modèles obligatoires en annexe pour les informations précontractuelles et périodiques des produits relevant des articles 8 et 9.",
     "status": "draft",
     "subdomain": "RTS 2022/1288",
+    "supersedes": null,
     "time_sensitive": true,
     "title": "Normes techniques de réglementation et modèles d'annexes",
     "valid_from": "2023-01-01",
@@ -667,6 +697,7 @@
       "TAXO-R-003"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 3",
       "paragraph": "",
@@ -679,6 +710,7 @@
     "statement": "L'article 3 du règlement (UE) 2020/852 énonce les critères cumulatifs permettant de qualifier une activité économique de durable sur le plan environnemental : contribution substantielle à un ou plusieurs objectifs environnementaux, absence de préjudice important aux autres objectifs, respect de garanties minimales et conformité aux critères d'examen technique.",
     "status": "draft",
     "subdomain": "Taxonomie — article 3",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Critères d'une activité économique durable sur le plan environnemental",
     "valid_from": "2020-07-12",
@@ -714,6 +746,7 @@
       "TAXO-R-001"
     ],
     "rule_type": "DEFINITION",
+    "secondary_sources": [],
     "source": {
       "article": "Article 9",
       "paragraph": "",
@@ -726,6 +759,7 @@
     "statement": "L'article 9 du règlement (UE) 2020/852 énumère six objectifs environnementaux : atténuation du changement climatique, adaptation au changement climatique, utilisation durable et protection des ressources aquatiques et marines, transition vers une économie circulaire, prévention et réduction de la pollution, et protection et restauration de la biodiversité et des écosystèmes.",
     "status": "draft",
     "subdomain": "Taxonomie — article 9",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Les six objectifs environnementaux",
     "valid_from": "2020-07-12",
@@ -763,6 +797,7 @@
       "TAXO-R-001"
     ],
     "rule_type": "SCOPE",
+    "secondary_sources": [],
     "source": {
       "article": "Articles 17 et 18",
       "paragraph": "",
@@ -775,6 +810,7 @@
     "statement": "L'article 17 du règlement (UE) 2020/852 définit ce qu'il faut entendre par préjudice important causé aux objectifs environnementaux, et l'article 18 fixe les garanties minimales que doit respecter l'activité, en référence à des standards internationaux en matière de droits humains et de travail.",
     "status": "draft",
     "subdomain": "Taxonomie — articles 17 et 18",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Préjudice important et garanties minimales",
     "valid_from": "2020-07-12",

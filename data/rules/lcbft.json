@@ -28,6 +28,7 @@
       "LCBFT-R-002"
     ],
     "rule_type": "SCOPE",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-2",
       "paragraph": "",
@@ -40,6 +41,7 @@
     "statement": "L'article L.561-2 du code monétaire et financier énumère les personnes assujetties aux obligations de lutte contre le blanchiment de capitaux et le financement du terrorisme.",
     "status": "draft",
     "subdomain": "Personnes assujetties",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Périmètre des personnes assujetties",
     "valid_from": "2020-02-14",
@@ -76,6 +78,7 @@
       "LCBFT-R-006"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-4-1",
       "paragraph": "",
@@ -88,6 +91,7 @@
     "statement": "L'article L.561-4-1 du code monétaire et financier impose aux personnes assujetties de définir et de mettre en place des dispositifs d'identification et d'évaluation des risques de blanchiment et de financement du terrorisme auxquels elles sont exposées, et d'élaborer une classification de ces risques.",
     "status": "draft",
     "subdomain": "Approche par les risques",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Classification des risques",
     "valid_from": "2020-02-14",
@@ -126,6 +130,7 @@
       "LCBFT-R-005"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-5",
       "paragraph": "",
@@ -138,6 +143,7 @@
     "statement": "L'article L.561-5 du code monétaire et financier impose d'identifier le client et, le cas échéant, le bénéficiaire effectif, et de vérifier ces éléments d'identification avant d'entrer en relation d'affaires.",
     "status": "draft",
     "subdomain": "Vigilance à l'entrée en relation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Identification et vérification avant l'entrée en relation d'affaires",
     "valid_from": "2020-02-14",
@@ -171,6 +177,7 @@
       "LCBFT-R-003"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-5-1",
       "paragraph": "",
@@ -183,6 +190,7 @@
     "statement": "L'article L.561-5-1 du code monétaire et financier impose de recueillir, avant d'entrer en relation d'affaires, les informations relatives à l'objet et à la nature de cette relation et tout élément d'information pertinent.",
     "status": "draft",
     "subdomain": "Connaissance de la relation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Recueil d'informations sur l'objet et la nature de la relation d'affaires",
     "valid_from": "2020-02-14",
@@ -208,8 +216,10 @@
     "id": "LCBFT-R-005",
     "negative_claims": [
       {
+        "actual_provision": "",
         "claim": "La partie législative du code monétaire et financier fixerait elle-même le seuil de détention du bénéficiaire effectif.",
         "note": "Le seuil relève de la partie réglementaire ; à confronter au texte.",
+        "searched_in": "",
         "status": "unverified",
         "verification_method": "model_knowledge_unverified"
       }
@@ -229,6 +239,7 @@
       "LCBFT-R-003"
     ],
     "rule_type": "DEFINITION",
+    "secondary_sources": [],
     "source": {
       "article": "Articles L.561-2-2 et R.561-1 et suivants",
       "paragraph": "",
@@ -241,6 +252,7 @@
     "statement": "Le code monétaire et financier impose d'identifier et de vérifier l'identité du bénéficiaire effectif de la relation d'affaires, les modalités et critères de détermination étant fixés par sa partie réglementaire.",
     "status": "draft",
     "subdomain": "Bénéficiaire effectif",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Identification du bénéficiaire effectif",
     "valid_from": "2020-02-14",
@@ -278,6 +290,7 @@
       "LCBFT-R-007"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-6",
       "paragraph": "",
@@ -290,6 +303,7 @@
     "statement": "L'article L.561-6 du code monétaire et financier impose d'exercer une vigilance constante pendant toute la durée de la relation d'affaires et de procéder à un examen attentif des opérations effectuées, en veillant à ce qu'elles soient cohérentes avec la connaissance actualisée du client.",
     "status": "draft",
     "subdomain": "Vigilance constante",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Vigilance constante pendant toute la relation d'affaires",
     "valid_from": "2020-02-14",
@@ -327,6 +341,7 @@
       "LCBFT-R-009"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-10",
       "paragraph": "",
@@ -339,6 +354,7 @@
     "statement": "L'article L.561-10 du code monétaire et financier énumère les situations dans lesquelles les personnes assujetties appliquent des mesures de vigilance complémentaires à l'égard de leur client.",
     "status": "draft",
     "subdomain": "Vigilance renforcée",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Mesures de vigilance renforcée",
     "valid_from": "2020-02-14",
@@ -377,6 +393,7 @@
       "LCBFT-R-009"
     ],
     "rule_type": "CLASSIFICATION",
+    "secondary_sources": [],
     "source": {
       "article": "Articles L.561-10 et R.561-18",
       "paragraph": "",
@@ -389,6 +406,7 @@
     "statement": "Le code monétaire et financier soumet les relations d'affaires avec des personnes politiquement exposées à des mesures de vigilance complémentaires, la définition et le périmètre de ces personnes étant précisés par sa partie réglementaire.",
     "status": "draft",
     "subdomain": "Personnes politiquement exposées",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Traitement des personnes politiquement exposées",
     "valid_from": "2020-02-14",
@@ -428,6 +446,7 @@
       "LCBFT-R-010"
     ],
     "rule_type": "OBLIGATION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-15",
       "paragraph": "",
@@ -440,6 +459,7 @@
     "statement": "L'article L.561-15 du code monétaire et financier impose de déclarer au service Tracfin les sommes ou opérations portant sur des sommes dont les personnes assujetties savent, soupçonnent ou ont de bonnes raisons de soupçonner qu'elles proviennent d'une infraction passible d'une peine privative de liberté supérieure à un an ou sont liées au financement du terrorisme.",
     "status": "draft",
     "subdomain": "Déclaration de soupçon",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Déclaration de soupçon à Tracfin",
     "valid_from": "2020-02-14",
@@ -476,6 +496,7 @@
       "LCBFT-R-009"
     ],
     "rule_type": "PROHIBITION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-18",
       "paragraph": "",
@@ -488,6 +509,7 @@
     "statement": "Le code monétaire et financier interdit de porter à la connaissance du client ou de tiers l'existence et le contenu d'une déclaration de soupçon adressée à Tracfin, ainsi que les suites qui lui sont données.",
     "status": "draft",
     "subdomain": "Confidentialité",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Interdiction d'informer le client de la déclaration",
     "valid_from": "2020-02-14",
@@ -525,6 +547,7 @@
       "MIFID-R-008"
     ],
     "rule_type": "RECORD_KEEPING",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-12",
       "paragraph": "",
@@ -537,6 +560,7 @@
     "statement": "L'article L.561-12 du code monétaire et financier impose de conserver pendant cinq ans à compter de la clôture des comptes ou de la cessation des relations les documents et informations relatifs à l'identité des clients et aux opérations effectuées.",
     "status": "draft",
     "subdomain": "Conservation",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Conservation des documents et informations",
     "valid_from": "2020-02-14",
@@ -575,6 +599,7 @@
       "LCBFT-R-009"
     ],
     "rule_type": "PROHIBITION",
+    "secondary_sources": [],
     "source": {
       "article": "Article L.561-8",
       "paragraph": "",
@@ -587,6 +612,7 @@
     "statement": "L'article L.561-8 du code monétaire et financier dispose que, lorsque la personne assujettie n'est pas en mesure d'identifier son client ou d'obtenir les informations sur l'objet et la nature de la relation d'affaires, elle n'exécute aucune opération et n'établit ni ne poursuit aucune relation d'affaires.",
     "status": "draft",
     "subdomain": "Impossibilité d'identifier",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Refus ou cessation de la relation d'affaires",
     "valid_from": "2020-02-14",
@@ -623,6 +649,7 @@
       "LCBFT-R-001"
     ],
     "rule_type": "SCOPE",
+    "secondary_sources": [],
     "source": {
       "article": "Ensemble de la directive",
       "paragraph": "",
@@ -635,6 +662,7 @@
     "statement": "La directive (UE) 2015/849, modifiée notamment par la directive (UE) 2018/843, constitue le cadre européen relatif à la prévention de l'utilisation du système financier aux fins du blanchiment de capitaux et du financement du terrorisme, transposé en droit français dans le code monétaire et financier.",
     "status": "draft",
     "subdomain": "Cadre européen",
+    "supersedes": null,
     "time_sensitive": false,
     "title": "Directives européennes de transposition",
     "valid_from": "2015-06-05",
