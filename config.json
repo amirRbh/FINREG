@@ -1,0 +1,44 @@
+{
+  "corpus": "public",
+  "racine_corpus": "corpus",
+  "chemin_prompt_systeme": "prompts/system.txt",
+  "chemin_prompt_juge": "prompts/judge.txt",
+  "chemin_registre": "registry/references.json",
+  "racine_cache": ".cache",
+  "racine_runs": "runs",
+  "execution": {
+    "nb_runs": 3,
+    "temperature": 0.0,
+    "concurrence": 4,
+    "requetes_par_minute": 60,
+    "timeout_s": 60.0
+  },
+  "juge": {
+    "adaptateur": "fake-juge",
+    "modele": "juge-factice",
+    "zero_retention": false,
+    "temperature": 0.0,
+    "seuil_ecart_revue": 1
+  },
+  "fournisseurs": [
+    {
+      "id": "modele-a",
+      "nom": "Modèle A",
+      "editeur": "Éditeur A",
+      "adaptateur": "fake",
+      "modele": "modele-a",
+      "zero_retention": false,
+      "actif": true
+    },
+    {
+      "id": "modele-b",
+      "nom": "Modèle B",
+      "editeur": "Éditeur B",
+      "adaptateur": "fake",
+      "modele": "modele-b",
+      "zero_retention": false,
+      "actif": true
+    }
+  ],
+  "domaines_publics": ["SFDR", "MIFID", "AMF", "DORA", "LCBFT"]
+}

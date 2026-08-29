@@ -1,0 +1,17 @@
+# Corpus privé — ne quitte jamais la machine
+corpus/private/
+
+# Sorties d'exécution
+runs/
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Secrets
+.env

@@ -1,0 +1,240 @@
+# FinReg Bench — Règles du projet
+
+Banc de test qui interroge plusieurs LLM sur un corpus de questions de
+réglementation financière et produit un classement **auditable et opposable**.
+Ce fichier fait autorité : en cas de conflit avec une habitude de code, c'est
+ce fichier qui gagne.
+
+---
+
+## 1. Stack
+
+- **Python 3.11** (exclusivement ; pas de syntaxe 3.12+).
+- **uv** pour les dépendances et l'exécution (`uv sync`, `uv run ...`).
+  Jamais de `pip install` direct, jamais de `requirements.txt` édité à la main.
+- **pydantic** (v2) pour tous les schémas de données.
+- **typer** pour la CLI.
+- **pytest** pour les tests.
+- **Aucun appel réseau dans les tests.** Aucune exception. Les tests qui
+  touchent au runner passent par un faux fournisseur local (`FakeProvider`).
+  Toute tentative de sortie réseau dans la suite de tests doit échouer bruyamment.
+
+## 2. Structure du dépôt
+
+```
+corpus/
+  public/*.json        # versionné, publiable
+  private/*.json       # .gitignore — ne quitte JAMAIS la machine
+registry/
+  references.json      # registre local des références réglementaires valides
+prompts/
+  system.txt           # prompt système unique, versionné
+  judge.txt            # prompt du juge LLM, versionné
+src/
+  schema.py            # modèles pydantic (Item, Source, Config, Réponse, Score…)
+  loader.py            # chargement + validation du corpus
+  runner.py            # exécution des appels modèles (cache, reprise, débit)
+  providers/           # adaptateurs fournisseurs + FakeProvider
+  scoring/             # étage déterministe puis juge LLM
+  aggregate.py         # agrégation, classement
+  export.py            # export site public
+runs/
+  AAAA-MM-JJ-HHMM/     # une exécution = un dossier horodaté, immuable
+tests/
+```
+
+## 3. Règle de sécurité NON NÉGOCIABLE
+
+**Les items du corpus privé ne doivent jamais être envoyés à un fournisseur
+qui ne garantit pas la non-rétention des données.**
+
+- Chaque fournisseur déclare un booléen `zero_retention` dans la config.
+- Le runner **lève une exception avant tout appel réseau** si
+  `corpus == "private"` et `zero_retention is False`.
+- L'exception dédiée est `PrivateCorpusLeakError`. Elle n'est jamais rattrapée
+  silencieusement, jamais transformée en avertissement, jamais contournée par
+  un drapeau CLI.
+- `zero_retention` est un booléen strict : absent, `None` ou non booléen ⇒
+  traité comme `False` (refus par défaut).
+- Un test vérifie que cette exception se déclenche. Ce test ne peut pas être
+  supprimé ni marqué `skip`.
+- `corpus/private/` est dans `.gitignore`. Aucun contenu d'item privé
+  (question, réponse de référence, points clés) ne doit apparaître dans
+  `runs/` exporté, dans les logs, ni dans un message d'erreur.
+
+## 4. Schéma d'item
+
+Champs obligatoires :
+
+| Champ | Type | Notes |
+|---|---|---|
+| `id` | str | unique sur l'ensemble des corpus |
+| `corpus` | `public` \| `private` | |
+| `domaine` | str | |
+| `type` | `fait` \| `qualification` \| `calcul` \| `piege` \| `abstention` | |
+| `difficulte` | int | |
+| `question` | str | |
+| `reponse_reference` | str | |
+| `points_cles` | list[str] | |
+| `erreurs_disqualifiantes` | list[str] | |
+| `source` | objet | `texte`, `article`, `url`, `date_version`, `verifie_par`, `date_verification` |
+| `date_validite` | date | |
+| `sensible_au_temps` | bool | |
+
+Règles de validation :
+
+- **Tout item du corpus public dont `source.verifie_par` est vide (ou blanc)
+  est refusé.** La validation échoue, elle n'avertit pas. `date_verification`
+  est obligatoire pour les mêmes raisons.
+- Les identifiants dupliqués sont refusés, **tous corpus confondus** (le cache
+  est indexé par item : un id partagé mélangerait deux questions).
+- Un item déposé dans le mauvais dossier (`corpus: private` sous `public/`) est
+  refusé : c'est un glissement que le garde-fou ne pourrait plus rattraper.
+- Un champ inconnu est refusé (`extra="forbid"`).
+- La validation d'un corpus rapporte **toutes** les erreurs d'un coup
+  (pas d'arrêt à la première).
+
+Le vocabulaire de `type` du harnais fait foi. Le site public doit savoir
+afficher ces cinq valeurs ; ce n'est pas au corpus de s'aligner sur le site.
+
+## 5. Runner
+
+- **3 exécutions par item**, **température 0**.
+- **Un seul prompt système**, lu depuis `prompts/system.txt` (fichier versionné).
+  Son hash SHA-256 est enregistré dans chaque run.
+- Appels **concurrents** avec limite de débit **paramétrable** (config).
+- **Reprise après interruption** : relancer une exécution ne refait que ce qui
+  manque.
+- **Cache disque** des réponses indexé sur `(hash du prompt, modèle, index du run)`.
+  On ne repaie jamais deux fois la même requête.
+- Le cache et les runs sont séparés par corpus : rien de privé ne fuit dans un
+  artefact public.
+
+## 6. Scoring
+
+Quatre axes notés **0–2** : `exactitude`, `sourcing`, `calibration`,
+`exploitabilite`.
+
+Deux étages, dans cet ordre :
+
+1. **Déterministe d'abord**
+   - Détection des **références inventées** : tout numéro d'article cité dans la
+     réponse est confronté au registre local `registry/references.json`.
+     Une référence absente du registre est une hallucination de source.
+   - Détection des **erreurs disqualifiantes** par correspondance sur la liste
+     `erreurs_disqualifiantes` de l'item.
+   La correspondance des erreurs disqualifiantes est **littérale** : pas de
+   rapprochement approximatif sur un critère qui met un axe à zéro. Une entrée
+   préfixée par `re:` est traitée comme une expression régulière, ce qui permet
+   à l'item d'exprimer explicitement ses variantes de formulation.
+
+   L'étage déterministe pose des **plafonds**, jamais des notes : une borne
+   haute que le juge ne peut pas dépasser. Barème des plafonds :
+
+   | Constat | Plafonds imposés | Flag |
+   |---|---|---|
+   | Référence inventée | sourcing 0, exactitude 1, calibration 1 | `hallucination_source` |
+   | Erreur disqualifiante | exactitude 0 | `erreur_disqualifiante` |
+   | Aucune référence citée | sourcing 0 | `sourcing_incomplet` |
+   | Texte cité sans article | sourcing 1 | `sourcing_incomplet` |
+   | Item `abstention` auquel le modèle a répondu | calibration 0 | `surconfiance` |
+   | Abstention explicite détectée | — | `abstention` |
+
+2. **Juge LLM ensuite**, pour ce que le déterministe ne tranche pas.
+   - Le barème est dans le prompt (`prompts/judge.txt`, versionné, haché).
+   - **Sortie JSON stricte**, validée par pydantic. Une sortie non conforme est
+     une erreur, pas une note par défaut.
+   - Le juge reçoit le texte des items : il est soumis au **même garde-fou de
+     non-rétention** que les modèles évalués.
+   - Quand les quatre axes sont déjà plafonnés à 0, aucun appel n'est émis.
+
+**File de revue humaine** : tout item dont le score du juge s'écarte de **plus
+d'un point entre deux runs** part en revue humaine, exporté en **CSV**. Le CSV
+doit pouvoir être corrigé à la main puis **réinjecté** ; la correction humaine
+prime sur le juge et est tracée dans le run.
+
+## 7. Auditabilité
+
+Chaque exécution produit `runs/AAAA-MM-JJ-HHMM/` contenant :
+
+- la **config gelée** (telle qu'utilisée, pas la config par défaut) ;
+- le **hash du prompt système** (et du prompt juge) ;
+- la **version du corpus** (hash du contenu + identifiants) ;
+- **toutes les réponses brutes** ;
+- les **scores détaillés** (déterministe et juge séparés, avec justification) ;
+- un **résumé**.
+
+Ce dossier est ce qui rend le rapport opposable à un audit interne :
+il doit être **reproductible à l'identique**. Concrètement :
+
+- pas d'horodatage ni de chemin absolu à l'intérieur des artefacts comparés ;
+- JSON écrit trié par clé, encodage UTF-8, fin de ligne `\n` ;
+- un run existant n'est jamais réécrit en place ;
+- la latence et le fait d'avoir été servie par le cache décrivent l'exécution,
+  pas la réponse : elles vont dans `execution.json`, hors du périmètre comparé.
+
+Fichiers du dossier de run :
+
+| Fichier | Contenu | Comparé |
+|---|---|---|
+| `config.json` | la config gelée, telle qu'utilisée | oui |
+| `empreintes.json` | hashes des prompts, du registre et du corpus | oui |
+| `reponses.json` | les réponses brutes | oui |
+| `scores.json` | les scores détaillés (déterministe, juge, humain) | oui |
+| `resume.json` | classement et agrégats | oui |
+| `revue.csv` | file de revue humaine | non |
+| `execution.json` | latences, cache, erreurs | non |
+| `scores_revus.json` | scores après réinjection d'une revue | non |
+
+Une réinjection de revue **n'écrase jamais** `scores.json` : elle écrit à côté.
+`finreg verifier-reproductibilite <run_a> <run_b>` compare deux runs.
+
+## 8. Export
+
+Une commande génère `results.json` et `questions.json` au format attendu par le
+site public, en n'incluant **QUE** les items du corpus public.
+Un item privé qui apparaîtrait dans un export est un bug bloquant ; un test
+garde cette frontière.
+
+## 9. Ordre de construction
+
+On ne passe à l'étape suivante que quand la précédente **a ses tests qui passent**.
+
+1. `schema` + `loader` + tests de validation — fait
+2. Garde-fou de sécurité + son test — fait
+3. Runner avec cache, sur un faux fournisseur local — fait
+4. Scoring déterministe — fait
+5. Juge LLM et file de revue — fait
+6. Agrégation et export — fait
+
+## 9 bis. Format du site public
+
+L'export vise le contrat de données de **FinReg Compass**
+(`src/lib/finreg.ts` du dépôt `amirRbh/finreg-compass`). Ce fichier fait foi
+pour la forme de `results.json` et `questions.json` ; l'export ne doit pas s'en
+écarter, et un test vérifie les clés produites.
+
+Conventions de publication, choisies une fois pour toutes :
+
+- **Note publiée (0–10)** : moyenne des runs, ramenée de 0–8 sur 0–10.
+- **Texte publié** : celui du **run médian** en note. Publier le meilleur
+  flatterait le modèle, publier le pire l'accablerait ; l'écart-type affiché à
+  côté dit ce que la dispersion coûte.
+- **Flags publiés** : union des signalements sur l'ensemble des runs. Un défaut
+  apparu sur un seul run reste un défaut.
+- **Écart-type** : dispersion du score global d'un run à l'autre — l'instabilité
+  du modèle, pas la dispersion entre questions.
+- **Taux d'abstention correcte** : parmi les items de type `abstention`, ceux où
+  le modèle s'est abstenu sur **tous** ses runs.
+- Un domaine absent de `domaines_publics` **bloque** l'export : le site ne
+  saurait pas l'afficher, mieux vaut une erreur qu'une page muette.
+
+## 10. Conventions
+
+- Commentaires, noms de champs et messages utilisateur **en français**
+  (les noms de champs du schéma sont en français et font partie du contrat).
+- Types annotés partout ; pydantic en mode strict là où c'est possible.
+- Toute écriture de fichier passe par une fonction utilitaire commune
+  (JSON trié, UTF-8) pour garantir la reproductibilité.
+- Pas de secret en dur : les clés API viennent de l'environnement, et ne sont
+  jamais écrites dans `runs/`.
