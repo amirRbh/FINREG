@@ -48,7 +48,12 @@ def detecter_abstention(reponse: str) -> bool:
 
 
 def detecter_erreurs_disqualifiantes(reponse: str, item: Item) -> list[str]:
-    """Correspondance des erreurs listées par l'item sur le texte de la réponse.
+    """Correspondance des erreurs disqualifiantes d'un item V0.1."""
+    return detecter_erreurs(reponse, item.erreurs_disqualifiantes)
+
+
+def detecter_erreurs(reponse: str, erreurs_attendues: list[str]) -> list[str]:
+    """Correspondance d'une liste d'erreurs disqualifiantes sur le texte d'une réponse.
 
     Une entrée littérale est comparée sur la forme normalisée (casse, accents,
     ponctuation retirée). Une entrée préfixée par `re:` est traitée comme une
@@ -59,7 +64,7 @@ def detecter_erreurs_disqualifiantes(reponse: str, item: Item) -> list[str]:
     legere = normaliser_leger(reponse)
     detectees: list[str] = []
 
-    for erreur in item.erreurs_disqualifiantes:
+    for erreur in erreurs_attendues:
         if erreur.startswith(PREFIXE_REGEX):
             # Le motif n'est pas normalisé : cela détruirait sa syntaxe (| [] {}).
             # Seuls la casse et les accents sont alignés sur la réponse.

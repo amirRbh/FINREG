@@ -229,6 +229,99 @@ Conventions de publication, choisies une fois pour toutes :
 - Un domaine absent de `domaines_publics` **bloque** l'export : le site ne
   saurait pas l'afficher, mieux vaut une erreur qu'une page muette.
 
+## 9 ter. FinReg-FR Bench V0.2 (`src/bench/`)
+
+La V0.2 refond le modèle de données autour d'un **protocole d'évaluation**, pas
+d'un dataset. Elle vit dans `src/bench/`, à côté du pipeline V0.1 qui reste en
+service jusqu'à ce que les phases 6 à 12 l'y migrent.
+
+Hiérarchie : `RULE → CONCEPT → QUESTION FAMILY → TWIN GROUP → ITEM`.
+Une question n'est jamais créée sans être rattachée à des règles **validées**.
+
+**Les noms de champs de la V0.2 sont en anglais**, contrairement à la V0.1 : ils
+sont fixés par la spécification V0.2 et font partie de son contrat. Les
+commentaires et les messages restent en français. Ne pas mélanger les deux
+conventions à l'intérieur d'un même module.
+
+Invariants tenus par le schéma (`src/bench/items.py`) :
+
+- `expected_behavior` doit être admis par `question_type`, et `answerability`
+  par `expected_behavior` (tables dans `vocabulaires.py`).
+- `false_premise` et `true_premise_adversarial` exigent un `reasoning_trap`
+  nommé : sans piège, l'item ne mesure rien de particulier.
+- Un piège qui affirme une disposition inexistante (`FALSE_ARTICLE`,
+  `FALSE_THRESHOLD`, `NEGATIVE_ASSERTION`) impose `negative_claim` et sa
+  `negative_claim_verification` : **on ne source pas une absence en citant un
+  texte**.
+- `abstain` et `request_missing_information` exigent `abstention_requirements` :
+  une abstention se note sur ce qu'elle réclame, pas sur le fait de se taire.
+- `reframe_required` est réservé aux fausses prémisses et impose de dire quelle
+  règle correcte la réponse doit rétablir.
+- Versionnement : `base_id` + `version`, `id = base_id-vN`. Au-delà de v1,
+  `supersedes` est obligatoire et le registre refuse une suite de versions
+  discontinue. **Un gold n'est jamais écrasé, il est reversionné.**
+- Cycle de vie : public `draft → review → validated → published`, privé
+  `draft → review → validated → locked`. `validated` exige les six contrôles de
+  la grille, un relecteur nommé et une source primaire vérifiée. `published` et
+  `locked` sont figés : on reversionne au lieu de modifier.
+
+Isolation du privé (`src/bench/isolation.py`, `registre.py`) :
+
+- Chargeurs **séparés**. `charger_prive` exige `je_confirme_usage_local=True` ;
+  aucune fonction ne charge les deux corpus d'un coup.
+- `ids_publics_et_prives` lit les identifiants sans charger le contenu, pour que
+  les contrôles de fuite n'aient jamais à ouvrir le privé.
+- Un groupe de jumeaux à cheval sur les deux corpus est refusé : publier un
+  jumeau révélerait la structure de son jumeau privé.
+- `Item.redacted()` est la seule forme journalisable.
+- Aucun message d'erreur de fuite ne reproduit le contenu fautif.
+
+Les pondérations (`src/bench/plan.py`) sont des données, jamais des constantes
+dans le scoring. Les cibles par domaine du public sont imposées explicitement
+par la spécification §3 (DORA 22 / LCB-FT 23, une égalité à 22,5 que la
+répartition proportionnelle trancherait dans l'autre sens).
+
+**Ne pas inventer le droit.** Les fixtures de test sont explicitement fictives
+(`SYNTH-*`, `example.invalid`). Une information juridique non vérifiée reste en
+`status: draft`.
+
+### Jugement, métriques et QA (phases 6 à 9)
+
+`jugement.py` → `juge.py` → `metriques.py` → `qa.py`.
+
+L'étage déterministe **ne conclut que vers l'erreur**. Il établit ce que le
+modèle a fait (répondu, réfuté, demandé une information, s'est abstenu), les
+références inventées et les erreurs disqualifiantes. Rien de mécanique ne permet
+de conclure qu'une réponse est juste sur le fond : ça, c'est le juge.
+
+Le juge est un composant faillible, encadré deux fois :
+
+- **Il ne reçoit pas le nom du modèle.** `JudgePacket` ne contient que question,
+  gold, points clés, erreurs disqualifiantes, comportement attendu, réponse. Un
+  test vérifie l'absence du `model_id`.
+- **Escalade obligatoire** sur les six motifs de la spécification §16, dont
+  l'audit aléatoire, tiré d'un hash et non d'un générateur : deux exécutions du
+  même run auditent les mêmes réponses, sinon le run n'est pas reproductible.
+
+Asymétrie assumée sur l'abstention : demander précisément ce qui manque vaut
+pour un item qui n'attendait qu'un retrait ; se taire ne remplit pas une attente
+de demande d'information.
+
+**Aucune métrique n'est publiée sans son dénominateur.** Chaque `Metric` porte
+numérateur, dénominateur et la phrase qui les définit. Un dénominateur vide rend
+`None`, jamais `0.0` : zéro sur zéro n'est pas zéro pour cent.
+
+`Over-Refusal Rate` et `Premise Sensitivity` sont ce qui empêche de bien scorer
+en réfutant tout : la sensibilité exige de réfuter le faux **et** d'accepter le
+vrai dans le même groupe de jumeaux.
+
+Le `Dangerous Answer Rate` exige les quatre conditions de la §15 :
+incorrect + affirmatif + `item.actionable` + `item.materially_regulatory`.
+
+`qa.py` : Cohen à deux annotateurs, Fleiss au-delà. Un désaccord sans arbitrage
+n'est pas tranché — il reste en attente plutôt que résolu au hasard. `publiable`
+ne rend jamais un booléen sans ses raisons chiffrées.
+
 ## 10. Conventions
 
 - Commentaires, noms de champs et messages utilisateur **en français**
