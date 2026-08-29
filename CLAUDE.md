@@ -84,10 +84,18 @@ Champs obligatoires :
 Règles de validation :
 
 - **Tout item du corpus public dont `source.verifie_par` est vide (ou blanc)
-  est refusé.** La validation échoue, elle n'avertit pas.
-- Les identifiants dupliqués sont refusés.
+  est refusé.** La validation échoue, elle n'avertit pas. `date_verification`
+  est obligatoire pour les mêmes raisons.
+- Les identifiants dupliqués sont refusés, **tous corpus confondus** (le cache
+  est indexé par item : un id partagé mélangerait deux questions).
+- Un item déposé dans le mauvais dossier (`corpus: private` sous `public/`) est
+  refusé : c'est un glissement que le garde-fou ne pourrait plus rattraper.
+- Un champ inconnu est refusé (`extra="forbid"`).
 - La validation d'un corpus rapporte **toutes** les erreurs d'un coup
   (pas d'arrêt à la première).
+
+Le vocabulaire de `type` du harnais fait foi. Le site public doit savoir
+afficher ces cinq valeurs ; ce n'est pas au corpus de s'aligner sur le site.
 
 ## 5. Runner
 
@@ -115,10 +123,30 @@ Deux étages, dans cet ordre :
      Une référence absente du registre est une hallucination de source.
    - Détection des **erreurs disqualifiantes** par correspondance sur la liste
      `erreurs_disqualifiantes` de l'item.
+   La correspondance des erreurs disqualifiantes est **littérale** : pas de
+   rapprochement approximatif sur un critère qui met un axe à zéro. Une entrée
+   préfixée par `re:` est traitée comme une expression régulière, ce qui permet
+   à l'item d'exprimer explicitement ses variantes de formulation.
+
+   L'étage déterministe pose des **plafonds**, jamais des notes : une borne
+   haute que le juge ne peut pas dépasser. Barème des plafonds :
+
+   | Constat | Plafonds imposés | Flag |
+   |---|---|---|
+   | Référence inventée | sourcing 0, exactitude 1, calibration 1 | `hallucination_source` |
+   | Erreur disqualifiante | exactitude 0 | `erreur_disqualifiante` |
+   | Aucune référence citée | sourcing 0 | `sourcing_incomplet` |
+   | Texte cité sans article | sourcing 1 | `sourcing_incomplet` |
+   | Item `abstention` auquel le modèle a répondu | calibration 0 | `surconfiance` |
+   | Abstention explicite détectée | — | `abstention` |
+
 2. **Juge LLM ensuite**, pour ce que le déterministe ne tranche pas.
    - Le barème est dans le prompt (`prompts/judge.txt`, versionné, haché).
    - **Sortie JSON stricte**, validée par pydantic. Une sortie non conforme est
      une erreur, pas une note par défaut.
+   - Le juge reçoit le texte des items : il est soumis au **même garde-fou de
+     non-rétention** que les modèles évalués.
+   - Quand les quatre axes sont déjà plafonnés à 0, aucun appel n'est émis.
 
 **File de revue humaine** : tout item dont le score du juge s'écarte de **plus
 d'un point entre deux runs** part en revue humaine, exporté en **CSV**. Le CSV
@@ -141,7 +169,25 @@ il doit être **reproductible à l'identique**. Concrètement :
 
 - pas d'horodatage ni de chemin absolu à l'intérieur des artefacts comparés ;
 - JSON écrit trié par clé, encodage UTF-8, fin de ligne `\n` ;
-- un run existant n'est jamais réécrit en place.
+- un run existant n'est jamais réécrit en place ;
+- la latence et le fait d'avoir été servie par le cache décrivent l'exécution,
+  pas la réponse : elles vont dans `execution.json`, hors du périmètre comparé.
+
+Fichiers du dossier de run :
+
+| Fichier | Contenu | Comparé |
+|---|---|---|
+| `config.json` | la config gelée, telle qu'utilisée | oui |
+| `empreintes.json` | hashes des prompts, du registre et du corpus | oui |
+| `reponses.json` | les réponses brutes | oui |
+| `scores.json` | les scores détaillés (déterministe, juge, humain) | oui |
+| `resume.json` | classement et agrégats | oui |
+| `revue.csv` | file de revue humaine | non |
+| `execution.json` | latences, cache, erreurs | non |
+| `scores_revus.json` | scores après réinjection d'une revue | non |
+
+Une réinjection de revue **n'écrase jamais** `scores.json` : elle écrit à côté.
+`finreg verifier-reproductibilite <run_a> <run_b>` compare deux runs.
 
 ## 8. Export
 
@@ -154,12 +200,34 @@ garde cette frontière.
 
 On ne passe à l'étape suivante que quand la précédente **a ses tests qui passent**.
 
-1. `schema` + `loader` + tests de validation
-2. Garde-fou de sécurité + son test
-3. Runner avec cache, sur un faux fournisseur local
-4. Scoring déterministe
-5. Juge LLM et file de revue
-6. Agrégation et export
+1. `schema` + `loader` + tests de validation — fait
+2. Garde-fou de sécurité + son test — fait
+3. Runner avec cache, sur un faux fournisseur local — fait
+4. Scoring déterministe — fait
+5. Juge LLM et file de revue — fait
+6. Agrégation et export — fait
+
+## 9 bis. Format du site public
+
+L'export vise le contrat de données de **FinReg Compass**
+(`src/lib/finreg.ts` du dépôt `amirRbh/finreg-compass`). Ce fichier fait foi
+pour la forme de `results.json` et `questions.json` ; l'export ne doit pas s'en
+écarter, et un test vérifie les clés produites.
+
+Conventions de publication, choisies une fois pour toutes :
+
+- **Note publiée (0–10)** : moyenne des runs, ramenée de 0–8 sur 0–10.
+- **Texte publié** : celui du **run médian** en note. Publier le meilleur
+  flatterait le modèle, publier le pire l'accablerait ; l'écart-type affiché à
+  côté dit ce que la dispersion coûte.
+- **Flags publiés** : union des signalements sur l'ensemble des runs. Un défaut
+  apparu sur un seul run reste un défaut.
+- **Écart-type** : dispersion du score global d'un run à l'autre — l'instabilité
+  du modèle, pas la dispersion entre questions.
+- **Taux d'abstention correcte** : parmi les items de type `abstention`, ceux où
+  le modèle s'est abstenu sur **tous** ses runs.
+- Un domaine absent de `domaines_publics` **bloque** l'export : le site ne
+  saurait pas l'afficher, mieux vaut une erreur qu'une page muette.
 
 ## 10. Conventions
 

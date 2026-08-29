@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import datetime as dt
 from enum import Enum
-from typing import Annotated, Literal
+from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -226,6 +226,21 @@ class ReponseBrute(ModeleStrict):
     depuis_cache: bool = False
     latence_ms: int | None = None
     erreur: str | None = None
+
+    #: Champs qui relèvent des circonstances d'exécution, pas de la preuve.
+    CHAMPS_NON_REPRODUCTIBLES: ClassVar[tuple[str, ...]] = ("depuis_cache", "latence_ms")
+
+    def pour_archive(self) -> dict:
+        """Forme archivée dans le run : ce qui doit être identique d'un run à l'autre.
+
+        La latence et le fait d'avoir été servie par le cache décrivent
+        l'exécution, pas la réponse. Les garder ici rendrait deux runs identiques
+        différents à la comparaison (CLAUDE.md §7).
+        """
+        donnees = self.model_dump(mode="json")
+        for champ in self.CHAMPS_NON_REPRODUCTIBLES:
+            donnees.pop(champ, None)
+        return donnees
 
 
 class ConstatDeterministe(ModeleStrict):

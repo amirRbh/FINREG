@@ -54,3 +54,45 @@ class FauxFournisseur(Fournisseur):
 
 
 enregistrer_adaptateur("fake", FauxFournisseur)
+
+
+class FauxJuge(Fournisseur):
+    """Juge factice : rend un JSON valide, déterministe, dérivé de la réponse notée.
+
+    Il permet de faire tourner la chaîne complète en local sans appeler de modèle.
+    Ses notes n'ont aucune valeur d'évaluation : elles servent à vérifier la
+    mécanique, pas à classer des modèles.
+    """
+
+    def __init__(self, config) -> None:
+        super().__init__(config)
+        self.appels: list[Requete] = []
+        #: Sortie imposée, si les tests veulent un cas précis.
+        self.sortie_imposee: str | None = None
+
+    @property
+    def nb_appels(self) -> int:
+        return len(self.appels)
+
+    async def completer(self, requete: Requete, timeout_s: float) -> str:
+        import json
+
+        self.appels.append(requete)
+        if self.sortie_imposee is not None:
+            return self.sortie_imposee
+
+        # Notes stables pour un même contenu : le run reste reproductible.
+        graine = hash_texte(requete.question)
+        notes = {
+            axe: int(graine[index], 16) % 3
+            for index, axe in enumerate(
+                ("exactitude", "sourcing", "calibration", "exploitabilite")
+            )
+        }
+        return json.dumps(
+            {"notes": notes, "justification": "Notation factice, sans valeur d'évaluation."},
+            ensure_ascii=False,
+        )
+
+
+enregistrer_adaptateur("fake-juge", FauxJuge)
