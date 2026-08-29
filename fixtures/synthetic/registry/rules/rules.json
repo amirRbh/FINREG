@@ -1,0 +1,56 @@
+[
+  {
+    "id": "RULE-SYNTH-001",
+    "domain": "SFDR",
+    "regulatory_regime": "Régime synthétique de test",
+    "title": "Règle synthétique 1",
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "status": "validated"
+  },
+  {
+    "id": "RULE-SYNTH-002",
+    "domain": "MIFID",
+    "regulatory_regime": "Régime synthétique de test",
+    "title": "Règle synthétique 2",
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "status": "validated"
+  },
+  {
+    "id": "RULE-SYNTH-003",
+    "domain": "DORA",
+    "regulatory_regime": "Régime synthétique de test",
+    "title": "Règle synthétique 3",
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "status": "validated"
+  }
+]

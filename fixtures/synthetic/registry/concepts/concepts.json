@@ -1,0 +1,26 @@
+[
+  {
+    "id": "CONCEPT-SYNTH-001",
+    "label": "Concept synthétique 1",
+    "domain": "SFDR",
+    "rule_ids": [
+      "RULE-SYNTH-001"
+    ]
+  },
+  {
+    "id": "CONCEPT-SYNTH-002",
+    "label": "Concept synthétique 2",
+    "domain": "MIFID",
+    "rule_ids": [
+      "RULE-SYNTH-002"
+    ]
+  },
+  {
+    "id": "CONCEPT-SYNTH-003",
+    "label": "Concept synthétique 3",
+    "domain": "DORA",
+    "rule_ids": [
+      "RULE-SYNTH-003"
+    ]
+  }
+]

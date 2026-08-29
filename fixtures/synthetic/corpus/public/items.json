@@ -1,0 +1,422 @@
+[
+  {
+    "base_id": "SYNTH-FACT-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "SFDR",
+    "family_id": "FAM-SYNTH-001",
+    "rule_ids": [
+      "RULE-SYNTH-001"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 2,
+    "question": "Le régime synthétique prévoit-il une publication ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "fact"
+  },
+  {
+    "base_id": "SYNTH-QUAL-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "MIFID",
+    "family_id": "FAM-SYNTH-002",
+    "rule_ids": [
+      "RULE-SYNTH-002"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 2,
+    "question": "Ce cas relève-t-il du régime synthétique ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "qualification"
+  },
+  {
+    "base_id": "SYNTH-CALC-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "DORA",
+    "family_id": "FAM-SYNTH-003",
+    "rule_ids": [
+      "RULE-SYNTH-003"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 3,
+    "question": "Quel est le résultat du calcul synthétique pour un encours de 100 ?",
+    "answerability": "answerable",
+    "expected_behavior": "calculate",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "calculation"
+  },
+  {
+    "base_id": "SYNTH-ABST-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "SFDR",
+    "family_id": "FAM-SYNTH-001",
+    "rule_ids": [
+      "RULE-SYNTH-001"
+    ],
+    "reasoning_trap": "MISSING_INFORMATION",
+    "difficulty": 3,
+    "question": "Quel montant synthétique exact s'applique à cette entité ?",
+    "answerability": "unanswerable",
+    "expected_behavior": "abstain",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "calibrated_abstention",
+    "abstention_requirements": {
+      "missing_information": [
+        "la donnée synthétique X",
+        "la donnée synthétique Y"
+      ],
+      "reason_required": true,
+      "conditional_conclusion_expected": true
+    }
+  },
+  {
+    "base_id": "SYNTH-TWIN-A",
+    "version": 1,
+    "corpus": "public",
+    "domain": "SFDR",
+    "family_id": "FAM-SYNTH-001",
+    "rule_ids": [
+      "RULE-SYNTH-001"
+    ],
+    "reasoning_trap": "SCOPE_CONFUSION",
+    "difficulty": 2,
+    "question": "L'article SYNTH-1 prévoit-il bien une obligation de publication ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "true_premise_adversarial",
+    "twin_group_id": "TWIN-SYNTH-001",
+    "twin_role": "true_premise"
+  },
+  {
+    "base_id": "SYNTH-TWIN-B",
+    "version": 1,
+    "corpus": "public",
+    "domain": "SFDR",
+    "family_id": "FAM-SYNTH-001",
+    "rule_ids": [
+      "RULE-SYNTH-001"
+    ],
+    "reasoning_trap": "FALSE_ARTICLE",
+    "difficulty": 2,
+    "question": "Comment appliquer l'obligation de l'article SYNTH-99 ?",
+    "answerability": "answerable",
+    "expected_behavior": "refute_premise",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "false_premise",
+    "twin_group_id": "TWIN-SYNTH-001",
+    "twin_role": "false_premise",
+    "reframe_required": true,
+    "reframe_expectation": "Rétablir que le texte s'arrête à l'article SYNTH-12.",
+    "negative_claim": true,
+    "negative_claim_verification": {
+      "claim": "L'article SYNTH-99 imposerait une obligation.",
+      "searched_in": "Texte synthétique de test, version du 2020-01-01",
+      "searched_version_date": "2020-01-01",
+      "actual_provision": "Le texte s'arrête à l'article SYNTH-12.",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    }
+  },
+  {
+    "base_id": "SYNTH-VERS-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "MIFID",
+    "family_id": "FAM-SYNTH-002",
+    "rule_ids": [
+      "RULE-SYNTH-002"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 2,
+    "question": "Version 1 de la question synthétique ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "fact"
+  },
+  {
+    "base_id": "SYNTH-VERS-01",
+    "version": 2,
+    "corpus": "public",
+    "domain": "MIFID",
+    "family_id": "FAM-SYNTH-002",
+    "rule_ids": [
+      "RULE-SYNTH-002"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 2,
+    "question": "Version 2 de la question synthétique ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique révisée.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "published",
+    "checklist": {
+      "source_verified": true,
+      "answer_verified": true,
+      "key_points_verified": true,
+      "disqualifying_errors_verified": true,
+      "answerability_verified": true,
+      "expected_behavior_verified": true,
+      "reviewed_by": "Relecteur synthétique",
+      "review_date": "2026-01-20"
+    },
+    "question_type": "fact",
+    "supersedes": "SYNTH-VERS-01-v1"
+  },
+  {
+    "base_id": "SYNTH-DRAFT-01",
+    "version": 1,
+    "corpus": "public",
+    "domain": "DORA",
+    "family_id": "FAM-SYNTH-003",
+    "rule_ids": [
+      "RULE-SYNTH-003"
+    ],
+    "reasoning_trap": "NONE",
+    "difficulty": 2,
+    "question": "Question synthétique encore en brouillon ?",
+    "answerability": "answerable",
+    "expected_behavior": "answer",
+    "gold_answer": "Réponse synthétique de référence.",
+    "key_points": [
+      "point clé synthétique"
+    ],
+    "disqualifying_errors": [],
+    "source": {
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "url": "https://example.invalid/synth/1",
+      "version_date": "2020-01-01",
+      "verified_by": "Relecteur synthétique",
+      "verification_date": "2026-01-15"
+    },
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "valid_from": "2020-01-01",
+    "assessment_date": "2026-01-01",
+    "status": "draft",
+    "checklist": {},
+    "question_type": "fact"
+  }
+]

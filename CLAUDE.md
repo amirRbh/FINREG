@@ -322,6 +322,45 @@ incorrect + affirmatif + `item.actionable` + `item.materially_regulatory`.
 n'est pas tranché — il reste en attente plutôt que résolu au hasard. `publiable`
 ne rend jamais un booléen sans ses raisons chiffrées.
 
+### Runner, rapports et jeu synthétique (phases 10 à 12)
+
+`config.py` → `fournisseurs.py` → `runner.py` → `campagne.py` → `rapport.py`.
+
+`ModelProvider.run(request) -> ProviderResult` est tout ce que le harnais connaît
+d'un fournisseur. Brancher un modèle réel se fait dans `fournisseurs.py`, via
+`enregistrer_adaptateur`, sans toucher au reste.
+
+Le garde-fou de non-rétention s'applique au **lot entier avant** qu'un prompt
+soit assemblé, au runner comme au juge. `zero_retention` n'accepte qu'un booléen
+`true` littéral. L'exception réutilisée est `PrivateCorpusLeakError` de la V0.1 :
+la règle non négociable n'a qu'une seule définition dans le dépôt.
+
+Dossier de run V0.2 :
+
+| Fichier | Comparé |
+|---|---|
+| `config.json`, `fingerprints.json`, `responses.json` | oui |
+| `judgments.json`, `metrics.json`, `public_report.json` | oui |
+| `escalations.csv`, `execution.json` | non |
+
+`public_report.json` est le seul artefact destiné à sortir de la machine. Il est
+**contrôlé avant écriture** contre les identifiants et les contenus privés : un
+artefact fautif ne doit pas exister, même une seconde. Le contrôle porte sur le
+résultat construit, pas sur la confiance qu'on accorde à sa construction.
+
+La latence sort du périmètre comparé : elle décrit l'exécution, pas la réponse.
+
+**Jeu synthétique** (`fixtures/synthetic/`) — 9 items publics couvrant les six
+types de question, un groupe de jumeaux, un gold versionné (v1 et v2), un
+brouillon, et un item privé pour éprouver l'isolation. Il est **hors de
+`corpus/`** pour ne pas pouvoir être chargé à la place du corpus réel. Tout y est
+reconnaissable comme fictif : `SYNTH-*`, `example.invalid`, « Texte
+synthétique ». Son sous-dossier `corpus/private/` n'est volontairement pas
+couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine, et
+le contenu synthétique doit être versionné pour que les tests tournent.
+
+CLI : `finreg-bench valider|executer|verifier-reproductibilite`.
+
 ## 10. Conventions
 
 - Commentaires, noms de champs et messages utilisateur **en français**

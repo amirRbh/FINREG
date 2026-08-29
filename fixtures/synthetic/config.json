@@ -1,0 +1,37 @@
+{
+  "benchmark_version": "v0.2-synthetic",
+  "corpus": "public",
+  "registry_root": "fixtures/synthetic/registry",
+  "corpus_root": "fixtures/synthetic/corpus",
+  "system_prompt_path": "fixtures/synthetic/prompts/system-v1.txt",
+  "references_path": "registry/references.json",
+  "cache_root": ".cache/synthetic",
+  "runs_root": "runs/synthetic",
+  "execution": {
+    "runs_per_item": 3,
+    "temperature": 0.0,
+    "concurrency": 4,
+    "requests_per_minute": 100000,
+    "timeout_s": 30.0
+  },
+  "judge": {
+    "adapter": "fake-judge",
+    "model_name": "judge-synthetic",
+    "model_version": "0",
+    "zero_retention": false,
+    "temperature": 0.0,
+    "audit_rate": 0.1
+  },
+  "providers": [
+    {
+      "id": "synth-a", "name": "Modèle synthétique A", "provider": "local",
+      "model_name": "synth-a", "model_version": "1", "adapter": "synthetic",
+      "zero_retention": false, "active": true
+    },
+    {
+      "id": "synth-b", "name": "Modèle synthétique B", "provider": "local",
+      "model_name": "synth-b", "model_version": "1", "adapter": "synthetic",
+      "zero_retention": false, "active": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "FAM-SYNTH-001",
+    "label": "Famille synthétique 1",
+    "concept_id": "CONCEPT-SYNTH-001"
+  },
+  {
+    "id": "FAM-SYNTH-002",
+    "label": "Famille synthétique 2",
+    "concept_id": "CONCEPT-SYNTH-002"
+  },
+  {
+    "id": "FAM-SYNTH-003",
+    "label": "Famille synthétique 3",
+    "concept_id": "CONCEPT-SYNTH-003"
+  }
+]
