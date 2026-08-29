@@ -361,6 +361,44 @@ le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`.
 
+### Regulatory Rulebook (phase 6)
+
+`rulebook.py` (vocabulaires) + `regles.py` (modèle `Rule`) + `qc_rulebook.py`
+(contrôle qualité). Données dans `data/rules/`, un fichier par domaine, plus
+`rulebook-manifest.json` — que le chargeur ignore explicitement.
+
+Une règle sépare **trois choses qu'il ne faut jamais confondre** :
+
+| Champ | Contenu |
+|---|---|
+| `statement` | ce que le texte dit, au plus près de sa lettre |
+| `operational_rule` | ce que cela implique pour un professionnel |
+| `common_confusions` | ce avec quoi un modèle le confond |
+
+Écrire une inférence dans `statement`, c'est faire dire au texte ce qu'il ne dit
+pas — puis construire des questions sur cette invention.
+
+**Verrou de vérification.** Un statut au-delà de `draft` exige
+`verification_method ∈ {primary_text_fetched, primary_text_review}` **et** une
+source portant `verified_by` + `verification_date`. Aucune règle ne peut
+progresser parce qu'un modèle a écrit une référence de mémoire, ni parce qu'une
+page web la mentionne. Seul `validated` rend une règle utilisable pour ancrer un
+gold (`Rule.is_usable`).
+
+**Exceptions.** `exceptions_status` distingue `none_identified` (on a cherché,
+il n'y en a pas) de `unknown` (on n'a pas cherché). Les confondre produit des
+questions dangereusement simplifiées.
+
+**Connaissance négative.** Une `NegativeClaim` ne peut passer en
+`verified_absent` sans méthode suffisante **et** `searched_in`. C'est ce qui
+empêche de transformer « je n'ai pas trouvé » en « cela n'existe pas ».
+
+**État du Rulebook V0 : 58 règles, toutes en `draft`, aucune utilisable.** Les
+sources primaires sont inaccessibles depuis l'environnement de génération
+(EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA bloqués par le proxy réseau). Les
+références proviennent de la connaissance du modèle et doivent être confrontées
+au texte par un humain. Le rapport `RULEBOOK_QC.md` le dit en tête.
+
 ## 10. Conventions
 
 - Commentaires, noms de champs et messages utilisateur **en français**

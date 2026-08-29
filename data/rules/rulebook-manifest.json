@@ -1,0 +1,48 @@
+{
+  "generation_date": "2026-08-29",
+  "number_critical": 31,
+  "number_needing_verification": 58,
+  "number_of_rules": 58,
+  "number_source_checked": 0,
+  "number_time_sensitive": 9,
+  "number_validated": 0,
+  "number_with_negative_claims": 7,
+  "rulebook_version": "v0.1.0",
+  "rules_per_domain": {
+    "AMF": 5,
+    "DORA": 13,
+    "LCBFT": 13,
+    "MIFID": 11,
+    "SFDR": 16
+  },
+  "rules_per_file": {
+    "amf": 5,
+    "dora": 13,
+    "lcbft": 13,
+    "mifid": 11,
+    "sfdr": 16
+  },
+  "rules_per_priority": {
+    "CRITICAL": 31,
+    "HIGH": 23,
+    "MEDIUM": 4
+  },
+  "rules_per_status": {
+    "draft": 58
+  },
+  "rules_per_type": {
+    "CLASSIFICATION": 6,
+    "DEADLINE": 2,
+    "DEFINITION": 4,
+    "DISCLOSURE": 8,
+    "EXCEPTION": 2,
+    "GOVERNANCE": 3,
+    "OBLIGATION": 17,
+    "PROCEDURE": 4,
+    "PROHIBITION": 2,
+    "RECORD_KEEPING": 3,
+    "SCOPE": 6,
+    "THRESHOLD": 1
+  },
+  "verification_note": "Aucune règle n'a été confrontée à sa source primaire : EUR-Lex, Légifrance, AMF, ACPR, TRACFIN et ESMA sont inaccessibles depuis l'environnement de génération. Toutes les règles sont en « draft » et aucune n'est utilisable pour ancrer un gold tant qu'un humain n'a pas vérifié la source."
+}

@@ -1,0 +1,251 @@
+[
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "cross_regulatory",
+      "abstention"
+    ],
+    "common_confusions": [
+      "déduire de la classification article 8 SFDR le droit de communiquer de manière centrale",
+      "citer un seuil chiffré sans le rattacher au document de doctrine",
+      "confondre doctrine AMF et obligation SFDR"
+    ],
+    "domain": "AMF",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "AMF-R-001",
+    "negative_claims": [
+      {
+        "claim": "Le règlement SFDR imposerait lui-même les conditions de communication commerciale applicables en France.",
+        "note": "Ces conditions relèvent de la doctrine AMF ; SFDR régit l'information réglementaire.",
+        "status": "unverified",
+        "verification_method": "model_knowledge_unverified"
+      }
+    ],
+    "notes": "",
+    "operational_rule": "La communication commerciale est graduée selon l'engagement réel : un produit dont l'approche n'est pas significativement engageante ne peut pas faire de l'extra-financier un axe central de communication.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "FALSE_THRESHOLD",
+      "CAUSAL_INFERENCE"
+    ],
+    "regulatory_regime": "AMF_DOC_2020_03",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "SFDR-R-008",
+      "AMF-R-002"
+    ],
+    "rule_type": "THRESHOLD",
+    "source": {
+      "article": "Position-recommandation DOC-2020-03",
+      "paragraph": "",
+      "text": "Position-recommandation AMF DOC-2020-03",
+      "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "La position-recommandation AMF DOC-2020-03 subordonne la possibilité pour un placement collectif de communiquer de manière centrale sur la prise en compte de critères extra-financiers au caractère significativement engageant de l'approche mise en œuvre.",
+    "status": "draft",
+    "subdomain": "Approche significativement engageante",
+    "time_sensitive": false,
+    "title": "Condition d'une communication centrale sur les critères extra-financiers",
+    "valid_from": "2020-03-11",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "traiter tous les produits intégrant des critères ESG de la même façon en communication"
+    ],
+    "domain": "AMF",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "AMF-R-002",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le niveau de communication autorisé se déduit du degré d'engagement, non de l'intention commerciale.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "OVERGENERALIZATION",
+      "CAUSAL_INFERENCE",
+      "CONCEPT_CONFLATION"
+    ],
+    "regulatory_regime": "AMF_DOC_2020_03",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "AMF-R-001",
+      "SFDR-R-013"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Position-recommandation DOC-2020-03",
+      "paragraph": "",
+      "text": "Position-recommandation AMF DOC-2020-03",
+      "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "La position-recommandation AMF DOC-2020-03 distingue plusieurs niveaux de communication sur la prise en compte de critères extra-financiers, du niveau central au niveau réduit, selon le degré d'engagement du produit.",
+    "status": "draft",
+    "subdomain": "Communication",
+    "time_sensitive": false,
+    "title": "Proportionnalité de la communication extra-financière",
+    "valid_from": "2020-03-11",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise"
+    ],
+    "common_confusions": [
+      "croire que la dénomination relève de la seule liberté commerciale"
+    ],
+    "domain": "AMF",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "AMF-R-003",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le nom du produit engage : une dénomination à connotation durable appelle une approche correspondante démontrable.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "CAUSAL_INFERENCE",
+      "SCOPE_CONFUSION"
+    ],
+    "regulatory_regime": "AMF_DOC_2020_03",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "AMF-R-001"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Position-recommandation DOC-2020-03",
+      "paragraph": "",
+      "text": "Position-recommandation AMF DOC-2020-03",
+      "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "La position-recommandation AMF DOC-2020-03 traite de la cohérence entre la dénomination d'un placement collectif faisant référence à des considérations extra-financières et la réalité de l'approche mise en œuvre.",
+    "status": "draft",
+    "subdomain": "Dénomination",
+    "time_sensitive": false,
+    "title": "Cohérence de la dénomination du produit avec son approche",
+    "valid_from": "2020-03-11",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "cross_regulatory",
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "déduire de la conformité SFDR la conformité à la doctrine AMF",
+      "opposer les deux corps de règles au lieu de les cumuler"
+    ],
+    "domain": "AMF",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "AMF-R-004",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Deux corps de règles distincts et cumulatifs : la conformité SFDR ne vaut pas conformité à la doctrine AMF, et réciproquement.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "SCOPE_CONFUSION",
+      "CAUSAL_INFERENCE"
+    ],
+    "regulatory_regime": "AMF_DOC_2020_03",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "SFDR-R-008",
+      "SFDR-R-013",
+      "AMF-R-001"
+    ],
+    "rule_type": "SCOPE",
+    "source": {
+      "article": "Position-recommandation DOC-2020-03",
+      "paragraph": "",
+      "text": "Position-recommandation AMF DOC-2020-03",
+      "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "La doctrine AMF relative aux informations extra-financières des placements collectifs s'applique en complément du règlement (UE) 2019/2088, qui régit l'information réglementaire, la doctrine portant sur la communication.",
+    "status": "draft",
+    "subdomain": "Articulation avec SFDR",
+    "time_sensitive": false,
+    "title": "Articulation entre doctrine AMF et règlement SFDR",
+    "valid_from": "2020-03-11",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "abstention"
+    ],
+    "common_confusions": [
+      "citer une position de doctrine comme s'il s'agissait du règlement général",
+      "confondre position, recommandation et article du règlement général"
+    ],
+    "domain": "AMF",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "AMF-R-005",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le règlement général est une norme opposable ; une position ou recommandation de doctrine en éclaire l'application sans avoir la même portée.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "FALSE_ARTICLE",
+      "CONCEPT_CONFLATION",
+      "DEFINITION_DRIFT"
+    ],
+    "regulatory_regime": "AMF_RG",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "AMF-R-001"
+    ],
+    "rule_type": "SCOPE",
+    "source": {
+      "article": "Règlement général",
+      "paragraph": "",
+      "text": "Règlement général de l'AMF",
+      "url": "https://www.amf-france.org/fr/reglementation/reglement-general",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le règlement général de l'AMF fixe les règles applicables aux acteurs et aux produits relevant de la compétence de l'Autorité des marchés financiers, et se distingue de la doctrine, qui explicite l'interprétation retenue par l'Autorité.",
+    "status": "draft",
+    "subdomain": "Règlement général AMF",
+    "time_sensitive": false,
+    "title": "Portée du règlement général de l'AMF",
+    "valid_from": "2004-11-24",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  }
+]

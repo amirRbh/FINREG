@@ -15,7 +15,24 @@
     },
     "regulatory_status": "in_force",
     "valid_from": "2020-01-01",
-    "status": "validated"
+    "status": "validated",
+    "rule_type": "OBLIGATION",
+    "statement": "Énoncé synthétique 1 (aucune valeur juridique).",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
+    "exceptions_status": "none_identified",
+    "verification_method": "primary_text_review",
+    "priority": "MEDIUM",
+    "time_sensitive": false,
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "reasoning_traps": [
+      "NONE"
+    ]
   },
   {
     "id": "RULE-SYNTH-002",
@@ -33,7 +50,24 @@
     },
     "regulatory_status": "in_force",
     "valid_from": "2020-01-01",
-    "status": "validated"
+    "status": "validated",
+    "rule_type": "OBLIGATION",
+    "statement": "Énoncé synthétique 2 (aucune valeur juridique).",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
+    "exceptions_status": "none_identified",
+    "verification_method": "primary_text_review",
+    "priority": "MEDIUM",
+    "time_sensitive": false,
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "reasoning_traps": [
+      "NONE"
+    ]
   },
   {
     "id": "RULE-SYNTH-003",
@@ -51,6 +85,23 @@
     },
     "regulatory_status": "in_force",
     "valid_from": "2020-01-01",
-    "status": "validated"
+    "status": "validated",
+    "rule_type": "OBLIGATION",
+    "statement": "Énoncé synthétique 3 (aucune valeur juridique).",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
+    "exceptions_status": "none_identified",
+    "verification_method": "primary_text_review",
+    "priority": "MEDIUM",
+    "time_sensitive": false,
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "reasoning_traps": [
+      "NONE"
+    ]
   }
 ]

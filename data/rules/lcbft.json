@@ -1,0 +1,645 @@
+[
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "étendre l'assujettissement par analogie à une activité non énumérée",
+      "confondre assujettissement LCB-FT et agrément prudentiel"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-001",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "L'assujettissement résulte d'une énumération limitative : il se vérifie par lecture de la liste, non par analogie avec une activité voisine.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "SCOPE_CONFUSION",
+      "OVERGENERALIZATION",
+      "CROSS_REGULATORY_CONFLATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-002"
+    ],
+    "rule_type": "SCOPE",
+    "source": {
+      "article": "Article L.561-2",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-2 du code monétaire et financier énumère les personnes assujetties aux obligations de lutte contre le blanchiment de capitaux et le financement du terrorisme.",
+    "status": "draft",
+    "subdomain": "Personnes assujetties",
+    "time_sensitive": false,
+    "title": "Périmètre des personnes assujetties",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "appliquer une vigilance uniforme sans classification préalable",
+      "confondre classification des risques et scoring client"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-002",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La classification des risques conditionne l'intensité de toutes les mesures de vigilance : c'est elle qu'un contrôleur examine en premier.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CONCEPT_CONFLATION",
+      "CAUSAL_INFERENCE",
+      "OVERGENERALIZATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-003",
+      "LCBFT-R-006"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-4-1",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-4-1 du code monétaire et financier impose aux personnes assujetties de définir et de mettre en place des dispositifs d'identification et d'évaluation des risques de blanchiment et de financement du terrorisme auxquels elles sont exposées, et d'élaborer une classification de ces risques.",
+    "status": "draft",
+    "subdomain": "Approche par les risques",
+    "time_sensitive": false,
+    "title": "Classification des risques",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "true_premise_adversarial",
+      "false_premise"
+    ],
+    "common_confusions": [
+      "traiter la vérification différée comme le régime de droit commun",
+      "confondre identification et vérification de l'identité",
+      "omettre le bénéficiaire effectif"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-003",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le principe est l'antériorité de la vérification sur l'entrée en relation ; les aménagements de calendrier sont des exceptions encadrées, pas la règle.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "EXCEPTION_OMISSION",
+      "TEMPORAL_CONFUSION",
+      "CONCEPT_CONFLATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-004",
+      "LCBFT-R-005"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-5",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-5 du code monétaire et financier impose d'identifier le client et, le cas échéant, le bénéficiaire effectif, et de vérifier ces éléments d'identification avant d'entrer en relation d'affaires.",
+    "status": "draft",
+    "subdomain": "Vigilance à l'entrée en relation",
+    "time_sensitive": false,
+    "title": "Identification et vérification avant l'entrée en relation d'affaires",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "recall"
+    ],
+    "common_confusions": [
+      "réduire la connaissance client à la collecte d'une pièce d'identité"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-004",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La connaissance client ne se réduit pas à l'identification : elle porte aussi sur la finalité économique de la relation.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "CONCEPT_CONFLATION",
+      "OVERGENERALIZATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-003"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-5-1",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-5-1 du code monétaire et financier impose de recueillir, avant d'entrer en relation d'affaires, les informations relatives à l'objet et à la nature de cette relation et tout élément d'information pertinent.",
+    "status": "draft",
+    "subdomain": "Connaissance de la relation",
+    "time_sensitive": false,
+    "title": "Recueil d'informations sur l'objet et la nature de la relation d'affaires",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "abstention",
+      "calculation"
+    ],
+    "common_confusions": [
+      "citer un seuil de détention en l'attribuant à un article législatif",
+      "confondre bénéficiaire effectif et représentant légal",
+      "s'arrêter au premier niveau de détention"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-005",
+    "negative_claims": [
+      {
+        "claim": "La partie législative du code monétaire et financier fixerait elle-même le seuil de détention du bénéficiaire effectif.",
+        "note": "Le seuil relève de la partie réglementaire ; à confronter au texte.",
+        "status": "unverified",
+        "verification_method": "model_knowledge_unverified"
+      }
+    ],
+    "notes": "",
+    "operational_rule": "Le critère de détermination et les seuils de détention figurent dans la partie réglementaire, non dans la partie législative : affirmer un pourcentage en citant un article en L est une erreur de niveau de norme.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "FALSE_THRESHOLD",
+      "FALSE_ARTICLE",
+      "CONCEPT_CONFLATION",
+      "MISSING_INFORMATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-003"
+    ],
+    "rule_type": "DEFINITION",
+    "source": {
+      "article": "Articles L.561-2-2 et R.561-1 et suivants",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le code monétaire et financier impose d'identifier et de vérifier l'identité du bénéficiaire effectif de la relation d'affaires, les modalités et critères de détermination étant fixés par sa partie réglementaire.",
+    "status": "draft",
+    "subdomain": "Bénéficiaire effectif",
+    "time_sensitive": false,
+    "title": "Identification du bénéficiaire effectif",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "true_premise_adversarial",
+      "temporal"
+    ],
+    "common_confusions": [
+      "traiter la vigilance comme un contrôle limité à l'entrée en relation",
+      "confondre vigilance constante et vigilance renforcée"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-006",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La vigilance est continue : la connaissance client doit être actualisée, et l'incohérence d'une opération avec le profil connu est le déclencheur d'examen.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "TEMPORAL_CONFUSION",
+      "CONCEPT_CONFLATION",
+      "SCOPE_CONFUSION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-002",
+      "LCBFT-R-007"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-6",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-6 du code monétaire et financier impose d'exercer une vigilance constante pendant toute la durée de la relation d'affaires et de procéder à un examen attentif des opérations effectuées, en veillant à ce qu'elles soient cohérentes avec la connaissance actualisée du client.",
+    "status": "draft",
+    "subdomain": "Vigilance constante",
+    "time_sensitive": false,
+    "title": "Vigilance constante pendant toute la relation d'affaires",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "confondre vigilance renforcée et refus d'entrer en relation",
+      "croire que la vigilance renforcée est laissée à la seule appréciation de l'établissement"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-007",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La vigilance renforcée découle de situations énumérées et de la classification des risques ; elle ne se déduit pas d'une intuition.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CAUSAL_INFERENCE",
+      "CONCEPT_CONFLATION",
+      "EXCEPTION_OMISSION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-008",
+      "LCBFT-R-009"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-10",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-10 du code monétaire et financier énumère les situations dans lesquelles les personnes assujetties appliquent des mesures de vigilance complémentaires à l'égard de leur client.",
+    "status": "draft",
+    "subdomain": "Vigilance renforcée",
+    "time_sensitive": false,
+    "title": "Mesures de vigilance renforcée",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "déduire du statut de PPE une interdiction d'entrer en relation",
+      "déduire du statut de PPE une obligation de déclaration de soupçon",
+      "oublier les membres de la famille et les proches associés"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-008",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La qualité de personne politiquement exposée déclenche des mesures complémentaires ; elle n'emporte par elle-même ni interdiction d'entrer en relation ni obligation de déclaration.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CAUSAL_INFERENCE",
+      "OVERGENERALIZATION",
+      "EXCEPTION_OMISSION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-007",
+      "LCBFT-R-009"
+    ],
+    "rule_type": "CLASSIFICATION",
+    "source": {
+      "article": "Articles L.561-10 et R.561-18",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le code monétaire et financier soumet les relations d'affaires avec des personnes politiquement exposées à des mesures de vigilance complémentaires, la définition et le périmètre de ces personnes étant précisés par sa partie réglementaire.",
+    "status": "draft",
+    "subdomain": "Personnes politiquement exposées",
+    "time_sensitive": false,
+    "title": "Traitement des personnes politiquement exposées",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial",
+      "abstention"
+    ],
+    "common_confusions": [
+      "exiger une certitude ou une preuve avant de déclarer",
+      "croire que le déclarant doit qualifier l'infraction sous-jacente",
+      "confondre déclaration de soupçon et information du client"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-009",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le critère est le soupçon, pas la preuve ni la certitude. Le déclarant n'a pas à qualifier juridiquement l'infraction sous-jacente.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "DEFINITION_DRIFT",
+      "CAUSAL_INFERENCE",
+      "CONCEPT_CONFLATION",
+      "NEGATIVE_ASSERTION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-010"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article L.561-15",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-15 du code monétaire et financier impose de déclarer au service Tracfin les sommes ou opérations portant sur des sommes dont les personnes assujetties savent, soupçonnent ou ont de bonnes raisons de soupçonner qu'elles proviennent d'une infraction passible d'une peine privative de liberté supérieure à un an ou sont liées au financement du terrorisme.",
+    "status": "draft",
+    "subdomain": "Déclaration de soupçon",
+    "time_sensitive": false,
+    "title": "Déclaration de soupçon à Tracfin",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "croire qu'un client peut être informé au motif de la transparence",
+      "confondre interdiction de divulgation et secret professionnel général"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-010",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "L'interdiction de divulgation est absolue vis-à-vis du client ; les partages admis sont limitativement définis par le texte.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "OVERGENERALIZATION",
+      "EXCEPTION_OMISSION",
+      "CONCEPT_CONFLATION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-009"
+    ],
+    "rule_type": "PROHIBITION",
+    "source": {
+      "article": "Article L.561-18",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le code monétaire et financier interdit de porter à la connaissance du client ou de tiers l'existence et le contenu d'une déclaration de soupçon adressée à Tracfin, ainsi que les suites qui lui sont données.",
+    "status": "draft",
+    "subdomain": "Confidentialité",
+    "time_sensitive": false,
+    "title": "Interdiction d'informer le client de la déclaration",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "recall",
+      "temporal",
+      "cross_regulatory",
+      "false_premise"
+    ],
+    "common_confusions": [
+      "faire courir le délai depuis la date de l'opération",
+      "confondre ce délai avec les obligations de conservation MiFID II"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-011",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le point de départ des cinq ans est la clôture ou la cessation de la relation, pas la date de l'opération.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "TEMPORAL_CONFUSION",
+      "CROSS_REGULATORY_CONFLATION",
+      "FALSE_THRESHOLD"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-008"
+    ],
+    "rule_type": "RECORD_KEEPING",
+    "source": {
+      "article": "Article L.561-12",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-12 du code monétaire et financier impose de conserver pendant cinq ans à compter de la clôture des comptes ou de la cessation des relations les documents et informations relatifs à l'identité des clients et aux opérations effectuées.",
+    "status": "draft",
+    "subdomain": "Conservation",
+    "time_sensitive": false,
+    "title": "Conservation des documents et informations",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial",
+      "abstention"
+    ],
+    "common_confusions": [
+      "déduire mécaniquement une déclaration de soupçon de l'impossibilité d'identifier",
+      "croire qu'une opération peut être exécutée en attendant les pièces"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-012",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "L'impossibilité d'identifier ferme la relation ; elle n'emporte pas automatiquement déclaration de soupçon, qui obéit à son propre critère.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CAUSAL_INFERENCE",
+      "CONCEPT_CONFLATION",
+      "EXCEPTION_OMISSION"
+    ],
+    "regulatory_regime": "CMF_LCBFT",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-003",
+      "LCBFT-R-009"
+    ],
+    "rule_type": "PROHIBITION",
+    "source": {
+      "article": "Article L.561-8",
+      "paragraph": "",
+      "text": "Code monétaire et financier",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000020196177",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article L.561-8 du code monétaire et financier dispose que, lorsque la personne assujettie n'est pas en mesure d'identifier son client ou d'obtenir les informations sur l'objet et la nature de la relation d'affaires, elle n'exécute aucune opération et n'établit ni ne poursuit aucune relation d'affaires.",
+    "status": "draft",
+    "subdomain": "Impossibilité d'identifier",
+    "time_sensitive": false,
+    "title": "Refus ou cessation de la relation d'affaires",
+    "valid_from": "2020-02-14",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "cross_regulatory",
+      "false_premise"
+    ],
+    "common_confusions": [
+      "citer un article de la directive comme directement opposable à un assujetti français",
+      "confondre directive et règlement quant à l'effet direct"
+    ],
+    "domain": "LCBFT",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "LCBFT-R-013",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Une directive n'est pas d'application directe : l'obligation opposable en France est celle du code monétaire et financier, pas celle de la directive.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "SCOPE_CONFUSION",
+      "FALSE_ARTICLE"
+    ],
+    "regulatory_regime": "AMLD4_AMLD5",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-001"
+    ],
+    "rule_type": "SCOPE",
+    "source": {
+      "article": "Ensemble de la directive",
+      "paragraph": "",
+      "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "La directive (UE) 2015/849, modifiée notamment par la directive (UE) 2018/843, constitue le cadre européen relatif à la prévention de l'utilisation du système financier aux fins du blanchiment de capitaux et du financement du terrorisme, transposé en droit français dans le code monétaire et financier.",
+    "status": "draft",
+    "subdomain": "Cadre européen",
+    "time_sensitive": false,
+    "title": "Directives européennes de transposition",
+    "valid_from": "2015-06-05",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  }
+]

@@ -1,0 +1,536 @@
+[
+  {
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "common_confusions": [
+      "restreindre le devoir d'agir au mieux des intérêts au seul conseil en investissement"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-001",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Socle applicable à tous les services d'investissement, indépendamment de la fourniture d'un conseil.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "SCOPE_CONFUSION",
+      "OVERGENERALIZATION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-002"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article 24",
+      "paragraph": "",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 24 de la directive 2014/65/UE impose aux entreprises d'investissement d'agir d'une manière honnête, équitable et professionnelle qui serve au mieux les intérêts de leurs clients, et fixe les exigences générales d'information, notamment le caractère correct, clair et non trompeur des informations adressées aux clients.",
+    "status": "draft",
+    "subdomain": "Article 24 — principes généraux",
+    "time_sensitive": false,
+    "title": "Agir de manière honnête, équitable et professionnelle",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "appliquer le test d'adéquation à une simple exécution d'ordre",
+      "confondre adéquation (suitability) et caractère approprié (appropriateness)",
+      "omettre la capacité à subir des pertes parmi les éléments à recueillir"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-002",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le test d'adéquation est réservé au conseil et à la gestion de portefeuille. Hors de ces deux services, c'est le test du caractère approprié qui s'applique.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "SCOPE_CONFUSION",
+      "CONCEPT_CONFLATION",
+      "EXCEPTION_OMISSION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-003",
+      "MIFID-R-004",
+      "MIFID-R-006"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article 25",
+      "paragraph": "paragraphe 2",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 25 de la directive 2014/65/UE impose, lorsqu'un conseil en investissement ou un service de gestion de portefeuille est fourni, de se procurer les informations nécessaires sur les connaissances et l'expérience du client, sa situation financière y compris sa capacité à subir des pertes, et ses objectifs d'investissement y compris sa tolérance au risque, afin de recommander les services et instruments qui lui conviennent.",
+    "status": "draft",
+    "subdomain": "Article 25 — adéquation",
+    "time_sensitive": false,
+    "title": "Évaluation de l'adéquation dans le conseil et la gestion de portefeuille",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "inclure la situation financière dans le test du caractère approprié",
+      "croire qu'un test négatif interdit l'opération"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-003",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le test du caractère approprié ne porte que sur connaissances et expérience — ni la situation financière ni les objectifs n'y entrent. Un avis négatif n'interdit pas l'opération : il déclenche un avertissement.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CONCEPT_CONFLATION",
+      "CAUSAL_INFERENCE",
+      "SCOPE_CONFUSION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-002",
+      "MIFID-R-004"
+    ],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article 25",
+      "paragraph": "paragraphe 3",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 25 impose, pour les services autres que le conseil en investissement et la gestion de portefeuille, de demander au client des informations sur ses connaissances et son expérience afin d'évaluer si le service ou l'instrument est approprié, et de l'avertir lorsque tel n'est pas le cas.",
+    "status": "draft",
+    "subdomain": "Article 25 — caractère approprié",
+    "time_sensitive": false,
+    "title": "Évaluation du caractère approprié hors conseil",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "abstention"
+    ],
+    "common_confusions": [
+      "appliquer l'exécution simple à un instrument complexe",
+      "oublier la condition d'initiative du client",
+      "présenter les conditions comme alternatives"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-004",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Trois conditions cumulatives, dont l'initiative du client. Le régime est une exception d'interprétation stricte, pas un régime par défaut.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "EXCEPTION_OMISSION",
+      "SCOPE_CONFUSION",
+      "OVERGENERALIZATION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-003"
+    ],
+    "rule_type": "EXCEPTION",
+    "source": {
+      "article": "Article 25",
+      "paragraph": "paragraphe 4",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 25 permet, à certaines conditions, de fournir des services de réception-transmission ou d'exécution d'ordres sans procéder à l'évaluation du caractère approprié, lorsque le service porte sur des instruments financiers non complexes, qu'il est fourni à l'initiative du client et que celui-ci a été averti.",
+    "status": "draft",
+    "subdomain": "Article 25 — exécution simple",
+    "time_sensitive": false,
+    "title": "Régime d'exécution simple pour les instruments non complexes",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "recall"
+    ],
+    "common_confusions": [
+      "croire que le rapport d'adéquation est dû à tout client, y compris professionnel"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-005",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le rapport d'adéquation est la trace opposable du raisonnement de recommandation ; son absence rend le conseil indéfendable en contrôle.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "SCOPE_CONFUSION",
+      "OVERGENERALIZATION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-002"
+    ],
+    "rule_type": "DISCLOSURE",
+    "source": {
+      "article": "Article 25",
+      "paragraph": "paragraphe 6",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 25 impose, en cas de conseil en investissement à un client de détail, de lui fournir une déclaration d'adéquation précisant le conseil fourni et la manière dont il répond à ses préférences, objectifs et autres caractéristiques.",
+    "status": "draft",
+    "subdomain": "Article 25 — rapport d'adéquation",
+    "time_sensitive": false,
+    "title": "Rapport d'adéquation au client de détail",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "temporal",
+      "cross_regulatory",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "traiter les préférences de durabilité comme un test autonome",
+      "faire primer les préférences de durabilité sur l'adéquation financière",
+      "attribuer cette notion à la directive de niveau 1 plutôt qu'au règlement délégué"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-006",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Les préférences de durabilité sont une composante de l'adéquation, pas un test séparé : elles n'interviennent qu'une fois l'adéquation financière établie.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "TEMPORAL_CONFUSION",
+      "CONCEPT_CONFLATION"
+    ],
+    "regulatory_regime": "MIFID2_ESG_2022",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-002",
+      "MIFID-R-007",
+      "SFDR-R-008"
+    ],
+    "rule_type": "DEFINITION",
+    "source": {
+      "article": "Article 2 et article 54 du règlement délégué (UE) 2017/565 modifié",
+      "paragraph": "",
+      "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le règlement délégué (UE) 2021/1253, qui modifie le règlement délégué (UE) 2017/565, introduit la notion de préférences en matière de durabilité et impose de les recueillir dans le cadre de l'évaluation de l'adéquation.",
+    "status": "draft",
+    "subdomain": "Préférences de durabilité",
+    "time_sensitive": true,
+    "title": "Préférences en matière de durabilité",
+    "valid_from": "2022-08-02",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise",
+      "abstention",
+      "true_premise_adversarial"
+    ],
+    "common_confusions": [
+      "laisser le conseiller adapter les préférences à la place du client",
+      "omettre l'obligation de documenter la raison de l'adaptation",
+      "conclure qu'un produit non conforme peut être recommandé sans adaptation"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-007",
+    "negative_claims": [
+      {
+        "claim": "Le texte fixerait une proportion minimale chiffrée d'investissements durables à proposer.",
+        "note": "Les proportions minimales sont exprimées par le client dans ses préférences, non imposées par le texte.",
+        "status": "unverified",
+        "verification_method": "model_knowledge_unverified"
+      }
+    ],
+    "notes": "",
+    "operational_rule": "L'adaptation vient du client et doit être documentée. Elle ne peut pas être présumée par le conseiller, ni servir de contournement systématique.",
+    "priority": "CRITICAL",
+    "reasoning_traps": [
+      "CAUSAL_INFERENCE",
+      "EXCEPTION_OMISSION",
+      "MISSING_INFORMATION"
+    ],
+    "regulatory_regime": "MIFID2_ESG_2022",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-006"
+    ],
+    "rule_type": "PROCEDURE",
+    "source": {
+      "article": "Article 54",
+      "paragraph": "",
+      "text": "Règlement délégué (UE) 2017/565 modifié",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le règlement délégué (UE) 2017/565 modifié prévoit que, lorsqu'aucun instrument financier ne correspond aux préférences de durabilité exprimées par le client, celui-ci peut adapter ses préférences, l'entreprise devant consigner cette adaptation et la raison qui la motive.",
+    "status": "draft",
+    "subdomain": "Préférences de durabilité — adaptation",
+    "time_sensitive": true,
+    "title": "Adaptation des préférences de durabilité",
+    "valid_from": "2022-08-02",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "recall",
+      "cross_regulatory",
+      "abstention"
+    ],
+    "common_confusions": [
+      "citer une durée de conservation sans la rattacher au texte applicable",
+      "confondre la conservation MiFID II et la conservation LCB-FT"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-008",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "L'obligation porte sur la reconstitution du parcours complet, pas sur la seule conservation de pièces isolées.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "FALSE_THRESHOLD",
+      "TEMPORAL_CONFUSION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "LCBFT-R-011"
+    ],
+    "rule_type": "RECORD_KEEPING",
+    "source": {
+      "article": "Article 16",
+      "paragraph": "",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 16 de la directive 2014/65/UE impose de conserver les enregistrements de tous les services, activités et transactions, d'une manière permettant à l'autorité compétente de reconstituer chaque étape essentielle du traitement de chaque transaction.",
+    "status": "draft",
+    "subdomain": "Article 16 — organisation",
+    "time_sensitive": false,
+    "title": "Conservation des enregistrements",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "qualification",
+      "false_premise"
+    ],
+    "common_confusions": [
+      "réduire la meilleure exécution au meilleur prix",
+      "en faire une obligation de résultat"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-009",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La meilleure exécution est une obligation de moyens portant sur un faisceau de facteurs, pas une obligation d'obtenir le meilleur prix.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "OVERGENERALIZATION",
+      "CAUSAL_INFERENCE",
+      "DEFINITION_DRIFT"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [],
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article 27",
+      "paragraph": "",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 27 de la directive 2014/65/UE impose de prendre toutes les mesures suffisantes pour obtenir, lors de l'exécution des ordres, le meilleur résultat possible pour le client, compte tenu du prix, du coût, de la rapidité, de la probabilité d'exécution et du règlement, de la taille et de la nature de l'ordre.",
+    "status": "draft",
+    "subdomain": "Article 27 — exécution",
+    "time_sensitive": false,
+    "title": "Meilleure exécution",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "common_confusions": [
+      "attribuer à la fonction conformité la responsabilité qui incombe à l'organe de direction"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-010",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "La responsabilité de gouvernance n'est pas délégable à la fonction conformité : celle-ci contrôle, l'organe de direction répond.",
+    "priority": "MEDIUM",
+    "reasoning_traps": [
+      "CONCEPT_CONFLATION",
+      "SCOPE_CONFUSION"
+    ],
+    "regulatory_regime": "MIFID2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "DORA-R-002"
+    ],
+    "rule_type": "GOVERNANCE",
+    "source": {
+      "article": "Article 9",
+      "paragraph": "",
+      "text": "Directive 2014/65/UE (MIFID II)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "L'article 9 de la directive 2014/65/UE fixe les exigences relatives à l'organe de direction des entreprises d'investissement, notamment sa responsabilité dans la définition et la surveillance des dispositifs de gouvernance assurant une gestion efficace et prudente.",
+    "status": "draft",
+    "subdomain": "Article 9 — gouvernance",
+    "time_sensitive": false,
+    "title": "Responsabilité de l'organe de direction",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  },
+  {
+    "candidate_question_families": [
+      "recall",
+      "cross_regulatory",
+      "abstention"
+    ],
+    "common_confusions": [
+      "attribuer à la directive 2014/65/UE des exigences qui figurent au règlement délégué"
+    ],
+    "domain": "MIFID",
+    "exceptions": [],
+    "exceptions_status": "unknown",
+    "id": "MIFID-R-011",
+    "negative_claims": [],
+    "notes": "",
+    "operational_rule": "Le détail opérationnel de l'adéquation est au niveau 2 ; citer la seule directive pour un point de procédure est une erreur de niveau de norme.",
+    "priority": "HIGH",
+    "reasoning_traps": [
+      "CROSS_REGULATORY_CONFLATION",
+      "FALSE_ARTICLE",
+      "DEFINITION_DRIFT"
+    ],
+    "regulatory_regime": "MIFID2_L2_1.0",
+    "regulatory_status": "in_force",
+    "related_rules": [
+      "MIFID-R-002",
+      "MIFID-R-006"
+    ],
+    "rule_type": "PROCEDURE",
+    "source": {
+      "article": "Article 54",
+      "paragraph": "",
+      "text": "Règlement délégué (UE) 2017/565",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32017R0565",
+      "verification_date": null,
+      "verified_by": "",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Le règlement délégué (UE) 2017/565 précise les modalités de l'évaluation de l'adéquation, notamment l'étendue des informations à recueillir et les diligences à accomplir pour s'assurer de leur fiabilité.",
+    "status": "draft",
+    "subdomain": "Règlement délégué 2017/565",
+    "time_sensitive": false,
+    "title": "Modalités de l'évaluation de l'adéquation au niveau 2",
+    "valid_from": "2018-01-03",
+    "valid_until": null,
+    "verification_method": "model_knowledge_unverified",
+    "version": 1
+  }
+]

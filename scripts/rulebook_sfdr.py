@@ -1,0 +1,395 @@
+"""Règles SFDR / Taxonomie du Rulebook V0.
+
+Toutes les références proviennent de la connaissance du modèle et n'ont PAS été
+confrontées au texte primaire : les sources officielles sont inaccessibles depuis
+cet environnement. Chaque règle porte donc `verification_method =
+model_knowledge_unverified` et `status = draft`, conformément à la
+spécification §1 et §15.
+"""
+
+from __future__ import annotations
+
+SFDR = "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2088"
+RTS = "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32022R1288"
+TAXO = "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32020R0852"
+
+REGLES = [
+    dict(
+        id="SFDR-R-001", subdomain="Article 2 — définitions", rule_type="DEFINITION",
+        title="Définition de l'investissement durable",
+        statement=(
+            "L'article 2 du règlement (UE) 2019/2088 définit l'« investissement durable » "
+            "comme un investissement dans une activité économique qui contribue à un "
+            "objectif environnemental ou social, sous réserve que cet investissement ne "
+            "cause de préjudice important à aucun de ces objectifs et que les sociétés "
+            "bénéficiaires appliquent des pratiques de bonne gouvernance."
+        ),
+        operational_rule=(
+            "Trois conditions cumulatives à démontrer pour qualifier un investissement de "
+            "durable : contribution, absence de préjudice important, bonne gouvernance. "
+            "Manquer une seule des trois disqualifie la qualification."
+        ),
+        common_confusions=[
+            "traiter la définition comme purement environnementale alors qu'elle couvre aussi le social",
+            "présenter les trois conditions comme alternatives plutôt que cumulatives",
+            "confondre cette définition avec l'alignement taxonomique du règlement 2020/852",
+        ],
+        article="Article 2", paragraph="point 17", url=SFDR,
+        priority="CRITICAL",
+        traps=["DEFINITION_DRIFT", "CONCEPT_CONFLATION", "EXCEPTION_OMISSION"],
+        families=["recall", "qualification", "cross_regulatory"],
+        related=["SFDR-R-008", "SFDR-R-009", "TAXO-R-001"],
+        exceptions_status="none_identified",
+    ),
+    dict(
+        id="SFDR-R-002", subdomain="Article 3", rule_type="DISCLOSURE",
+        title="Transparence des politiques de risques de durabilité sur le site web",
+        statement=(
+            "L'article 3 impose aux acteurs des marchés financiers et aux conseillers "
+            "financiers de publier sur leur site internet des informations sur leurs "
+            "politiques d'intégration des risques en matière de durabilité dans leur "
+            "processus de décision d'investissement ou de conseil."
+        ),
+        operational_rule=(
+            "Obligation au niveau de l'entité, indépendante de la classification des "
+            "produits : elle s'applique même à un acteur ne commercialisant que des "
+            "produits article 6."
+        ),
+        common_confusions=[
+            "croire que l'obligation ne vise que les produits article 8 ou 9",
+            "confondre l'obligation d'entité (article 3) et l'obligation de produit (article 6)",
+        ],
+        article="Article 3", url=SFDR, priority="HIGH",
+        traps=["SCOPE_CONFUSION", "CONCEPT_CONFLATION"],
+        families=["recall", "qualification", "false_premise"],
+        related=["SFDR-R-005"], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-003", subdomain="Article 4 — PAI entité", rule_type="DISCLOSURE",
+        title="Transparence des principales incidences négatives au niveau de l'entité",
+        statement=(
+            "L'article 4 impose de publier une déclaration sur les politiques de diligence "
+            "raisonnable relatives aux principales incidences négatives des décisions "
+            "d'investissement sur les facteurs de durabilité, ou d'expliquer clairement "
+            "pourquoi ces incidences ne sont pas prises en compte."
+        ),
+        operational_rule=(
+            "Régime « comply or explain » au niveau de l'entité, qui devient obligatoire "
+            "au-delà d'un seuil d'effectif ; l'explication de non-prise en compte doit être "
+            "motivée et non une simple mention."
+        ),
+        common_confusions=[
+            "présenter la prise en compte des PAI comme obligatoire pour tous sans condition",
+            "confondre les PAI au niveau de l'entité (article 4) et au niveau du produit (article 7)",
+            "inventer un seuil d'effectif au lieu de renvoyer au texte",
+        ],
+        article="Article 4", url=SFDR, priority="CRITICAL", time_sensitive=True,
+        traps=["FALSE_THRESHOLD", "CONCEPT_CONFLATION", "SCOPE_CONFUSION"],
+        families=["recall", "qualification", "false_premise", "abstention"],
+        related=["SFDR-R-006"], exceptions_status="unknown",
+        negative_claims=[dict(
+            claim="L'article 4 fixerait lui-même un seuil chiffré d'encours déclenchant la prise en compte des PAI.",
+            note="Le seuil connu porte sur l'effectif de l'entité, pas sur l'encours ; à confronter au texte.",
+        )],
+    ),
+    dict(
+        id="SFDR-R-004", subdomain="Article 5", rule_type="GOVERNANCE",
+        title="Politiques de rémunération et risques de durabilité",
+        statement=(
+            "L'article 5 impose d'inclure dans les politiques de rémunération des "
+            "informations sur la manière dont ces politiques sont cohérentes avec "
+            "l'intégration des risques en matière de durabilité, et de les publier sur "
+            "le site internet."
+        ),
+        operational_rule=(
+            "Obligation d'entité : la politique de rémunération doit être rendue cohérente "
+            "avec l'intégration des risques de durabilité, et cette cohérence documentée."
+        ),
+        common_confusions=[
+            "croire que l'article impose une part variable indexée sur des critères ESG",
+        ],
+        article="Article 5", url=SFDR, priority="MEDIUM",
+        traps=["OVERGENERALIZATION", "CAUSAL_INFERENCE"],
+        families=["recall", "false_premise"], related=[], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-005", subdomain="Article 6", rule_type="DISCLOSURE",
+        title="Intégration des risques de durabilité dans l'information précontractuelle",
+        statement=(
+            "L'article 6 impose d'inclure dans les informations précontractuelles la "
+            "manière dont les risques en matière de durabilité sont intégrés dans les "
+            "décisions d'investissement et les résultats de l'évaluation de leurs "
+            "incidences probables sur le rendement, ou d'expliquer pourquoi ces risques "
+            "sont jugés non pertinents."
+        ),
+        operational_rule=(
+            "Socle applicable à TOUS les produits, y compris ceux sans caractéristique "
+            "durable. « Produit article 6 » désigne en pratique un produit qui ne relève "
+            "ni de l'article 8 ni de l'article 9 — mais l'article 6 s'applique aussi aux "
+            "produits 8 et 9."
+        ),
+        common_confusions=[
+            "croire que l'article 6 ne s'applique pas aux produits article 8 et 9",
+            "traiter « article 6 » comme une catégorie de produit alors que c'est une obligation d'information",
+        ],
+        article="Article 6", url=SFDR, priority="CRITICAL",
+        traps=["SCOPE_CONFUSION", "DEFINITION_DRIFT", "CONCEPT_CONFLATION"],
+        families=["recall", "qualification", "true_premise_adversarial"],
+        related=["SFDR-R-008", "SFDR-R-009"], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-006", subdomain="Article 7 — PAI produit", rule_type="DISCLOSURE",
+        title="Incidences négatives au niveau du produit",
+        statement=(
+            "L'article 7 impose d'indiquer dans l'information précontractuelle si un "
+            "produit financier prend en compte les principales incidences négatives sur "
+            "les facteurs de durabilité, et le cas échéant comment."
+        ),
+        operational_rule=(
+            "Obligation d'information au niveau du produit, distincte de la déclaration "
+            "d'entité de l'article 4 ; elle porte sur le fait de déclarer si l'on prend en "
+            "compte, non sur l'obligation de prendre en compte."
+        ),
+        common_confusions=[
+            "déduire de l'article 7 une obligation de prendre en compte les PAI",
+            "confondre article 4 (entité) et article 7 (produit)",
+        ],
+        article="Article 7", url=SFDR, priority="HIGH", time_sensitive=True,
+        traps=["CAUSAL_INFERENCE", "CONCEPT_CONFLATION", "SCOPE_CONFUSION"],
+        families=["qualification", "false_premise", "true_premise_adversarial"],
+        related=["SFDR-R-003"], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-008", subdomain="Article 8", rule_type="CLASSIFICATION",
+        title="Produits promouvant des caractéristiques environnementales ou sociales",
+        statement=(
+            "L'article 8 vise les produits financiers qui promeuvent, entre autres "
+            "caractéristiques, des caractéristiques environnementales ou sociales, et "
+            "impose de préciser dans l'information précontractuelle comment ces "
+            "caractéristiques sont respectées."
+        ),
+        operational_rule=(
+            "Promouvoir des caractéristiques E/S n'emporte aucun objectif d'investissement "
+            "durable. Un produit article 8 peut ne détenir aucun investissement durable au "
+            "sens de l'article 2, sauf s'il s'engage sur une proportion dans sa documentation."
+        ),
+        common_confusions=[
+            "déduire de la classification article 8 une part minimale d'investissements durables",
+            "confondre article 8 et article 9",
+            "présenter « article 8 » comme un label de durabilité",
+        ],
+        article="Article 8", url=SFDR, priority="CRITICAL",
+        traps=["CAUSAL_INFERENCE", "CONCEPT_CONFLATION", "OVERGENERALIZATION", "FALSE_THRESHOLD"],
+        families=["qualification", "false_premise", "true_premise_adversarial", "cross_regulatory"],
+        related=["SFDR-R-001", "SFDR-R-009", "AMF-R-001"], exceptions_status="unknown",
+        negative_claims=[dict(
+            claim="L'article 8 imposerait une part minimale d'investissements durables.",
+            note="Confusion très répandue ; l'engagement sur une part résulte de la documentation du produit, pas de la classification.",
+        )],
+    ),
+    dict(
+        id="SFDR-R-009", subdomain="Article 9", rule_type="CLASSIFICATION",
+        title="Produits ayant l'investissement durable pour objectif",
+        statement=(
+            "L'article 9 vise les produits financiers qui ont l'investissement durable pour "
+            "objectif et fixe les informations précontractuelles correspondantes, notamment "
+            "l'explication de la manière dont cet objectif doit être atteint et, lorsqu'un "
+            "indice est désigné comme indice de référence, la façon dont il est aligné sur "
+            "cet objectif."
+        ),
+        operational_rule=(
+            "L'objectif d'investissement durable engage sur le fond : la démonstration des "
+            "trois conditions de l'article 2 doit pouvoir être faite au niveau du produit."
+        ),
+        common_confusions=[
+            "présenter l'article 9 comme un simple degré supérieur de l'article 8",
+            "confondre objectif durable et alignement taxonomique",
+        ],
+        article="Article 9", url=SFDR, priority="CRITICAL",
+        traps=["CONCEPT_CONFLATION", "DEFINITION_DRIFT", "OVERGENERALIZATION"],
+        families=["qualification", "true_premise_adversarial", "cross_regulatory"],
+        related=["SFDR-R-001", "SFDR-R-008", "TAXO-R-001"], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-010", subdomain="Article 10", rule_type="DISCLOSURE",
+        title="Publication sur le site internet pour les produits 8 et 9",
+        statement=(
+            "L'article 10 impose de publier et de tenir à jour, sur le site internet, des "
+            "informations relatives aux produits relevant des articles 8 et 9, notamment la "
+            "description des caractéristiques ou de l'objectif d'investissement durable et "
+            "les méthodes utilisées pour les évaluer et les suivre."
+        ),
+        operational_rule=(
+            "Obligation continue et non ponctuelle : l'information publiée doit rester à jour."
+        ),
+        common_confusions=[
+            "traiter la publication comme un acte unique au lancement du produit",
+        ],
+        article="Article 10", url=SFDR, priority="MEDIUM",
+        traps=["TEMPORAL_CONFUSION", "SCOPE_CONFUSION"],
+        families=["recall", "qualification"], related=["SFDR-R-012"],
+        exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-011", subdomain="Article 11", rule_type="DISCLOSURE",
+        title="Information périodique des produits 8 et 9",
+        statement=(
+            "L'article 11 impose d'inclure dans les rapports périodiques des produits "
+            "relevant des articles 8 et 9 une description de la mesure dans laquelle les "
+            "caractéristiques environnementales ou sociales sont respectées, ou de "
+            "l'incidence globale du produit en matière de durabilité."
+        ),
+        operational_rule=(
+            "L'information périodique rend compte ex post de ce que l'information "
+            "précontractuelle a promis ex ante ; l'écart entre les deux est le point de "
+            "contrôle."
+        ),
+        common_confusions=[
+            "confondre information précontractuelle et information périodique",
+        ],
+        article="Article 11", url=SFDR, priority="HIGH",
+        traps=["TEMPORAL_CONFUSION", "CONCEPT_CONFLATION"],
+        families=["recall", "temporal", "qualification"],
+        related=["SFDR-R-008", "SFDR-R-009"], exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-012", subdomain="Article 12", rule_type="OBLIGATION",
+        title="Mise à jour des informations publiées",
+        statement=(
+            "L'article 12 impose de tenir à jour les informations publiées au titre des "
+            "articles 3, 5 et 10 et, en cas de modification d'une information, d'en publier "
+            "une explication claire."
+        ),
+        operational_rule=(
+            "Toute modification substantielle appelle une explication publiée, pas un "
+            "remplacement silencieux du contenu."
+        ),
+        common_confusions=[
+            "croire qu'une mise à jour peut se faire sans explication",
+        ],
+        article="Article 12", url=SFDR, priority="MEDIUM",
+        traps=["TEMPORAL_CONFUSION", "EXCEPTION_OMISSION"],
+        families=["recall", "temporal"], related=["SFDR-R-010"],
+        exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-013", subdomain="Article 13", rule_type="OBLIGATION",
+        title="Cohérence des communications publicitaires",
+        statement=(
+            "L'article 13 impose que les communications publicitaires ne contredisent pas "
+            "les informations publiées au titre du règlement."
+        ),
+        operational_rule=(
+            "C'est le fondement réglementaire direct du contrôle du greenwashing "
+            "commercial : la publicité est jugée par rapport aux documents réglementaires."
+        ),
+        common_confusions=[
+            "croire que la communication commerciale échappe au périmètre du règlement",
+        ],
+        article="Article 13", url=SFDR, priority="HIGH",
+        traps=["SCOPE_CONFUSION", "CROSS_REGULATORY_CONFLATION"],
+        families=["qualification", "cross_regulatory"], related=["AMF-R-002"],
+        exceptions_status="unknown",
+    ),
+    dict(
+        id="SFDR-R-014", subdomain="RTS 2022/1288", rule_type="DISCLOSURE",
+        title="Normes techniques de réglementation et modèles d'annexes",
+        statement=(
+            "Le règlement délégué (UE) 2022/1288 précise le contenu, les méthodes et la "
+            "présentation des informations SFDR, et fixe des modèles obligatoires en annexe "
+            "pour les informations précontractuelles et périodiques des produits relevant "
+            "des articles 8 et 9."
+        ),
+        operational_rule=(
+            "Le niveau 1 pose l'obligation, le niveau 2 en fixe la forme. Les seuils et "
+            "indicateurs chiffrés se trouvent au niveau 2, pas dans le règlement 2019/2088."
+        ),
+        common_confusions=[
+            "attribuer au règlement 2019/2088 des indicateurs qui figurent dans les RTS",
+            "citer un modèle d'annexe sans préciser la version des RTS",
+        ],
+        text="Règlement délégué (UE) 2022/1288 (RTS SFDR)",
+        article="Ensemble du règlement délégué", url=RTS,
+        regime="SFDR_RTS_1.0", valid_from="2023-01-01",
+        priority="HIGH", time_sensitive=True,
+        traps=["CROSS_REGULATORY_CONFLATION", "TEMPORAL_CONFUSION", "FALSE_ARTICLE"],
+        families=["recall", "temporal", "cross_regulatory", "abstention"],
+        related=["SFDR-R-008", "SFDR-R-009"], exceptions_status="unknown",
+    ),
+    dict(
+        id="TAXO-R-001", subdomain="Taxonomie — article 3", rule_type="CLASSIFICATION",
+        title="Critères d'une activité économique durable sur le plan environnemental",
+        statement=(
+            "L'article 3 du règlement (UE) 2020/852 énonce les critères cumulatifs "
+            "permettant de qualifier une activité économique de durable sur le plan "
+            "environnemental : contribution substantielle à un ou plusieurs objectifs "
+            "environnementaux, absence de préjudice important aux autres objectifs, respect "
+            "de garanties minimales et conformité aux critères d'examen technique."
+        ),
+        operational_rule=(
+            "L'alignement taxonomique est une qualification d'activité, pas de produit ; "
+            "un produit en dérive une part d'alignement, il n'est pas « aligné » en bloc."
+        ),
+        common_confusions=[
+            "confondre alignement taxonomique et investissement durable au sens SFDR",
+            "parler d'un fonds « aligné taxonomie » sans mentionner la part alignée",
+        ],
+        text="Règlement (UE) 2020/852 (Taxonomie)", article="Article 3", url=TAXO,
+        regime="TAXONOMY_1.0", valid_from="2020-07-12",
+        priority="CRITICAL",
+        traps=["CONCEPT_CONFLATION", "CROSS_REGULATORY_CONFLATION", "DEFINITION_DRIFT"],
+        families=["qualification", "cross_regulatory", "false_premise"],
+        related=["SFDR-R-001", "TAXO-R-002", "TAXO-R-003"], exceptions_status="unknown",
+    ),
+    dict(
+        id="TAXO-R-002", subdomain="Taxonomie — article 9", rule_type="DEFINITION",
+        title="Les six objectifs environnementaux",
+        statement=(
+            "L'article 9 du règlement (UE) 2020/852 énumère six objectifs "
+            "environnementaux : atténuation du changement climatique, adaptation au "
+            "changement climatique, utilisation durable et protection des ressources "
+            "aquatiques et marines, transition vers une économie circulaire, prévention et "
+            "réduction de la pollution, et protection et restauration de la biodiversité et "
+            "des écosystèmes."
+        ),
+        operational_rule=(
+            "La liste est fermée : un objectif social ne relève pas de la taxonomie "
+            "environnementale du règlement 2020/852."
+        ),
+        common_confusions=[
+            "ajouter un objectif social à la liste des six objectifs environnementaux",
+            "confondre les six objectifs avec les critères de l'article 3",
+        ],
+        text="Règlement (UE) 2020/852 (Taxonomie)", article="Article 9", url=TAXO,
+        regime="TAXONOMY_1.0", valid_from="2020-07-12",
+        priority="HIGH",
+        traps=["OVERGENERALIZATION", "CONCEPT_CONFLATION", "FALSE_ARTICLE"],
+        families=["recall", "false_premise"], related=["TAXO-R-001"],
+        exceptions_status="none_identified",
+    ),
+    dict(
+        id="TAXO-R-003", subdomain="Taxonomie — articles 17 et 18", rule_type="SCOPE",
+        title="Préjudice important et garanties minimales",
+        statement=(
+            "L'article 17 du règlement (UE) 2020/852 définit ce qu'il faut entendre par "
+            "préjudice important causé aux objectifs environnementaux, et l'article 18 fixe "
+            "les garanties minimales que doit respecter l'activité, en référence à des "
+            "standards internationaux en matière de droits humains et de travail."
+        ),
+        operational_rule=(
+            "Le DNSH taxonomique (article 17) et le DNSH du SFDR ne recouvrent pas le même "
+            "périmètre ; les garanties minimales de l'article 18 sont sociales alors que la "
+            "taxonomie du règlement 2020/852 est environnementale."
+        ),
+        common_confusions=[
+            "traiter le DNSH SFDR et le DNSH taxonomie comme un seul et même test",
+            "oublier la dimension sociale des garanties minimales",
+        ],
+        text="Règlement (UE) 2020/852 (Taxonomie)", article="Articles 17 et 18", url=TAXO,
+        regime="TAXONOMY_1.0", valid_from="2020-07-12",
+        priority="CRITICAL",
+        traps=["CONCEPT_CONFLATION", "CROSS_REGULATORY_CONFLATION", "EXCEPTION_OMISSION"],
+        families=["qualification", "cross_regulatory", "abstention"],
+        related=["SFDR-R-001", "TAXO-R-001"], exceptions_status="unknown",
+    ),
+]

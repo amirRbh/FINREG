@@ -290,7 +290,10 @@ class Registre:
 
 
 def _fichiers(dossier: Path) -> list[Path]:
-    return sorted(dossier.glob("*.json")) if dossier.is_dir() else []
+    """Fichiers de données d'un dossier. Les manifestes n'en sont pas."""
+    if not dossier.is_dir():
+        return []
+    return sorted(c for c in dossier.glob("*.json") if "manifest" not in c.name)
 
 
 def charger_referentiel(racine: Path) -> tuple[Registre, list[Erreur]]:
