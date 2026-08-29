@@ -359,8 +359,9 @@ synthétique ». Son sous-dossier `corpus/private/` n'est volontairement pas
 couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine, et
 le contenu synthétique doit être versionné pour que les tests tournent.
 
-CLI : `finreg-bench valider|executer|verifier-reproductibilite`, et
-`finreg-bench rulebook qc|exporter-verification|appliquer-verification`.
+CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
+`finreg-bench rulebook qc|exporter-verification|appliquer-verification`, et
+`finreg-bench familles generer|qc|exporter-matrice`.
 
 ### Regulatory Rulebook (phase 6)
 
@@ -446,6 +447,56 @@ Quatre constats se déduisent de la citation elle-même :
 *aussi* des énoncés proches : un article porte couramment plusieurs obligations
 distinctes, et les signaler toutes noierait le vrai doublon dans le bruit. Le
 cas ordinaire ressort en `INFO meme_article`.
+
+### Question Family Map (phase 7)
+
+`familles.py` (modèle `CandidateFamily`) + `carte_familles.py` (dérivation) +
+`qc_familles.py` (contrôle qualité). Données dans `data/families/`, un fichier
+par domaine, plus `family-manifest.json`. Rapports dans `reports/`.
+
+La carte transforme `RULE → QUESTION FAMILY → TWIN GROUP → blueprint` **sans
+rédiger une seule question**. Elle dit ce qui sera mesurable, pas ce qui est
+demandé : rédiger ici reviendrait à écrire du gold sur des règles non vérifiées.
+
+**Trois axes qu'il ne faut pas confondre** :
+
+| Champ | Ce qu'il dit |
+|---|---|
+| `family_score` (0–3) | ce que l'angle vaut pédagogiquement |
+| `priority` | ce qu'une erreur coûte à un professionnel |
+| `candidate_family_status` | ce que l'état du Rulebook autorise aujourd'hui |
+
+Une famille peut valoir 3, être `CRITICAL`, et rester `blocked` : sa règle n'est
+pas vérifiée. **Le verrou du Rulebook est transporté à la carte** — une règle
+`draft` ne produit jamais de famille finalisable, et un test le vérifie. Une
+famille bloquée redevient `ready` d'elle-même quand la vérification promeut sa
+règle : on régénère, on ne réécrit pas.
+
+Douze familles (F1 à F12) qui se projettent sur les six `QuestionType` du
+harnais — la V0.2 fait foi sur le vocabulaire, la phase 7 sur les angles. Le
+seuil de rétention est `family_score >= 2` : en deçà, l'angle existe mais l'item
+serait forcé, et **on ne fabrique jamais une famille pour remplir un quota**
+(§10). Ce qui est écarté reste visible dans la matrice de couverture.
+
+**Jumeaux.** Toute fausse prémisse retenue cherche son contrôle : d'abord une
+prémisse vraie adversariale, à défaut une famille d'information manquante. Sans
+ce contrôle, un modèle gagne des points en réfutant tout.
+
+`reasoning_trap` vaut `NONE` sur une prémisse vraie — la spécification de la
+phase 7 l'impose — et le piège qu'elle **imite** va dans `mimicked_trap`. Le
+schéma `Item` de la V0.2, lui, exige un piège nommé pour
+`true_premise_adversarial` : c'est `mimicked_trap` qui y sera reporté à la
+rédaction. Les deux contrats disent la même chose, la carte les tient tous deux
+plutôt que d'en trahir un.
+
+**Redondance.** `concept_tested` nomme ce qui est mesuré, `redundancy_group_id`
+regroupe les familles du même ancrage. Deux familles du même groupe, de même
+type et de même piège ne sont un doublon que si les énoncés de leurs règles se
+ressemblent : un article porte couramment plusieurs obligations distinctes, et
+le QC du Rulebook a déjà tranché cette question — la carte applique le même
+seuil plutôt que de dire autre chose du même Rulebook.
+
+CLI : `finreg-bench familles generer|qc|exporter-matrice`.
 
 ## 10. Conventions
 

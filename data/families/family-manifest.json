@@ -1,0 +1,81 @@
+{
+  "families_per_difficulty": {
+    "2": 39,
+    "3": 16,
+    "4": 217,
+    "5": 44
+  },
+  "families_per_domain": {
+    "AMF": 30,
+    "DORA": 65,
+    "LCBFT": 67,
+    "MIFID": 58,
+    "SFDR": 96
+  },
+  "families_per_file": {
+    "amf-families": 30,
+    "dora-families": 65,
+    "lcbft-families": 67,
+    "mifid-families": 58,
+    "sfdr-families": 96
+  },
+  "families_per_kind": {
+    "CALCULATION": 1,
+    "CALIBRATED_ABSTENTION": 3,
+    "CONDITIONAL_ANSWER": 12,
+    "CROSS_REGULATORY": 17,
+    "FACT_RECALL": 46,
+    "FALSE_PREMISE": 58,
+    "MISSING_INFORMATION": 44,
+    "NEGATIVE_ASSERTION": 7,
+    "QUALIFICATION": 54,
+    "TEMPORAL": 16,
+    "TRUE_PREMISE_ADVERSARIAL": 58
+  },
+  "families_per_priority": {
+    "CRITICAL": 87,
+    "HIGH": 142,
+    "LOW": 10,
+    "MEDIUM": 77
+  },
+  "families_per_question_type": {
+    "calculation": 1,
+    "calibrated_abstention": 47,
+    "fact": 62,
+    "false_premise": 65,
+    "qualification": 83,
+    "true_premise_adversarial": 58
+  },
+  "families_per_status": {
+    "blocked": 316
+  },
+  "families_per_trap": {
+    "CONCEPT_CONFLATION": 14,
+    "CROSS_REGULATORY_CONFLATION": 17,
+    "DEFINITION_DRIFT": 2,
+    "EXCEPTION_OMISSION": 1,
+    "FALSE_ARTICLE": 7,
+    "FALSE_THRESHOLD": 11,
+    "MISSING_INFORMATION": 47,
+    "NEGATIVE_ASSERTION": 7,
+    "NONE": 171,
+    "OVERGENERALIZATION": 2,
+    "SCOPE_CONFUSION": 20,
+    "TEMPORAL_CONFUSION": 17
+  },
+  "family_map_version": "v0.1.0",
+  "generation_date": "2026-08-29",
+  "number_blocked": 316,
+  "number_critical": 87,
+  "number_of_families": 316,
+  "number_of_redundancy_groups": 55,
+  "number_of_rules": 58,
+  "number_of_rules_with_family": 58,
+  "number_of_twin_candidates": 116,
+  "number_of_twin_groups": 58,
+  "number_of_usable_rules": 0,
+  "number_ready": 0,
+  "number_requiring_negative_claim": 25,
+  "retention_threshold": 2,
+  "status_note": "Aucune règle du Rulebook n'est validée : les 316 familles de la carte sont toutes « blocked » et aucune ne peut engendrer un item du benchmark. La carte décrit ce qui sera mesurable une fois la vérification faite, pas ce qui l'est aujourd'hui."
+}

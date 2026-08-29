@@ -257,8 +257,13 @@ def _mots(texte: str) -> set[str]:
     return {m for m in re.split(r"[^0-9a-zà-ÿ]+", texte.lower()) if len(m) > 3}
 
 
-def _proximite(gauche: str, droite: str) -> float:
-    """Jaccard sur les mots signifiants. 1.0 = mêmes mots, 0.0 = aucun commun."""
+def proximite_enonces(gauche: str, droite: str) -> float:
+    """Jaccard sur les mots signifiants. 1.0 = mêmes mots, 0.0 = aucun commun.
+
+    Publique parce que le QC de la carte des familles s'en sert pour la même
+    distinction : deux règles du même article disent-elles la même chose, ou
+    portent-elles deux obligations distinctes ?
+    """
     a, b = _mots(gauche), _mots(droite)
     if not a or not b:
         return 0.0
@@ -284,7 +289,7 @@ def _doublons_conceptuels(regles: list[Rule]) -> list[Constat]:
             vus[cle] = regle
             continue
 
-        proximite = _proximite(regle.statement, precedente.statement)
+        proximite = proximite_enonces(regle.statement, precedente.statement)
         if proximite >= SEUIL_DOUBLON:
             constats.append(
                 Constat(
