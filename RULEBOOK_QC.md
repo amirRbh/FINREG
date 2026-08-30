@@ -12,7 +12,7 @@ l'exploitation du Rulebook et ce qui la limite.
 ## État de vérification
 
 - règles dont la source n'a pas été consultée : **13 / 58**
-- règles utilisables pour ancrer un gold : **10 / 58**
+- règles utilisables pour ancrer un gold : **9 / 58**
 
 > **45 règle(s) sur 58** ont été confrontées à leur texte
 > primaire, par récupération auprès de CELLAR (Office des publications de

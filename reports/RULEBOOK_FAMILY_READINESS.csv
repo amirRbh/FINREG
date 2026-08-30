@@ -1,0 +1,59 @@
+﻿ID;status;gold_ready;family_ready;family_blocker;blocker_category;explanation
+AMF-R-001;source_checked;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+AMF-R-002;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+AMF-R-003;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+AMF-R-004;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+AMF-R-005;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+DORA-R-001;validated;oui;oui;;;
+DORA-R-002;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-003;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-004;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-005;validated;oui;oui;;;
+DORA-R-006;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-007;source_checked;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+DORA-R-008;source_checked;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+DORA-R-009;validated;oui;oui;;;
+DORA-R-010;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-011;validated;oui;oui;;;
+DORA-R-012;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+DORA-R-013;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+LCBFT-R-001;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-002;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-003;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-004;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-005;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-006;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-007;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-008;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-009;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-010;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-011;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-012;draft;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (model_knowledge_unverified) : aucune réponse de référence ne pourrait être opposée
+LCBFT-R-013;source_checked;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (primary_text_fetched) : aucune réponse de référence ne pourrait être opposée
+MIFID-R-001;validated;non;non;portance;RULE_TOO_ABSTRACT;l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite
+MIFID-R-002;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+MIFID-R-003;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+MIFID-R-004;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+MIFID-R-005;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+MIFID-R-006;source_checked;non;non;temporalite_etablie;TEMPORAL_UNRESOLVED;temporalité « IN_FORCE » non établie : la date d'appréciation de la question serait arbitraire
+MIFID-R-007;validated;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+MIFID-R-008;validated;oui;oui;;;
+MIFID-R-009;validated;oui;oui;;;
+MIFID-R-010;validated;non;non;portance;RULE_TOO_ABSTRACT;l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite
+MIFID-R-011;validated;oui;oui;;;
+SFDR-R-001;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-002;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-003;source_checked;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+SFDR-R-004;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-005;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-006;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-008;source_checked;non;non;affirmations_negatives_resolues;NEGATIVE_CLAIM_UNRESOLVED;1 affirmation(s) négative(s) non vérifiée(s) : un gold affirmerait une absence que rien n'atteste
+SFDR-R-009;validated;oui;oui;;;
+SFDR-R-010;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-011;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-012;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+SFDR-R-013;validated;oui;oui;;;
+SFDR-R-014;source_checked;non;non;source_primaire_verifiee;SOURCE_INCOMPLETE;la source n'a pas été confrontée au texte primaire (primary_text_fetched) : aucune réponse de référence ne pourrait être opposée
+TAXO-R-001;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+TAXO-R-002;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu
+TAXO-R-003;source_checked;non;non;exceptions_recherchees;EXCEPTION_UNRESOLVED;recherche d'exceptions « requires_human_review » : une question construite ici testerait la règle comme un absolu

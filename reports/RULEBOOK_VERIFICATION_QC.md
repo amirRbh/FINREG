@@ -41,17 +41,17 @@ Ce que l'environnement d'exécution permet réellement, mesuré et non supposé 
 ## Synthèse
 
 - règles examinées : **58**
-- `SOURCE_CHECKED` : **43**
+- `SOURCE_CHECKED` : **45**
 - `REQUIRES_HUMAN_REVIEW` : **0**
-- `DRAFT` : **2**
+- `DRAFT` : **0**
 - `BLOCKED` : **13**
 
-- sources primaires effectivement consultées : **7** (`32014L0065`, `32015L0849`, `32017R0565`, `32019R2088`, `32020R0852`, `32022R1288`, `32022R2554`)
+- sources primaires effectivement consultées : **8** (`02017R0565-20220802`, `32014L0065`, `32015L0849`, `32017R0565`, `32019R2088`, `32020R0852`, `32022R1288`, `32022R2554`)
 - articles retrouvés dans le texte officiel : **45 / 58**
 - affirmations négatives examinées : **5**, dont corroborées absentes : **0**
 - règles sensibles au temps : **9**
 - règles dont les exceptions sont renseignées : **15 / 58**
-- anomalies relevées : **65**
+- anomalies relevées : **63**
 
 Seuil de concordance retenu : **45%** du vocabulaire de
 l'énoncé retrouvé dans l'article officiel. Ce n'est pas une mesure de vérité —
@@ -66,7 +66,7 @@ d'autre chose.
 | AMF | 5 | 0 | 0 | 1 |
 | DORA | 13 | 0 | 0 | 0 |
 | LCBFT | 13 | 0 | 0 | 12 |
-| MIFID | 11 | 0 | 2 | 0 |
+| MIFID | 11 | 0 | 0 | 0 |
 | SFDR | 16 | 0 | 0 | 0 |
 
 ## Audit des règles
@@ -102,7 +102,7 @@ exceptions inconnues, puis les affirmations négatives.
 | `SFDR-R-005` | SFDR | Règlement (UE) 2019/2088 (SFDR) | Article 6 | 2020-01-01 | SOURCE_CHECKED | unknown | in_force | exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation |
 | `TAXO-R-001` | SFDR | Règlement (UE) 2020/852 (Taxonomie | Article 3 | 2020-01-01 | SOURCE_CHECKED | unknown | in_force | exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation |
 | `TAXO-R-003` | SFDR | Règlement (UE) 2020/852 (Taxonomie | Articles 17 et 18 | 2020-01-01 | SOURCE_CHECKED | unknown | in_force | ancrage « Articles 17 et 18 » : 2 articles couverts (17, 18), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » a |
-| `MIFID-R-007` | MIFID | Règlement délégué (UE) 2017/565 mo | Article 54 | 2020-01-01 | DRAFT | identified_and_incorporated | in_force | l'URL désigne l'acte 32021R1253 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité ; la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n' |
+| `MIFID-R-007` | MIFID | Règlement délégué (UE) 2017/565 mo | Article 54 | 2022-08-02 | SOURCE_CHECKED | identified_and_incorporated | in_force | l'URL désigne l'acte 02017R0565-20220802 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité ; affirmation négative « Le texte fixerait une proportion minimale chi |
 | `DORA-R-001` | DORA | Règlement (UE) 2022/2554 (DORA) | Article 2 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
 | `DORA-R-011` | DORA | Règlement (UE) 2022/2554 (DORA) | Article 30 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
 | `SFDR-R-001` | SFDR | Règlement (UE) 2019/2088 (SFDR) | Article 2 | 2020-01-01 | SOURCE_CHECKED | none_identified | in_force | — |
@@ -131,7 +131,7 @@ exceptions inconnues, puis les affirmations négatives.
 | `MIFID-R-008` | MIFID | Directive 2014/65/UE (MIFID II) | Article 16 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
 | `MIFID-R-009` | MIFID | Directive 2014/65/UE (MIFID II) | Article 27 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
 | `MIFID-R-010` | MIFID | Directive 2014/65/UE (MIFID II) | Article 9 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
-| `MIFID-R-011` | MIFID | Règlement délégué (UE) 2017/565 | Article 54 | 2020-01-01 | DRAFT | identified_and_incorporated | in_force | énoncé peu corroboré par le texte cité (36% du vocabulaire retrouvé) : la règle parle peut-être d'autre chose |
+| `MIFID-R-011` | MIFID | Règlement délégué (UE) 2017/565 | Article 54 | 2022-08-02 | SOURCE_CHECKED | identified_and_incorporated | in_force | l'URL désigne l'acte 02017R0565-20220802 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité |
 | `SFDR-R-013` | SFDR | Règlement (UE) 2019/2088 (SFDR) | Article 13 | 2020-01-01 | SOURCE_CHECKED | identified_and_incorporated | in_force | — |
 | `TAXO-R-002` | SFDR | Règlement (UE) 2020/852 (Taxonomie | Article 9 | 2020-01-01 | SOURCE_CHECKED | none_identified | in_force | — |
 
@@ -188,13 +188,13 @@ exceptions inconnues, puis les affirmations négatives.
 - `MIFID-R-006` : la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n'existe (02017R0565-20200101) : la date de consolidation applicable doit être établie, sans quoi la règle est vérifiée contre le texte d'origine
 - `MIFID-R-006` : ancrage « Article 2 et article 54 du règlement délégué (UE) 2017/565 modifié » : 2 articles couverts (2, 54), à découper avant qu'un gold puisse le citer
 - `TAXO-R-003` : ancrage « Articles 17 et 18 » : 2 articles couverts (17, 18), à découper avant qu'un gold puisse le citer
-- `MIFID-R-007` : l'URL désigne l'acte 32021R1253 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité
-- `MIFID-R-007` : la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n'existe (02017R0565-20200101) : la date de consolidation applicable doit être établie, sans quoi la règle est vérifiée contre le texte d'origine
+- `MIFID-R-007` : l'URL désigne l'acte 02017R0565-20220802 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité
 - `DORA-R-004` : ancrage « Articles 8 à 13 » : 6 articles couverts (8, 9, 10, 11, 12, 13), à découper avant qu'un gold puisse le citer
 - `LCBFT-R-013` : la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n'existe (02015L0849-20200101) : la date de consolidation applicable doit être établie, sans quoi la règle est vérifiée contre le texte d'origine
 - `LCBFT-R-013` : ancrage « Ensemble de la directive » : aucun article désigné, la règle est vérifiée contre l'acte entier et aucun gold ne pourra citer sa disposition
 - `SFDR-R-014` : ancrage « Ensemble du règlement délégué » : aucun article désigné, la règle est vérifiée contre l'acte entier et aucun gold ne pourra citer sa disposition
 - `DORA-R-009` : ancrage « Articles 24 à 26 » : 3 articles couverts (24, 25, 26), à découper avant qu'un gold puisse le citer
+- `MIFID-R-011` : l'URL désigne l'acte 02017R0565-20220802 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité
 
 ### Chiffre non retrouvé — 5
 
@@ -210,11 +210,6 @@ exceptions inconnues, puis les affirmations négatives.
 - `AMF-R-004` : source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative
 - `AMF-R-002` : source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative
 - `AMF-R-003` : source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative
-
-### Énoncé peu corroboré — 2
-
-- `MIFID-R-007` : énoncé peu corroboré par le texte cité (32% du vocabulaire retrouvé) : la règle parle peut-être d'autre chose
-- `MIFID-R-011` : énoncé peu corroboré par le texte cité (36% du vocabulaire retrouvé) : la règle parle peut-être d'autre chose
 
 ## Règles critiques restant à trancher
 
@@ -246,7 +241,7 @@ exceptions inconnues, puis les affirmations négatives.
 | `SFDR-R-005` | SOURCE_CHECKED | exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation |
 | `TAXO-R-001` | SOURCE_CHECKED | exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation |
 | `TAXO-R-003` | SOURCE_CHECKED | ancrage « Articles 17 et 18 » : 2 articles couverts (17, 18), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « |
-| `MIFID-R-007` | DRAFT | l'URL désigne l'acte 32021R1253 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité ; la source dit l'acte modifié, mais aucune version consoli |
+| `MIFID-R-007` | SOURCE_CHECKED | l'URL désigne l'acte 02017R0565-20220802 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité ; affirmation négative « Le texte fixerait une pro |
 | `DORA-R-001` | SOURCE_CHECKED | — |
 | `DORA-R-011` | SOURCE_CHECKED | — |
 | `SFDR-R-001` | SOURCE_CHECKED | — |
