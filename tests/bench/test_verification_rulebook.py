@@ -640,3 +640,115 @@ def test_un_constat_orphelin_arrete_la_generation(tmp_path, monkeypatch):
     )
     with pytest.raises(VerificationInvalide, match="sans règle correspondante"):
         generer_rulebook.generer()
+
+
+# --------------------------------------------------------------------------- #
+# Verrou du périmètre : « je n'ai pas trouvé » n'est pas « il n'y en a pas »
+# --------------------------------------------------------------------------- #
+
+
+def _decision(**surcharges: Any) -> dict[str, Any]:
+    """Une décision signée, recevable, à laquelle on retire une pièce à la fois."""
+    donnees: dict[str, Any] = {
+        "rule_id": "RULE-SYNTH-001",
+        "verdict": "confirme",
+        "verification_method": "primary_text_review",
+        "verified_by": "Relecteur de test",
+        "verification_date": "2026-08-30",
+        "target_status": "source_checked",
+    }
+    donnees.update(surcharges)
+    return donnees
+
+
+def test_une_absence_sans_perimetre_est_refusee_a_la_porte() -> None:
+    """`unknown` ne devient pas `none_identified` faute d'avoir trouvé."""
+    from src.bench.verification import VerificationSignee
+
+    with pytest.raises(ValueError, match="source_scope"):
+        VerificationSignee.model_validate(
+            _decision(exceptions_status="none_identified")
+        )
+
+
+def test_une_absence_attestee_sur_son_perimetre_passe() -> None:
+    from src.bench.verification import VerificationSignee
+
+    decision = VerificationSignee.model_validate(
+        _decision(
+            exceptions_status="none_identified",
+            source_scope="articles L.561-1 à L.561-22, version consolidée au 2026-01-01",
+        )
+    )
+    assert decision.source_scope.startswith("articles")
+
+
+def test_une_exception_incorporee_dit_dou_elle_sort_et_de_quelle_version() -> None:
+    from src.bench.verification import VerificationSignee
+
+    portee = _decision(
+        exceptions_status="identified_and_incorporated",
+        exceptions=["Par dérogation au premier alinéa, …"],
+    )
+    with pytest.raises(ValueError, match="de quelle disposition elle sort"):
+        VerificationSignee.model_validate(portee)
+
+    with pytest.raises(ValueError, match="opposable à personne"):
+        VerificationSignee.model_validate({**portee, "source_scope": "article L.561-9"})
+
+    complete = VerificationSignee.model_validate(
+        {**portee, "source_scope": "article L.561-9", "version_date": "2026-01-01"}
+    )
+    assert complete.exceptions
+
+
+def test_le_registre_deja_signe_reste_rejouable() -> None:
+    """Durcir le barème ne doit pas invalider une signature déjà portée.
+
+    Sinon il faudrait compléter après coup un constat signé — c'est-à-dire
+    falsifier une signature — ou renoncer à rejouer le registre.
+    """
+    from src.bench.verification import Verification
+
+    ancien = Verification.model_validate(
+        _decision(
+            exceptions_status="identified_and_incorporated",
+            exceptions=["Par dérogation au premier alinéa, …"],
+        )
+    )
+    assert ancien.source_scope == ""
+
+
+def test_le_perimetre_traverse_le_dossier_csv(tmp_path: Path) -> None:
+    """Le périmètre doit arriver jusqu'au registre, sinon il n'atteste rien."""
+    from src.bench.verification import (
+        COLONNES,
+        ENCODAGE_CSV,
+        SEPARATEUR_CSV,
+        exporter_dossier,
+        lire_dossier,
+    )
+
+    assert "perimetre_exceptions" in COLONNES
+    chemin = tmp_path / "dossier.csv"
+    exporter_dossier([brouillon()], chemin)
+    lignes = chemin.read_text(encoding=ENCODAGE_CSV).splitlines()
+    entete = lignes[0].split(SEPARATEUR_CSV)
+    valeurs = {nom: "" for nom in entete}
+    valeurs.update(
+        {
+            "rule_id": "RULE-SYNTH-001",
+            "verdict": "confirme",
+            "methode": "primary_text_review",
+            "verifie_par": "Relecteur de test",
+            "date_verification": "2026-08-30",
+            "statut_vise": "source_checked",
+            "exceptions_statut": "none_identified",
+            "perimetre_exceptions": "acte entier, version consolidée au 2026-01-01",
+        }
+    )
+    lignes[1] = SEPARATEUR_CSV.join(valeurs[nom] for nom in entete)
+    chemin.write_text("\n".join(lignes) + "\n", encoding=ENCODAGE_CSV)
+
+    (relu,) = lire_dossier(chemin)
+    assert relu.source_scope == "acte entier, version consolidée au 2026-01-01"

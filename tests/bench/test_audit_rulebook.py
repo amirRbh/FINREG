@@ -40,6 +40,8 @@ from src.bench.rapport_audit import (
 )
 from src.bench.regles import Rule
 from src.bench.sources_primaires import (
+    _RedirectionHttps,
+    _en_https,
     RecuperationImpossible,
     Reponse,
     celex_consolide,
@@ -601,3 +603,41 @@ def test_le_rapport_dit_ce_quil_ne_fait_pas() -> None:
     assert "s'accorder à lui-même" in texte
     assert "REQUIRES_HUMAN_REVIEW" in texte
     assert "règles examinées" in texte
+
+
+# --------------------------------------------------------------------------- #
+# Transport : une URI publiée en HTTP se demande en HTTPS
+# --------------------------------------------------------------------------- #
+
+
+def test_une_uri_publiee_en_http_se_demande_en_https() -> None:
+    """CELLAR publie ses URI en `http://` ; certains relais ne passent que le HTTPS."""
+    assert _en_https("http://publications.europa.eu/resource/celex/32019R2088") == (
+        "https://publications.europa.eu/resource/celex/32019R2088"
+    )
+
+
+def test_une_uri_deja_en_https_nest_pas_touchee() -> None:
+    assert _en_https("https://exemple.invalid/a") == "https://exemple.invalid/a"
+
+
+def test_la_bascule_sapplique_aussi_aux_redirections() -> None:
+    """CELLAR résout un CELEX par un 303 vers une URI en clair.
+
+    Ne basculer que l'URL de départ laisserait ce saut-là en HTTP — et c'est
+    lui qui échoue là où seul le HTTPS est relayé.
+    """
+    import email.message
+    import urllib.request
+
+    depart = urllib.request.Request("https://publications.europa.eu/resource/celex/32019R2088")
+    entetes = email.message.Message()
+    redirigee = _RedirectionHttps().redirect_request(
+        depart,
+        None,
+        303,
+        "See Other",
+        entetes,
+        "http://publications.europa.eu/resource/cellar/4f50e277/rdf/object/full",
+    )
+    assert redirigee.full_url.startswith("https://")

@@ -524,8 +524,22 @@ reproduction, c'est l'acte. Mesuré depuis l'environnement d'exécution :
 |---|---|---|
 | CELLAR | texte authentique du JO | **voie retenue** |
 | `eur-lex.europa.eu` | HTTP 200 mais sert la page d'accueil du JO | inutilisable |
-| `legifrance.gouv.fr` | HTTP 403 | Code monétaire et financier hors d'atteinte |
-| `amf-france.org` | page réelle | doctrine AMF atteignable |
+| `legifrance.gouv.fr` | HTTP 403 servi par Cloudflare, **après** tunnel établi | Code monétaire et financier hors d'atteinte |
+| `amf-france.org` | page réelle ; l'URL du RG enregistrée rend 404 | doctrine atteignable, RG à réancrer |
+
+**Un refus de la source et un refus de l'environnement ne se confondent pas.**
+Un bac à sable dont la politique réseau n'autorise pas un hôte refuse le CONNECT
+lui-même : rien n'atteint le site, et le 403 est celui de la passerelle. Le 403
+de Légifrance, lui, arrive *après* un tunnel établi — c'est le site qui refuse.
+Les traiter pareil ferait chercher la solution du mauvais côté : l'un se règle
+en ouvrant la politique de l'environnement, l'autre pas.
+
+**CELLAR se demande en HTTPS, redirections comprises.** Ses URI sont publiées en
+`http://` et son 303 renvoie lui aussi vers une URI en clair : ne basculer que
+l'URL de départ laisse le second saut en HTTP, et il échoue partout où seul le
+HTTPS est relayé. La bascule est dans le transport (`_en_https`,
+`_RedirectionHttps`) — jamais dans les identifiants enregistrés, qui restent
+ceux de l'acte.
 
 Un `200` qui rend une page d'accueil est plus dangereux qu'un `403` : il se lit
 comme un succès. Chaque récupération est donc **validée sur son contenu** —
@@ -682,6 +696,130 @@ vides, et rien ne les remplit à sa place.
 CLI : `finreg-bench rulebook preparer-revue|appliquer-revue`. Sorties dans
 `reports/HUMAN_REVIEW_QUEUE.md`, `HUMAN_REVIEW_PROGRESS.md` et
 `data/verification/dossier-revue-p0p1.csv`.
+
+### Arbitrage humain P0/P1 (`adjudication.py`, `relecture.py`)
+
+La file de revue dit **qu'une** règle demande un juriste. Un dossier d'arbitrage
+dit quoi lire, jusqu'où chercher, quelle question trancher, et ce que la réponse
+changera — sans quoi le relecteur refait lui-même l'enquête à chaque entrée.
+
+Quarante-quatre dossiers : 28 P0, 16 P1. P2 et P3 attendent — on arbitre dans
+l'ordre de la gravité.
+
+**Deux champs qu'il ne faut jamais mélanger.** `TEXTUAL_FACTS` ne porte que ce
+qui est écrit dans les sources ; `INTERPRETIVE_QUESTION` porte ce qui demande un
+arbitrage. Les fondre rendrait un fait aussi contestable qu'une lecture.
+`mechanical_proposal` (cinq valeurs) dit ce que l'automate a vu, jamais ce que le
+droit dit : une règle sans structure limitante repérée ressort
+`NO_EXCEPTION_IDENTIFIED_IN_REVIEWED_SCOPE`, qui énonce le périmètre balayé — pas
+une absence d'exception.
+
+**Le blocage principal n'est pas le seul.** La question porte sur le plus
+fondamental, mais la priorité P0 tient souvent à un autre : les douze règles
+LCB-FT butent d'abord sur une source inaccessible, et restent P0 à cause de leurs
+exceptions non cherchées. Chaque dossier liste donc les blocages restants — sans
+quoi lever la source ferait croire la règle réglée.
+
+**Le regroupement partage une question, jamais une règle.** `review_cluster_id`
+vaut `CL-<acte>-<ancrage>-<catégorie>` : quatre règles MiFID II sur l'article 25
+posent la même question et se tranchent une fois. Les règles restent distinctes
+dans le Rulebook — un article porte couramment plusieurs obligations. Les lots de
+consultation sont autre chose et le disent : même source hors d'atteinte, un seul
+déplacement, mais douze décisions.
+
+**Aucune décision ne s'écrit toute seule.** Le dossier CSV sort avec ses colonnes
+de décision vides, et regénérer le pack ne réécrit pas un dossier qui en porte.
+`DecisionAdjudication` refuse une décision non signée, un `NONE_IDENTIFIED` sans
+`source_scope` — « je n'ai pas trouvé » n'est pas « il n'y en a pas » — et un
+`IDENTIFIED_AND_INCORPORATED` sans exception recopiée. C'est une validation de
+schéma, pas une consigne dans un rapport. La lecture est tout ou rien.
+
+**La progression n'annonce jamais d'« après ».** Les seuils se recalculent en
+rejouant l'audit sur le Rulebook corrigé ; un « après » prévisionnel serait un
+`gold_ready` accordé par anticipation.
+
+**Les constats sont relus, pas refaits.** `relecture.py` reconstruit les constats
+depuis les artefacts d'audit publiés, stampe le pack de leur empreinte, et
+**refuse d'écrire** si le blocage reconstruit diffère de celui que l'audit avait
+publié. Une relecture ne peut rien établir de neuf — elle sert quand le texte
+primaire n'est pas atteignable. Un audit relancé avec l'accès à CELLAR reproduit
+les artefacts au bit près : c'est la vérification la plus forte de la relecture.
+
+CLI : `finreg-bench rulebook adjudication`. Sorties dans
+`reports/HUMAN_REVIEW_P0_P1.md`, `reports/HUMAN_REVIEW_PROGRESS.md` et
+`data/verification/dossier-adjudication.csv`.
+
+### Plan de revue (`plan_action.py`)
+
+Le pack d'arbitrage dit quoi trancher ; il ne dit pas par où commencer. Or les
+quarante-quatre décisions n'ont pas le même rendement : **une** consultation du
+Code monétaire et financier lève le blocage de douze règles.
+
+**Une action principale par règle**, choisie sur le blocage principal — et, pour
+un blocage de source, corrigée par ce que l'audit a rencontré. Les trois cas ne
+demandent pas le même travail : la source refuse (403 après tunnel établi) et il
+faut aller lire ailleurs ; l'URL ne désigne plus rien (404) et la source se
+réancre ; l'acte a bien été récupéré et c'est alors l'**ancrage** qui manque —
+« Ensemble de la directive » ne désigne aucune disposition. Envoyer quelqu'un
+consulter un texte déjà consulté ne lèverait rien.
+
+**Deux axes de regroupement, qui ne disent pas la même chose.** Un *cluster de
+décision* partage une question : une décision couvre ses règles. Un *lot de
+lecture* partage un empêchement : une consultation sert ses dossiers, et chaque
+règle garde sa décision. Un lot suppose plusieurs dossiers — en annoncer un pour
+une règle seule gonflerait le rendement affiché.
+
+**L'ordre d'exécution ne touche pas aux priorités.** P0 dit ce qu'une erreur
+coûte ; le rang dit par où commencer. Une consultation qui débloque douze règles
+passe devant un P0 isolé parce qu'elle coûte une action pour douze résultats —
+pas parce qu'elle serait plus grave.
+
+**« Débloque » n'est pas « achève ».** Une action lève le blocage principal ;
+les règles qui en portent d'autres retombent dans la file. Le plan compte les
+deux, sans quoi une consultation aurait l'air de finir douze règles.
+
+**Rien n'est promu, et la projection le dit à chaque ligne** (`PROJECTED_ONLY`).
+`expected_status_after_decision` parle au conditionnel, et sur une règle dont le
+texte n'a pas été lu il dit ce qu'il ignore : les blocages qu'un texte encore
+fermé révélera ne se devinent pas.
+
+CLI : `finreg-bench rulebook plan-action`. Sorties dans
+`reports/HUMAN_REVIEW_ACTION_PLAN.md` et `.csv`,
+`reports/LCBFT_MANUAL_CONSULTATION_PACK.md` — qui n'affirme rien du contenu des
+articles qu'il énumère — et `reports/AMF-R-005-SOURCE-REANCHORING.md`, qui
+n'inscrit aucune URL de remplacement.
+
+### Lot de consultation et verrou du périmètre (`rapport_lot.py`)
+
+Un lot rassemble les règles qu'un seul document, une fois ouvert, sert toutes.
+Son dossier pose **deux décisions par règle**, jamais une : l'énoncé est-il
+soutenu par la disposition citée, et cette disposition est-elle limitée
+ailleurs ? Confirmer la première ne répond pas à la seconde — une règle
+confirmée dont les exceptions restent `unknown` se testerait comme un absolu.
+
+**La feuille de décision est celle du circuit de vérification**, restreinte aux
+règles du lot. Une seconde feuille ferait exister deux chemins vers le registre,
+donc deux vérités. Le vocabulaire de la revue s'y traduit : `NONE_IDENTIFIED` →
+`confirme` + `none_identified` ; `IDENTIFIED_AND_INCORPORATED` → `confirme` +
+exceptions recopiées ; `REQUIRES_CORRECTION` → `corrige` ; `REJECTED` →
+`refute`.
+
+**Une conclusion sur les exceptions dit son périmètre** (`VerificationSignee`) :
+`none_identified` sans `perimetre_exceptions` est refusé, et une exception
+incorporée doit dire de quelle disposition et de quelle version elle sort. C'est
+ce verrou qui empêche `unknown` de devenir `none_identified` au seul motif
+qu'une recherche automatique n'a rien trouvé — l'automate ne remplit jamais ce
+champ.
+
+**Le barème du jour s'applique à la porte, pas à l'histoire.** Poser ce verrou
+sur `Verification` l'aurait appliqué rétroactivement aux constats déjà signés au
+registre : ils auraient cessé de se rejouer, ou il aurait fallu les compléter
+après coup — c'est-à-dire falsifier une signature. `VerificationSignee` ne
+s'applique donc qu'à un dossier entrant ; le registre reste rejouable tel qu'il
+a été écrit.
+
+CLI : `finreg-bench rulebook lot --id LOT-CMF`. Sorties dans
+`reports/LOT_CMF_REVIEW_DOSSIER.md` et `data/verification/dossier-lot-cmf.csv`.
 
 ### Question Family Map (phase 7)
 

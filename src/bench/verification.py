@@ -229,6 +229,40 @@ class Verification(ModeleStrict):
         return self
 
 
+class VerificationSignee(Verification):
+    """Un constat **rendu aujourd'hui** par un relecteur, sous le barème courant.
+
+    Le barème se durcit avec le temps ; l'histoire, elle, ne se réécrit pas. Un
+    verrou posé sur `Verification` s'appliquerait rétroactivement aux constats
+    déjà signés au registre : soit ils cesseraient de se rejouer, soit il
+    faudrait les compléter après coup — c'est-à-dire falsifier une signature.
+    Le barème du jour s'applique donc à la porte d'entrée, là où une décision
+    nouvelle arrive, et le registre reste rejouable tel qu'il a été écrit.
+    """
+
+    @model_validator(mode="after")
+    def _une_exception_incorporee_dit_son_origine(self) -> VerificationSignee:
+        """Une dérogation portée doit dire d'où elle sort et de quelle version.
+
+        Le modèle de base tient déjà l'absence : `none_identified` sans
+        `source_scope` y est refusé. Ce qui s'ajoute ici vise l'autre issue —
+        une exception recopiée sans disposition d'origine ni date n'est
+        opposable à personne, et un extrait non daté ne se réoppose pas.
+        """
+        if self.exceptions_status in EXCEPTIONS_PORTEES:
+            if not self.source_scope.strip():
+                raise ValueError(
+                    "exceptions incorporées sans perimetre_exceptions : une "
+                    "dérogation doit dire de quelle disposition elle sort"
+                )
+            if self.version_date is None:
+                raise ValueError(
+                    "exceptions incorporées sans version_date_constatee : un "
+                    "extrait sans date n'est opposable à personne"
+                )
+        return self
+
+
 # -- dossier de vérification (CSV) ------------------------------------------------ #
 
 #: Colonnes de contexte, remplies par l'export : ce qu'il faut lire.
@@ -260,6 +294,7 @@ COLONNES_A_REMPLIR = [
     "version_date_constatee",
     "exceptions_statut",
     "exceptions_constatees",
+    "perimetre_exceptions",
     "gold_ready",
     "gold_ready_motif",
     "commentaire",
@@ -363,6 +398,7 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                     for e in (ligne.get("exceptions_constatees") or "").split("|")
                     if e.strip()
                 ],
+                "source_scope": (ligne.get("perimetre_exceptions") or "").strip(),
             }
 
             methode = (ligne.get("methode") or "").strip()
@@ -384,7 +420,7 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                 ).strip()
 
             try:
-                verifications.append(Verification.model_validate(donnees))
+                verifications.append(VerificationSignee.model_validate(donnees))
             except ValueError as exc:
                 premiere = str(exc).splitlines()
                 detail = next(

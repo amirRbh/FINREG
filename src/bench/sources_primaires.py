@@ -130,10 +130,40 @@ class Recuperateur(Protocol):
         ...  # pragma: no cover - protocole
 
 
+def _en_https(url: str) -> str:
+    """Demande en HTTPS une URI publiée en HTTP.
+
+    Les URI CELLAR s'écrivent en `http://` — c'est ainsi que l'Office des
+    publications les publie, et une URI est un identifiant, pas une adresse de
+    transport. On la demande donc en `https://` sans la réécrire nulle part :
+    l'identifiant enregistré dans les règles reste celui de l'acte, et certains
+    environnements d'exécution ne relaient que le HTTPS.
+    """
+    return "https://" + url[len("http://") :] if url.startswith("http://") else url
+
+
+class _RedirectionHttps(urllib.request.HTTPRedirectHandler):
+    """Applique la bascule aussi aux redirections.
+
+    CELLAR résout un CELEX par un 303 vers une URI en `http://` : ne basculer
+    que l'URL de départ laisserait le saut suivant en clair, et c'est lui qui
+    échoue là où seul le HTTPS est relayé.
+    """
+
+    def redirect_request(self, requete, flux, code, message, entetes, nouvelle_url):
+        return super().redirect_request(
+            requete, flux, code, message, entetes, _en_https(nouvelle_url)
+        )
+
+
+#: Ouvreur partagé : il suit les redirections en forçant le HTTPS.
+_OUVREUR = urllib.request.build_opener(_RedirectionHttps())
+
+
 def recuperateur_http(url: str, entetes: dict[str, str]) -> Reponse:
     """Récupérateur réel. Jamais utilisé par les tests."""
-    requete = urllib.request.Request(url, headers=entetes)
-    with urllib.request.urlopen(requete, timeout=60) as reponse:
+    requete = urllib.request.Request(_en_https(url), headers=entetes)
+    with _OUVREUR.open(requete, timeout=60) as reponse:
         return Reponse(reponse.status, reponse.read(), reponse.geturl())
 
 

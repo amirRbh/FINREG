@@ -37,6 +37,18 @@ from src.bench.rapport_completude import (
     MATRICE_GOLD,
     RAPPORT_COMPLETUDE,
 )
+from scripts.preparer_lot import DOSSIER_LOT_CMF, FEUILLE_LOT_CMF
+from src.bench.rapport_adjudication import (
+    DOSSIER_ADJUDICATION,
+    PACK_ADJUDICATION,
+    PROGRESSION,
+)
+from src.bench.rapport_plan_action import (
+    DOSSIER_REANCRAGE,
+    PACK_LCBFT,
+    PLAN_ACTION,
+    PLAN_ACTION_CSV,
+)
 from src.bench.rapport_readiness import MATRICE_READINESS, SYNTHESE_READINESS
 from src.bench.rapport_revue import BORDEREAU_REVUE, FILE_REVUE
 from src.bench.qc_rulebook import (
@@ -465,8 +477,108 @@ def rulebook_appliquer_revue(
         "  appliquer avec : finreg-bench rulebook appliquer-verification "
         f"{bordereau} — puis relancer completude et readiness"
     )
+@rulebook.command("adjudication")
+def rulebook_adjudication(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    pack_chemin: Annotated[
+        Path, typer.Option("--pack", help="Pack de revue P0/P1.")
+    ] = PACK_ADJUDICATION,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier d'arbitrage à remplir.")
+    ] = DOSSIER_ADJUDICATION,
+    progression_chemin: Annotated[
+        Path, typer.Option("--progression", help="Rapport de progression.")
+    ] = PROGRESSION,
+) -> None:
+    """Prépare les dossiers d'arbitrage P0 puis P1. Ne décide rien, ne promeut rien.
+
+    Le dossier CSV sort avec ses colonnes de décision vides ; s'il en porte déjà,
+    il n'est pas réécrit — regénérer un pack ne doit jamais effacer un arbitrage
+    rendu.
+    """
+    from scripts.preparer_adjudication import preparer_adjudication
+
+    resultat = preparer_adjudication(racine, pack_chemin, dossier, progression_chemin)
+    typer.secho(f"{resultat['dossiers']} dossier(s) d'arbitrage", fg=typer.colors.GREEN)
+    for priorite, compte in resultat["par_priorite"].items():
+        typer.echo(f"  {priorite} : {compte}")
+    typer.echo(f"  questions distinctes : {resultat['questions_distinctes']}")
+    typer.echo(f"  regroupements (>1 règle) : {resultat['regroupements']}")
+    typer.echo(f"  décisions déjà rendues : {resultat['decisions_rendues']}")
+    if resultat["dossier_preserve"]:
+        typer.secho(
+            "  dossier conservé en l'état : il porte des décisions",
+            fg=typer.colors.YELLOW,
+        )
+    typer.echo(f"  empreinte de l'audit relu : {resultat['empreinte']}")
 
 
+@rulebook.command("plan-action")
+def rulebook_plan_action(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    plan: Annotated[Path, typer.Option("--plan", help="Plan de revue.")] = PLAN_ACTION,
+    plan_csv: Annotated[
+        Path, typer.Option("--plan-csv", help="Queue P0/P1 en CSV.")
+    ] = PLAN_ACTION_CSV,
+    lcbft: Annotated[
+        Path, typer.Option("--lcbft", help="Pack de consultation manuelle LCB-FT.")
+    ] = PACK_LCBFT,
+    reancrage: Annotated[
+        Path, typer.Option("--reancrage", help="Dossier de réancrage de source.")
+    ] = DOSSIER_REANCRAGE,
+) -> None:
+    """Range les arbitrages P0/P1 en actions et calcule l'ordre de travail.
+
+    Ne décide rien, ne promeut rien, n'écrit ni règle, ni registre, ni famille.
+    """
+    from scripts.preparer_plan_action import preparer_plan_action
+
+    resultat = preparer_plan_action(racine, plan, plan_csv, lcbft, reancrage)
+    typer.secho(f"{resultat['regles']} règle(s) au plan", fg=typer.colors.GREEN)
+    for action, compte in resultat["par_action"].items():
+        typer.echo(f"  {action:24s} {compte}")
+    typer.echo(f"  regroupements : {resultat['groupes']} — étapes : {resultat['etapes']}")
+    typer.echo(
+        f"  LCB-FT à consulter : {resultat['lcbft']} — "
+        f"réancrages documentés : {resultat['reancrages']}"
+    )
+    for item in resultat["bloquants"]:
+        typer.secho(f"  BLOQUANT — {item}", fg=typer.colors.YELLOW)
+    typer.secho(f"  PROCHAINE ACTION — {resultat['prochaine_action']}", fg=typer.colors.CYAN)
+
+
+@rulebook.command("lot")
+def rulebook_lot(
+    identifiant: Annotated[
+        str, typer.Option("--id", help="Identifiant du lot ou du cluster.")
+    ] = "LOT-CMF",
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier de consultation du lot.")
+    ] = DOSSIER_LOT_CMF,
+    feuille: Annotated[
+        Path, typer.Option("--feuille", help="Feuille de décision, colonnes vides.")
+    ] = FEUILLE_LOT_CMF,
+) -> None:
+    """Prépare le dossier de consultation d'un lot et sa feuille de décision vierge.
+
+    Ne lit aucun texte primaire, ne décide rien, ne promeut rien.
+    """
+    from scripts.preparer_lot import preparer_lot
+
+    resultat = preparer_lot(identifiant, racine, dossier, feuille)
+    typer.secho(
+        f"{resultat['lot']} — {len(resultat['regles'])} règle(s) : {resultat['source']}",
+        fg=typer.colors.GREEN,
+    )
+    for rule_id in resultat["regles"]:
+        typer.echo(f"  {rule_id}")
+    typer.echo(f"  statuts : {resultat['statuts']}")
+    typer.echo(f"  exceptions : {resultat['exceptions_statuts']}")
+    typer.secho(
+        "  aucune décision écrite : les colonnes de décision sortent vides",
+        fg=typer.colors.YELLOW,
+    )
 # -- Question Family Map ------------------------------------------------------------ #
 
 
