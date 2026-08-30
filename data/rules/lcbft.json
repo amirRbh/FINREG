@@ -635,7 +635,7 @@
     "exceptions_status": "unknown",
     "id": "LCBFT-R-013",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] RÉSERVES — la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n'existe (02015L0849-20200101) : la date de consolidation applicable doit être établie, sans quoi la règle est vérifiée contre le texte d'origine ; ancrage « Ensemble de la directive » : aucun article désigné, la règle est vérifiée contre l'acte entier et aucun gold ne pourra citer sa disposition ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Une directive n'est pas d'application directe : l'obligation opposable en France est celle du code monétaire et financier, pas celle de la directive.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -655,19 +655,19 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "La directive (UE) 2015/849, modifiée notamment par la directive (UE) 2018/843, constitue le cadre européen relatif à la prévention de l'utilisation du système financier aux fins du blanchiment de capitaux et du financement du terrorisme, transposé en droit français dans le code monétaire et financier.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Cadre européen",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Directives européennes de transposition",
     "valid_from": "2015-06-05",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   }
 ]

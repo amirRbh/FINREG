@@ -395,11 +395,20 @@ questions dangereusement simplifiées.
 `verified_absent` sans méthode suffisante **et** `searched_in`. C'est ce qui
 empêche de transformer « je n'ai pas trouvé » en « cela n'existe pas ».
 
-**État du Rulebook V0 : 58 règles, toutes en `draft`, aucune utilisable.** Les
-sources primaires sont inaccessibles depuis l'environnement de génération
-(EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA bloqués par le proxy réseau). Les
-références proviennent de la connaissance du modèle et doivent être confrontées
-au texte par un humain. Le rapport `RULEBOOK_QC.md` le dit en tête.
+**État du Rulebook V0 : 58 règles, 43 en `source_checked`, 15 en `draft`,
+aucune `validated`.** Les 43 promues ont été confrontées à leur texte primaire
+par récupération auprès de CELLAR (voir l'audit ci-dessous) et signées au
+registre de vérification. Les 15 restantes sont hors d'atteinte depuis cet
+environnement : 12 règles LCB-FT adossées au Code monétaire et financier
+(Légifrance 403), le Règlement général de l'AMF, et deux règles MiFID dont
+l'énoncé ne se retrouve pas dans le texte cité.
+
+**`source_checked` n'est pas `validated`.** Une source attestée dit que le texte
+a été lu ; elle ne dit pas que la règle est complète. `validated` exige en outre
+des exceptions cherchées — elles restent `unknown` sur 55 règles. C'est pourquoi
+**aucune règle n'ancre encore un gold**, et pourquoi les familles candidates
+restent toutes `blocked`. Le rapport `RULEBOOK_QC.md` calcule cet état à partir
+des règles, il ne le récite pas.
 
 ### Circuit de vérification (`verification.py`)
 

@@ -25,7 +25,7 @@
         "verification_method": "model_knowledge_unverified"
       }
     ],
-    "notes": "",
+    "notes": "[confirme] RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation ; source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative",
     "operational_rule": "La communication commerciale est graduée selon l'engagement réel : un produit dont l'approche n'est pas significativement engageante ne peut pas faire de l'extra-financier un axe central de communication.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -46,19 +46,19 @@
       "paragraph": "",
       "text": "Position-recommandation AMF DOC-2020-03",
       "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "La position-recommandation AMF DOC-2020-03 subordonne la possibilité pour un placement collectif de communiquer de manière centrale sur la prise en compte de critères extra-financiers au caractère significativement engageant de l'approche mise en œuvre.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Approche significativement engageante",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Condition d'une communication centrale sur les critères extra-financiers",
     "valid_from": "2020-03-11",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -74,7 +74,7 @@
     "exceptions_status": "unknown",
     "id": "AMF-R-002",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation ; source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative",
     "operational_rule": "Le niveau de communication autorisé se déduit du degré d'engagement, non de l'intention commerciale.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -95,19 +95,19 @@
       "paragraph": "",
       "text": "Position-recommandation AMF DOC-2020-03",
       "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "La position-recommandation AMF DOC-2020-03 distingue plusieurs niveaux de communication sur la prise en compte de critères extra-financiers, du niveau central au niveau réduit, selon le degré d'engagement du produit.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Communication",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Proportionnalité de la communication extra-financière",
     "valid_from": "2020-03-11",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -123,7 +123,7 @@
     "exceptions_status": "unknown",
     "id": "AMF-R-003",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation ; source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative",
     "operational_rule": "Le nom du produit engage : une dénomination à connotation durable appelle une approche correspondante démontrable.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -142,19 +142,19 @@
       "paragraph": "",
       "text": "Position-recommandation AMF DOC-2020-03",
       "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "La position-recommandation AMF DOC-2020-03 traite de la cohérence entre la dénomination d'un placement collectif faisant référence à des considérations extra-financières et la réalité de l'approche mise en œuvre.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Dénomination",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Cohérence de la dénomination du produit avec son approche",
     "valid_from": "2020-03-11",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -173,7 +173,7 @@
     "exceptions_status": "unknown",
     "id": "AMF-R-004",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation ; source doctrinale : elle éclaire l'application d'un texte, elle ne vaut pas preuve principale pour une disposition législative",
     "operational_rule": "Deux corps de règles distincts et cumulatifs : la conformité SFDR ne vaut pas conformité à la doctrine AMF, et réciproquement.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -195,19 +195,19 @@
       "paragraph": "",
       "text": "Position-recommandation AMF DOC-2020-03",
       "url": "https://www.amf-france.org/fr/reglementation/doctrine/doc-2020-03",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "La doctrine AMF relative aux informations extra-financières des placements collectifs s'applique en complément du règlement (UE) 2019/2088, qui régit l'information réglementaire, la doctrine portant sur la communication.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Articulation avec SFDR",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Articulation entre doctrine AMF et règlement SFDR",
     "valid_from": "2020-03-11",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {

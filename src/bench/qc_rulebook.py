@@ -15,6 +15,7 @@ from pathlib import Path
 from src.bench.regles import Rule
 from src.bench.rulebook import (
     METHODES_SUFFISANTES,
+    ExceptionsStatus,
     NegativeClaimStatus,
     RuleStatus,
 )
@@ -313,6 +314,46 @@ def erreurs(constats: list[Constat]) -> list[Constat]:
     return [c for c in constats if c.niveau == "ERREUR"]
 
 
+def _etat_de_verification(regles: list[Rule]) -> list[str]:
+    """Ce que l'état des règles autorise, dit d'après les règles et non d'après une note figée.
+
+    Ce paragraphe a été un texte en dur affirmant qu'aucune source n'était
+    joignable. C'était vrai, puis ça ne l'a plus été — et un rapport qui répète
+    une vérité périmée est pire qu'un rapport muet. Il se déduit désormais du
+    Rulebook lui-même.
+    """
+    consultees = sum(1 for r in regles if not r.needs_verification)
+    utilisables = sum(1 for r in regles if r.is_usable)
+    sans_exceptions = sum(
+        1 for r in regles if r.exceptions_status is ExceptionsStatus.UNKNOWN
+    )
+
+    if consultees == 0:
+        return [
+            "> Aucune règle n'a été confrontée à sa source primaire : toutes restent",
+            "> en `draft`, et **aucune n'est utilisable pour ancrer un gold**. C'est une",
+            "> propriété tenue par le schéma, pas une convention.",
+            "",
+        ]
+
+    lignes = [
+        f"> **{consultees} règle(s) sur {len(regles)}** ont été confrontées à leur texte",
+        "> primaire, par récupération auprès de CELLAR (Office des publications de",
+        "> l'Union), et signées par un vérificateur nommé. Le détail est dans",
+        "> `reports/RULEBOOK_VERIFICATION_QC.md`.",
+        "",
+    ]
+    if utilisables == 0:
+        lignes += [
+            f"> **Aucune règle n'est encore utilisable pour ancrer un gold.** Une source",
+            "> attestée dit que le texte a été lu ; elle ne dit pas que la règle est",
+            f"> complète. `validated` exige en outre des exceptions cherchées, et elles",
+            f"> restent inconnues sur **{sans_exceptions} règle(s)**.",
+            "",
+        ]
+    return lignes
+
+
 def rapport_markdown(regles: list[Rule], constats: list[Constat]) -> str:
     """Rapport RULEBOOK_QC.md : ce qui bloque, ce qui limite, et ce qui reste à faire."""
     par_niveau = {n: [c for c in constats if c.niveau == n] for n in NIVEAUX}
@@ -336,17 +377,7 @@ def rapport_markdown(regles: list[Rule], constats: list[Constat]) -> str:
         f"- règles utilisables pour ancrer un gold : "
         f"**{sum(1 for r in regles if r.is_usable)} / {len(regles)}**",
         "",
-        "> Les sources primaires (EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA) sont",
-        "> inaccessibles depuis l'environnement de génération. Aucune règle ne peut donc",
-        "> dépasser le statut `draft`, et **aucune n'est utilisable pour ancrer un gold**.",
-        "> C'est une propriété tenue par le schéma, pas une convention.",
-        "",
-        "> Contrôle du 29 août 2026 : la passerelle réseau répond toujours 403 sur les",
-        "> six domaines (`eur-lex.europa.eu`, `legifrance.gouv.fr`, `amf-france.org`,",
-        "> `acpr.banque-france.fr`, `esma.europa.eu`, `economie.gouv.fr`), y compris par",
-        "> l'outil de récupération de pages. La vérification se fait donc hors de cet",
-        "> environnement, par le circuit ci-dessous.",
-        "",
+        *_etat_de_verification(regles),
         "## Circuit de vérification",
         "",
         "La vérification ne s'improvise pas dans les fichiers de règles : elle passe",

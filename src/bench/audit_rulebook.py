@@ -16,10 +16,18 @@ Quatre classements, qui disent chacun une chose différente :
 
 | Classement | Ce qu'il signifie |
 |---|---|
-| `SOURCE_CHECKED` | un vérificateur nommé a signé — jamais attribué par ce module |
+| `SOURCE_CHECKED` | un vérificateur nommé a signé — **lu dans le Rulebook, jamais déduit de la preuve** |
 | `REQUIRES_HUMAN_REVIEW` | texte récupéré, article trouvé, énoncé corroboré : il ne manque que la signature |
 | `DRAFT` | texte récupéré, mais l'article manque ou l'énoncé ne se retrouve pas |
 | `BLOCKED` | le texte primaire est hors d'atteinte depuis cet environnement |
+
+`SOURCE_CHECKED` mérite une précision, parce que la distinction est fine et
+qu'elle porte tout le verrou. L'audit ne **décerne** jamais ce classement à
+partir de sa propre preuve : il le **lit** dans la règle, quand celle-ci porte
+déjà un statut promu et une source signée par un vérificateur nommé. Constater
+qu'un humain a signé n'est pas signer à sa place. Une règle signée dont l'énoncé
+ne se retrouve plus dans le texte redescend d'ailleurs en `DRAFT` : la signature
+n'immunise pas contre un texte qui a changé.
 
 `BLOCKED` et `DRAFT` ne se confondent pas : l'un dit « on n'a pas pu regarder »,
 l'autre « on a regardé et ça ne va pas ». Les traiter pareil ferait disparaître
@@ -371,11 +379,19 @@ def auditer_regle(
         )
 
     # -- classement --
+    # Une signature déjà portée par la règle se lit ; elle ne se déduit jamais de
+    # la preuve. Et elle ne protège pas un énoncé que le texte ne corrobore plus.
+    deja_signee = regle.status is not RuleStatus.DRAFT and regle.source.is_verified
+
     if manquantes and not trouvees:
         classement = ClassementAudit.DRAFT
         verdict = Verdict.REFUTE
     elif reference and concordance >= SEUIL_CONCORDANCE and not absents:
-        classement = ClassementAudit.REQUIRES_HUMAN_REVIEW
+        classement = (
+            ClassementAudit.SOURCE_CHECKED
+            if deja_signee
+            else ClassementAudit.REQUIRES_HUMAN_REVIEW
+        )
         verdict = Verdict.CONFIRME
     elif reference:
         classement = ClassementAudit.DRAFT

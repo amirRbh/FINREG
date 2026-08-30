@@ -7,23 +7,22 @@ l'exploitation du Rulebook et ce qui la limite.
 
 - règles : **58**
 - erreurs bloquantes : **0**
-- avertissements : **139**
+- avertissements : **96**
 
 ## État de vérification
 
-- règles dont la source n'a pas été consultée : **58 / 58**
+- règles dont la source n'a pas été consultée : **13 / 58**
 - règles utilisables pour ancrer un gold : **0 / 58**
 
-> Les sources primaires (EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA) sont
-> inaccessibles depuis l'environnement de génération. Aucune règle ne peut donc
-> dépasser le statut `draft`, et **aucune n'est utilisable pour ancrer un gold**.
-> C'est une propriété tenue par le schéma, pas une convention.
+> **45 règle(s) sur 58** ont été confrontées à leur texte
+> primaire, par récupération auprès de CELLAR (Office des publications de
+> l'Union), et signées par un vérificateur nommé. Le détail est dans
+> `reports/RULEBOOK_VERIFICATION_QC.md`.
 
-> Contrôle du 29 août 2026 : la passerelle réseau répond toujours 403 sur les
-> six domaines (`eur-lex.europa.eu`, `legifrance.gouv.fr`, `amf-france.org`,
-> `acpr.banque-france.fr`, `esma.europa.eu`, `economie.gouv.fr`), y compris par
-> l'outil de récupération de pages. La vérification se fait donc hors de cet
-> environnement, par le circuit ci-dessous.
+> **Aucune règle n'est encore utilisable pour ancrer un gold.** Une source
+> attestée dit que le texte a été lu ; elle ne dit pas que la règle est
+> complète. `validated` exige en outre des exceptions cherchées, et elles
+> restent inconnues sur **55 règle(s)**.
 
 ## Circuit de vérification
 
@@ -52,7 +51,7 @@ citation elle-même, et devront être corrigés au passage.
 - **URL désignant un autre acte que la source citée** — 2 règle(s) : `MIFID-R-006`, `MIFID-R-007`
 - **règles distinctes partageant un article** — 3 règle(s) : `AMF-R-003`, `MIFID-R-003`, `MIFID-R-011`
 
-## Avertissements (139)
+## Avertissements (96)
 
 ### `ancrage_imprecis` — 8
 
@@ -94,29 +93,26 @@ citation elle-même, et devront être corrigés au passage.
 - `MIFID-R-006` : l'URL désigne l'acte 2021/1253 alors que la source cite 2017/565 : légitime pour un acte modificatif, à confirmer sinon
 - `MIFID-R-007` : l'URL désigne l'acte 2021/1253 alors que la source cite 2017/565 : légitime pour un acte modificatif, à confirmer sinon
 
-### `verification` — 58
+### `verification` — 13
 
-- `AMF-R-001` : source non consultée (model_knowledge_unverified)
-- `AMF-R-002` : source non consultée (model_knowledge_unverified)
-- `AMF-R-003` : source non consultée (model_knowledge_unverified)
-- `AMF-R-004` : source non consultée (model_knowledge_unverified)
 - `AMF-R-005` : source non consultée (model_knowledge_unverified)
-- `DORA-R-001` : source non consultée (model_knowledge_unverified)
-- `DORA-R-002` : source non consultée (model_knowledge_unverified)
-- `DORA-R-003` : source non consultée (model_knowledge_unverified)
-- `DORA-R-004` : source non consultée (model_knowledge_unverified)
-- `DORA-R-005` : source non consultée (model_knowledge_unverified)
-- `DORA-R-006` : source non consultée (model_knowledge_unverified)
-- `DORA-R-007` : source non consultée (model_knowledge_unverified)
-- `DORA-R-008` : source non consultée (model_knowledge_unverified)
-- `DORA-R-009` : source non consultée (model_knowledge_unverified)
-- `DORA-R-010` : source non consultée (model_knowledge_unverified)
-- `DORA-R-011` : source non consultée (model_knowledge_unverified)
-- `DORA-R-012` : source non consultée (model_knowledge_unverified)
-- `DORA-R-013` : source non consultée (model_knowledge_unverified)
 - `LCBFT-R-001` : source non consultée (model_knowledge_unverified)
 - `LCBFT-R-002` : source non consultée (model_knowledge_unverified)
-- … et 38 autre(s)
+- `LCBFT-R-003` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-004` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-005` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-006` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-007` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-008` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-009` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-010` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-011` : source non consultée (model_knowledge_unverified)
+- `LCBFT-R-012` : source non consultée (model_knowledge_unverified)
+
+### `verification_sans_promotion` — 2
+
+- `MIFID-R-007` : source consultée mais règle restée en « draft » : réfutée ou non tranchée, elle ne reviendra pas d'elle-même dans le dossier de vérification
+- `MIFID-R-011` : source consultée mais règle restée en « draft » : réfutée ou non tranchée, elle ne reviendra pas d'elle-même dans le dossier de vérification
 
 ### `version_date_placeholder` — 16
 

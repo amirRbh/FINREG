@@ -3414,9 +3414,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -3453,8 +3451,8 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -3470,9 +3468,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -3509,8 +3505,8 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -3523,9 +3519,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -3562,8 +3556,8 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -3576,9 +3570,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -3616,8 +3608,8 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -3630,9 +3622,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -3669,8 +3659,8 @@
       "paragraph": "",
       "text": "Directive (UE) 2015/849, modifiée par la directive (UE) 2018/843",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32015L0849",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,

@@ -1,9 +1,9 @@
 {
   "generation_date": "2026-08-29",
   "number_critical": 31,
-  "number_needing_verification": 58,
+  "number_needing_verification": 13,
   "number_of_rules": 58,
-  "number_source_checked": 0,
+  "number_source_checked": 43,
   "number_time_sensitive": 9,
   "number_validated": 0,
   "number_with_negative_claims": 7,
@@ -28,7 +28,8 @@
     "MEDIUM": 4
   },
   "rules_per_status": {
-    "draft": 58
+    "draft": 15,
+    "source_checked": 43
   },
   "rules_per_type": {
     "CLASSIFICATION": 6,
@@ -44,5 +45,5 @@
     "SCOPE": 6,
     "THRESHOLD": 1
   },
-  "verification_note": "Aucune règle n'a été confrontée à sa source primaire : EUR-Lex, Légifrance, AMF, ACPR, TRACFIN et ESMA sont inaccessibles depuis l'environnement de génération. Toutes les règles sont en « draft » et aucune n'est utilisable pour ancrer un gold tant qu'un humain n'a pas vérifié la source."
+  "verification_note": "45 règle(s) sur 58 ont été confrontées à leur source primaire ; les autres restent en « draft » et ne peuvent pas ancrer un gold. Les constats sont dans data/verification/rulebook-ledger.json."
 }

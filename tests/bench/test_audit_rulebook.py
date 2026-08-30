@@ -310,7 +310,12 @@ def test_une_regle_corroboree_attend_une_signature_humaine() -> None:
 
 
 def test_laudit_ne_sattribue_jamais_source_checked() -> None:
-    """Le dépôt l'interdit : ce statut ne s'accorde pas soi-même."""
+    """Le dépôt l'interdit : ce statut ne se déduit jamais de la seule preuve.
+
+    Les règles ci-dessous sont en `draft` et parfaitement corroborées. Elles
+    restent malgré tout hors de `SOURCE_CHECKED` : seule une signature déjà
+    portée par la règle peut le justifier.
+    """
     constats = auditer(
         [regle(), regle(id="RULE-SYNTH-002"), regle(id="RULE-SYNTH-003", source={
             **REGLE["source"], "text": "Code monétaire et financier",
@@ -320,6 +325,95 @@ def test_laudit_ne_sattribue_jamais_source_checked() -> None:
         cache=None,
     )
     assert all(c.classement is not ClassementAudit.SOURCE_CHECKED for c in constats)
+
+
+def regle_signee(**modifications: Any) -> Rule:
+    """La même règle, mais promue par un vérificateur nommé."""
+    base = regle().model_dump(mode="json")
+    base.update(
+        {
+            "status": "source_checked",
+            "verification_method": "primary_text_fetched",
+            "source": {
+                **base["source"],
+                "verified_by": "Relecteur de test",
+                "verification_date": "2026-08-29",
+            },
+        }
+    )
+    base.update(modifications)
+    return Rule.model_validate(base)
+
+
+def test_une_regle_deja_signee_est_lue_comme_source_checked() -> None:
+    """Constater qu'un humain a signé n'est pas signer à sa place."""
+    constat = auditer_regle(regle_signee(), faux_reseau(), cache=None)
+    assert constat.classement is ClassementAudit.SOURCE_CHECKED
+
+
+def test_une_signature_ne_protege_pas_un_enonce_qui_ne_se_retrouve_plus() -> None:
+    """Un texte peut changer après la signature : le classement doit le dire."""
+    perimee = regle_signee(
+        statement=(
+            "Le règlement impose aux plateformes de cryptoactifs une déclaration "
+            "trimestrielle de leurs réserves auprès du superviseur bancaire."
+        )
+    )
+    constat = auditer_regle(perimee, faux_reseau(), cache=None)
+    assert constat.classement is ClassementAudit.DRAFT
+
+
+def test_une_regle_signee_et_corroboree_nest_pas_reproposee_au_dossier(
+    tmp_path: Path,
+) -> None:
+    """Le dossier liste ce qui reste à faire, pas ce qui est acquis."""
+    regles = [regle_signee()]
+    constats = auditer(regles, faux_reseau(), cache=None)
+    dossier = exporter_dossier_prerempli(constats, regles, tmp_path / "dossier.csv")
+
+    with dossier.open(encoding="utf-8-sig", newline="") as flux:
+        ligne = next(csv.DictReader(flux, delimiter=";"))
+    assert ligne["verdict"] == ""
+
+
+def test_une_correction_nest_jamais_proposee_sans_lenonce_qui_la_porte(
+    tmp_path: Path,
+) -> None:
+    """L'audit ne rédige pas de droit : il ne peut donc pas proposer « corrige ».
+
+    Inscrire « corrige » sans énoncé corrigé produirait une ligne que le circuit
+    rejette — et ferait tomber le lot entier à cause d'une case que la machine ne
+    pouvait pas remplir. Le dossier inscrit « non_verifiable » et dit ce qu'il
+    reste à écrire.
+    """
+    regles = [
+        regle(
+            statement=(
+                "Le règlement impose aux plateformes de cryptoactifs une "
+                "déclaration trimestrielle de leurs réserves."
+            )
+        )
+    ]
+    constats = auditer(regles, faux_reseau(), cache=None)
+    assert constats[0].verdict_propose is Verdict.CORRIGE
+
+    dossier = exporter_dossier_prerempli(constats, regles, tmp_path / "dossier.csv")
+    with dossier.open(encoding="utf-8-sig", newline="") as flux:
+        ligne = next(csv.DictReader(flux, delimiter=";"))
+    assert ligne["verdict"] == "non_verifiable"
+    assert "CORRECTION REQUISE" in ligne["commentaire"]
+
+    # Et le dossier reste lisible par le circuit, au lieu d'être rejeté en bloc.
+    ligne_signee = dict(ligne)
+    ligne_signee["verifie_par"] = "Relecteur de test"
+    ligne_signee["date_verification"] = "2026-08-29"
+    signe = tmp_path / "signe.csv"
+    with signe.open("w", encoding="utf-8-sig", newline="") as flux:
+        graveur = csv.DictWriter(flux, fieldnames=list(ligne), delimiter=";")
+        graveur.writeheader()
+        graveur.writerow(ligne_signee)
+    verifications = lire_dossier(signe)
+    assert verifications[0].verdict is Verdict.NON_VERIFIABLE
 
 
 def test_une_source_hors_datteinte_est_bloquee_pas_refutee() -> None:

@@ -145,9 +145,7 @@ def exporter_dossier_prerempli(
                     "enonce_actuel": regle.statement,
                     "exceptions_statut_actuel": regle.exceptions_status.value,
                     # Constats de la machine : tout est proposé, rien n'est signé.
-                    "verdict": (
-                        constat.verdict_propose.value if constat.verdict_propose else ""
-                    ),
+                    "verdict": _verdict_ecrit(constat),
                     "methode": (
                         "primary_text_fetched"
                         if constat.classement is not ClassementAudit.BLOCKED
@@ -165,9 +163,36 @@ def exporter_dossier_prerempli(
     return chemin
 
 
+def _verdict_ecrit(constat: ConstatAudit) -> str:
+    """Verdict inscrit au dossier, qui n'est pas toujours celui que l'audit propose.
+
+    Une correction doit dire ce que le texte dit à la place — et l'audit ne
+    rédige pas de droit. Proposer « corrige » sans énoncé corrigé produirait une
+    ligne que `lire_dossier` rejette, et un dossier rejeté en bloc à cause d'une
+    ligne que la machine ne pouvait pas remplir. On inscrit donc
+    « non_verifiable » : consultée, non tranchée — ce qui est exactement ce que
+    l'audit a établi. Le commentaire dit ce qu'il reste à faire.
+    """
+    if constat.verdict_propose is None:
+        return ""
+    if constat.classement is ClassementAudit.SOURCE_CHECKED:
+        # Déjà signée et toujours corroborée : la reproposer ferait rejouer une
+        # vérification acquise, et le dossier doit lister ce qui reste à faire.
+        return ""
+    if constat.verdict_propose is Verdict.CORRIGE:
+        return Verdict.NON_VERIFIABLE.value
+    return constat.verdict_propose.value
+
+
 def _commentaire(constat: ConstatAudit) -> str:
     """Ce que le vérificateur doit lire avant de signer : la preuve, puis les réserves."""
     morceaux: list[str] = []
+    if constat.verdict_propose is Verdict.CORRIGE:
+        morceaux.append(
+            "CORRECTION REQUISE — l'énoncé ne se retrouve pas dans le texte cité. "
+            "Inscrire « corrige » et l'énoncé au plus près de la lettre du texte, "
+            "ou « refute » en disant ce que le texte dit à la place."
+        )
     if constat.preuve and constat.preuve.paragraph_excerpt:
         morceaux.append(f"TEXTE OFFICIEL — {constat.preuve.paragraph_excerpt[:600]}")
     elif constat.preuve and constat.preuve.excerpt:
