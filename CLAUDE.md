@@ -360,7 +360,7 @@ couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine
 le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
-`finreg-bench rulebook qc|exporter-verification|appliquer-verification`, et
+`finreg-bench rulebook qc|auditer|exporter-verification|appliquer-verification`, et
 `finreg-bench familles generer|qc|exporter-matrice`.
 
 ### Regulatory Rulebook (phase 6)
@@ -447,6 +447,81 @@ Quatre constats se déduisent de la citation elle-même :
 *aussi* des énoncés proches : un article porte couramment plusieurs obligations
 distinctes, et les signaler toutes noierait le vrai doublon dans le bruit. Le
 cas ordinaire ressort en `INFO meme_article`.
+
+### Audit contre le texte primaire (`sources_primaires.py`, `audit_rulebook.py`)
+
+Le circuit dit comment une règle se vérifie ; l'audit va chercher le texte et
+rassemble la preuve. Il ne promeut rien.
+
+**La voie d'accès est CELLAR**, le dépôt de l'Office des publications
+(`publications.europa.eu`) : il sert le texte tel qu'il a paru au *Journal
+officiel*, découpé par article, langue par langue. Ce n'est pas une
+reproduction, c'est l'acte. Mesuré depuis l'environnement d'exécution :
+
+| Voie | État | Conséquence |
+|---|---|---|
+| CELLAR | texte authentique du JO | **voie retenue** |
+| `eur-lex.europa.eu` | HTTP 200 mais sert la page d'accueil du JO | inutilisable |
+| `legifrance.gouv.fr` | HTTP 403 | Code monétaire et financier hors d'atteinte |
+| `amf-france.org` | page réelle | doctrine AMF atteignable |
+
+Un `200` qui rend une page d'accueil est plus dangereux qu'un `403` : il se lit
+comme un succès. Chaque récupération est donc **validée sur son contenu** —
+langue attendue, articles découpables — jamais sur son code de retour. L'index
+de manifestation qui porte le français glisse selon les langues de l'acte : on
+le sonde, on ne le suppose pas.
+
+Quatre classements, qui ne disent pas la même chose :
+
+| Classement | Ce qu'il signifie |
+|---|---|
+| `SOURCE_CHECKED` | un vérificateur nommé a signé — **jamais attribué par l'audit** |
+| `REQUIRES_HUMAN_REVIEW` | texte récupéré, article trouvé, énoncé corroboré : il ne manque que la signature |
+| `DRAFT` | texte récupéré, mais l'article manque ou l'énoncé ne s'y retrouve pas |
+| `BLOCKED` | le texte primaire est hors d'atteinte depuis cet environnement |
+
+`BLOCKED` et `DRAFT` ne se confondent pas : l'un dit « on n'a pas pu regarder »,
+l'autre « on a regardé et ça ne va pas ». Les traiter pareil ferait disparaître
+la seule information qui dit où porter l'effort.
+
+**L'audit ne s'accorde jamais `source_checked`.** Le statut est défini ici comme
+n'étant « jamais un statut qu'un modèle peut s'accorder à lui-même », et cette
+règle n'a pas d'exception. Le dossier `data/verification/dossier-audit.csv` est
+donc pré-rempli — verdict proposé, méthode, extrait officiel en commentaire —
+**sauf `verifie_par` et `date_verification`**. Le modèle `Verification` refuse
+un verdict promoteur sans elles : le verrou est une validation de schéma, pas
+une consigne dans un rapport. Un test le vérifie dans les deux sens — refusé
+sans signature, accepté avec.
+
+Ce que l'audit établit mécaniquement, et qui a une valeur propre :
+
+- l'article cité **existe** dans l'acte cité (ou non) ;
+- le vocabulaire de l'énoncé **se retrouve** dans cet article — une mesure de
+  rattachement, pas de vérité : un énoncé peut être faux avec un vocabulaire
+  parfaitement couvert, mais celui qui cite un article parlant d'autre chose
+  ressort ;
+- les **chiffres porteurs de droit** (seuil, délai, montant) figurent dans le
+  texte, ou non ;
+- l'URL et la citation désignent **le même acte** — une règle pointe volontiers
+  l'acte modificatif au lieu de l'acte modifié ;
+- un ancrage multiple (« Articles 8 à 13 ») est vérifié sur **tous** les
+  articles qu'il couvre, et signalé comme à découper ;
+- une règle qui énonce un texte « modifié » est cherchée dans sa **version
+  consolidée** : la vérifier contre l'acte d'origine lui reprocherait de ne pas
+  contenir une disposition ajoutée depuis.
+
+Les affirmations négatives sont cherchées sur **l'acte entier**, jamais sur un
+extrait : ne pas trouver X dans un fragment ne prouve rien.
+
+CLI : `finreg-bench rulebook auditer`. Rapports dans
+`reports/RULEBOOK_VERIFICATION_QC.md` et `RULEBOOK_VERIFICATION_MATRIX.csv`.
+Le cache des textes récupérés vit dans `.cache/primary/`, hors du dépôt : c'est
+une copie de travail d'un texte officiel, pas un artefact du projet.
+
+**Aucun test n'accède au réseau** : le récupérateur est injecté (`Recuperateur`),
+et la suite sert un faux *Journal officiel* synthétique — ce qui permet aussi
+d'éprouver des cas qu'on ne pourrait pas provoquer en vrai, comme un serveur qui
+répond 200 avec une page d'accueil.
 
 ### Question Family Map (phase 7)
 

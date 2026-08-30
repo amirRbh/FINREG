@@ -27,6 +27,11 @@ from src.bench.qc_familles import (
 from src.bench.qc_familles import controler as controler_familles
 from src.bench.qc_familles import erreurs as erreurs_familles
 from src.bench.qc_familles import rapport_markdown as rapport_familles
+from src.bench.rapport_audit import (
+    DOSSIER_AUDIT,
+    MATRICE_VERIFICATION,
+    RAPPORT_VERIFICATION,
+)
 from src.bench.qc_rulebook import (
     RACINE_RULEBOOK,
     charger_par_fichier,
@@ -254,6 +259,46 @@ def rulebook_appliquer_verification(
     inconnus = {v.rule_id for v in verifications} - connus
     for identifiant in sorted(inconnus):  # pragma: no cover - déjà refusé plus haut
         typer.secho(f"  règle inconnue ignorée : {identifiant}", fg=typer.colors.YELLOW)
+
+
+@rulebook.command("auditer")
+def rulebook_auditer(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    rapport: Annotated[
+        Path, typer.Option("--rapport", help="Rapport d'audit à écrire.")
+    ] = RAPPORT_VERIFICATION,
+    matrice: Annotated[
+        Path, typer.Option("--matrice", help="Matrice d'audit CSV à écrire.")
+    ] = MATRICE_VERIFICATION,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier de vérification pré-rempli.")
+    ] = DOSSIER_AUDIT,
+) -> None:
+    """Confronte chaque règle à son texte primaire. Ne promeut rien.
+
+    L'audit rassemble la preuve ; la promotion reste au circuit de vérification,
+    qui exige un vérificateur nommé. Le dossier produit est pré-rempli sauf
+    « verifie_par » et « date_verification » : le schéma refuse toute promotion
+    tant qu'elles sont vides.
+    """
+    from scripts.auditer_rulebook import auditer_et_rapporter
+
+    resultat = auditer_et_rapporter(racine, rapport, matrice, dossier)
+    typer.secho(f"{resultat['rules']} règle(s) auditées", fg=typer.colors.GREEN)
+    for classement, nombre in resultat["by_classification"].items():
+        typer.echo(f"  {classement:24} {nombre}")
+    typer.echo(
+        f"  {len(resultat['acts_consulted'])} acte(s) consulté(s), "
+        f"{resultat['articles_found']} article(s) retrouvé(s), "
+        f"{resultat['anomalies']} anomalie(s)"
+    )
+    typer.echo(f"  rapport : {resultat['report']} — matrice : {resultat['matrix']}")
+    typer.echo(f"  dossier à signer : {resultat['dossier']}")
+    typer.secho(
+        "  aucune règle promue : renseigner verifie_par et date_verification, "
+        "puis « finreg-bench rulebook appliquer-verification »",
+        fg=typer.colors.YELLOW,
+    )
 
 
 # -- Question Family Map ------------------------------------------------------------ #
