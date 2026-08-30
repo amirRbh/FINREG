@@ -636,6 +636,57 @@ recommandation n'est pas `READY_FOR_FAMILY_GENERATION`. Rapports dans
 `reports/RULEBOOK_READINESS_SUMMARY.md`, `HUMAN_REVIEW_QUEUE.md` et
 `RULEBOOK_FAMILY_READINESS.csv`.
 
+### Arbitrage humain P0/P1 (`adjudication.py`, `relecture.py`)
+
+La file de revue dit **qu'une** règle demande un juriste. Un dossier d'arbitrage
+dit quoi lire, jusqu'où chercher, quelle question trancher, et ce que la réponse
+changera — sans quoi le relecteur refait lui-même l'enquête à chaque entrée.
+
+Quarante-quatre dossiers : 28 P0, 16 P1. P2 et P3 attendent — on arbitre dans
+l'ordre de la gravité.
+
+**Deux champs qu'il ne faut jamais mélanger.** `TEXTUAL_FACTS` ne porte que ce
+qui est écrit dans les sources ; `INTERPRETIVE_QUESTION` porte ce qui demande un
+arbitrage. Les fondre rendrait un fait aussi contestable qu'une lecture.
+`mechanical_proposal` (cinq valeurs) dit ce que l'automate a vu, jamais ce que le
+droit dit : une règle sans structure limitante repérée ressort
+`NO_EXCEPTION_IDENTIFIED_IN_REVIEWED_SCOPE`, qui énonce le périmètre balayé — pas
+une absence d'exception.
+
+**Le blocage principal n'est pas le seul.** La question porte sur le plus
+fondamental, mais la priorité P0 tient souvent à un autre : les douze règles
+LCB-FT butent d'abord sur une source inaccessible, et restent P0 à cause de leurs
+exceptions non cherchées. Chaque dossier liste donc les blocages restants — sans
+quoi lever la source ferait croire la règle réglée.
+
+**Le regroupement partage une question, jamais une règle.** `review_cluster_id`
+vaut `CL-<acte>-<ancrage>-<catégorie>` : quatre règles MiFID II sur l'article 25
+posent la même question et se tranchent une fois. Les règles restent distinctes
+dans le Rulebook — un article porte couramment plusieurs obligations. Les lots de
+consultation sont autre chose et le disent : même source hors d'atteinte, un seul
+déplacement, mais douze décisions.
+
+**Aucune décision ne s'écrit toute seule.** Le dossier CSV sort avec ses colonnes
+de décision vides, et regénérer le pack ne réécrit pas un dossier qui en porte.
+`DecisionAdjudication` refuse une décision non signée, un `NONE_IDENTIFIED` sans
+`source_scope` — « je n'ai pas trouvé » n'est pas « il n'y en a pas » — et un
+`IDENTIFIED_AND_INCORPORATED` sans exception recopiée. C'est une validation de
+schéma, pas une consigne dans un rapport. La lecture est tout ou rien.
+
+**La progression n'annonce jamais d'« après ».** Les seuils se recalculent en
+rejouant l'audit sur le Rulebook corrigé ; un « après » prévisionnel serait un
+`gold_ready` accordé par anticipation.
+
+**Les constats sont relus, pas refaits.** CELLAR et Légifrance sont hors
+d'atteinte depuis cet environnement : `relecture.py` reconstruit les constats
+depuis les artefacts d'audit publiés, stampe le pack de leur empreinte, et
+**refuse d'écrire** si le blocage reconstruit diffère de celui que l'audit avait
+publié. Une relecture ne peut rien établir de neuf.
+
+CLI : `finreg-bench rulebook adjudication`. Sorties dans
+`reports/HUMAN_REVIEW_P0_P1.md`, `reports/HUMAN_REVIEW_PROGRESS.md` et
+`data/verification/dossier-adjudication.csv`.
+
 ### Question Family Map (phase 7)
 
 `familles.py` (modèle `CandidateFamily`) + `carte_familles.py` (dérivation) +

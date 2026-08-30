@@ -37,6 +37,11 @@ from src.bench.rapport_completude import (
     MATRICE_GOLD,
     RAPPORT_COMPLETUDE,
 )
+from src.bench.rapport_adjudication import (
+    DOSSIER_ADJUDICATION,
+    PACK_ADJUDICATION,
+    PROGRESSION,
+)
 from src.bench.rapport_readiness import (
     FILE_REVUE,
     MATRICE_READINESS,
@@ -389,6 +394,42 @@ def rulebook_readiness(
     if resultat["recommendation"] != "READY_FOR_FAMILY_GENERATION":
         raise typer.Exit(code=1)
 
+
+
+@rulebook.command("adjudication")
+def rulebook_adjudication(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    pack_chemin: Annotated[
+        Path, typer.Option("--pack", help="Pack de revue P0/P1.")
+    ] = PACK_ADJUDICATION,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier d'arbitrage à remplir.")
+    ] = DOSSIER_ADJUDICATION,
+    progression_chemin: Annotated[
+        Path, typer.Option("--progression", help="Rapport de progression.")
+    ] = PROGRESSION,
+) -> None:
+    """Prépare les dossiers d'arbitrage P0 puis P1. Ne décide rien, ne promeut rien.
+
+    Le dossier CSV sort avec ses colonnes de décision vides ; s'il en porte déjà,
+    il n'est pas réécrit — regénérer un pack ne doit jamais effacer un arbitrage
+    rendu.
+    """
+    from scripts.preparer_adjudication import preparer_adjudication
+
+    resultat = preparer_adjudication(racine, pack_chemin, dossier, progression_chemin)
+    typer.secho(f"{resultat['dossiers']} dossier(s) d'arbitrage", fg=typer.colors.GREEN)
+    for priorite, compte in resultat["par_priorite"].items():
+        typer.echo(f"  {priorite} : {compte}")
+    typer.echo(f"  questions distinctes : {resultat['questions_distinctes']}")
+    typer.echo(f"  regroupements (>1 règle) : {resultat['regroupements']}")
+    typer.echo(f"  décisions déjà rendues : {resultat['decisions_rendues']}")
+    if resultat["dossier_preserve"]:
+        typer.secho(
+            "  dossier conservé en l'état : il porte des décisions",
+            fg=typer.colors.YELLOW,
+        )
+    typer.echo(f"  empreinte de l'audit relu : {resultat['empreinte']}")
 
 # -- Question Family Map ------------------------------------------------------------ #
 

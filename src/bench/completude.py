@@ -323,6 +323,28 @@ def evaluer_portance(regle: Rule) -> tuple[bool, str]:
     )
 
 
+#: Les huit critères de validation de la spécification §4, nommés une fois pour
+#: que le rapport, la relecture des artefacts publiés et l'analyse parlent des
+#: mêmes. Les recopier ailleurs ferait diverger deux listes qui doivent coller.
+CRITERES_VALIDATION: tuple[str, ...] = (
+    "source_primaire_verifiee",
+    "article_verifie",
+    "enonce_fidele",
+    "exceptions_recherchees",
+    "conditions_capturees",
+    "temporalite_etablie",
+    "renvois_verifies",
+    "sans_ambiguite",
+)
+
+#: Le constat que porte une règle dont le texte n'a pas pu être lu. C'est la
+#: seule marque qui distingue « on a regardé et il n'y a rien » de « on n'a pas
+#: pu regarder » : la relecture des artefacts publiés s'y adosse.
+MOTIF_TEXTE_INDISPONIBLE = (
+    "texte de l'article non disponible : la structure juridique n'a pas "
+    "pu être examinée, et une absence d'exception ne se suppose pas"
+)
+
 #: Prérequis probatoires de `gold_ready`, dans l'ordre où ils se lisent. Un
 #: énoncé porteur ne suffit pas : écrire une réponse de référence sur une source
 #: non vérifiée, une exception inconnue ou une temporalité incertaine reviendrait
@@ -393,10 +415,7 @@ def analyser(
             **commun,
             exceptions_status=ExceptionsStatus.UNKNOWN,
             statut_propose=regle.status,
-            motifs=(
-                "texte de l'article non disponible : la structure juridique n'a pas "
-                "pu être examinée, et une absence d'exception ne se suppose pas",
-            ),
+            motifs=(MOTIF_TEXTE_INDISPONIBLE,),
             temporal_status=temporal,
         )
 
