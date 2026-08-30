@@ -337,6 +337,11 @@ CRITERES_VALIDATION: tuple[str, ...] = (
     "sans_ambiguite",
 )
 
+#: Préfixe du motif qui atteste qu'un énoncé porte, alors même que ses prérequis
+#: probatoires manquent. C'est la seule trace publiée de la portance : la
+#: relire évite de reconstruire un calcul qui a déjà eu lieu.
+PREFIXE_PORTANCE = "énoncé porteur"
+
 #: Le constat que porte une règle dont le texte n'a pas pu être lu. C'est la
 #: seule marque qui distingue « on a regardé et il n'y a rien » de « on n'a pas
 #: pu regarder » : la relecture des artefacts publiés s'y adosse.
@@ -489,9 +494,7 @@ def analyser(
     if not portance:
         motif_gold = motif_portance
     elif manquants:
-        motif_gold = (
-            f"énoncé porteur, mais prérequis non tenus : {', '.join(manquants)}"
-        )
+        motif_gold = f"{PREFIXE_PORTANCE}, mais prérequis non tenus : {', '.join(manquants)}"
     else:
         motif_gold = motif_portance
 

@@ -10,7 +10,7 @@ est écrit dans les sources ; `INTERPRETIVE_QUESTION` porte ce qui demande un
 arbitrage. `mechanical_proposal` dit ce que l'automate a vu — jamais ce que
 le droit dit.
 
-**État relu** — audit du Rulebook publié, empreinte `fdd4690dd38601bc`. Préparé le 2026-08-30.
+**État relu** — audit du Rulebook publié, empreinte `5976ed137a380fda`. Préparé le 2026-08-30.
 
 Artefacts relus :
 
@@ -18,6 +18,7 @@ Artefacts relus :
 - `data/verification/dossier-audit.csv`
 - `reports/RULEBOOK_GOLD_READINESS.csv`
 - `reports/RULEBOOK_FAMILY_READINESS.csv`
+- `reports/RULEBOOK_VERIFICATION_MATRIX.csv`
 
 ## Ce qu'il y a à trancher
 

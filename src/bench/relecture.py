@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import csv
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 
 from src.bench.completude import (
@@ -41,6 +42,7 @@ DOSSIER_COMPLETUDE = Path("data/verification/dossier-completude.csv")
 DOSSIER_AUDIT = Path("data/verification/dossier-audit.csv")
 MATRICE_GOLD = Path("reports/RULEBOOK_GOLD_READINESS.csv")
 MATRICE_FAMILY = Path("reports/RULEBOOK_FAMILY_READINESS.csv")
+MATRICE_VERIFICATION = Path("reports/RULEBOOK_VERIFICATION_MATRIX.csv")
 
 #: Séparateur des blocs du champ `commentaire` du dossier de complétude, tel que
 #: `rapport_completude._commentaire` les assemble.
@@ -51,6 +53,41 @@ SEPARATEUR_MOTIFS = " ; "
 PREFIXE_RENVOIS = "renvois vérifiés dans l'acte : articles "
 #: Préfixe du commentaire d'audit qui porte l'extrait officiel.
 PREFIXE_TEXTE_OFFICIEL = "TEXTE OFFICIEL — "
+#: Classement d'audit qui dit que le texte primaire n'a pas pu être lu.
+CLASSEMENT_BLOQUE = "BLOCKED"
+
+
+class AccesSource(str, Enum):
+    """Ce que l'audit a rencontré en allant chercher le texte primaire.
+
+    Un refus et une absence ne demandent pas le même travail : le premier se
+    contourne par une consultation hors de l'environnement, le second par un
+    réancrage de la source. Les confondre ferait chercher du mauvais côté — la
+    même erreur que confondre le refus d'une passerelle et celui d'un site.
+    """
+
+    #: Texte récupéré et découpé : l'audit a pu travailler dessus.
+    TEXTE_RECUPERE = "TEXTE_RECUPERE"
+    #: La source répond, et refuse (403 après tunnel établi).
+    REFUS_DE_LA_SOURCE = "REFUS_DE_LA_SOURCE"
+    #: L'URL enregistrée ne désigne plus de document (404).
+    DOCUMENT_INTROUVABLE = "DOCUMENT_INTROUVABLE"
+    #: Bloqué pour une autre raison, ou raison non lisible dans le constat.
+    INDETERMINE = "INDETERMINE"
+
+
+def acces_relu(ligne: dict[str, str] | None) -> AccesSource:
+    """L'état d'accès d'une règle, lu dans la matrice de vérification publiée."""
+    if ligne is None:
+        return AccesSource.INDETERMINE
+    if ligne.get("classement") != CLASSEMENT_BLOQUE:
+        return AccesSource.TEXTE_RECUPERE
+    probleme = ligne.get("probleme", "")
+    if "404" in probleme:
+        return AccesSource.DOCUMENT_INTROUVABLE
+    if "403" in probleme:
+        return AccesSource.REFUS_DE_LA_SOURCE
+    return AccesSource.INDETERMINE
 
 
 @dataclass(frozen=True)
@@ -60,6 +97,10 @@ class Relecture:
     constats: dict[str, ConstatCompletude]
     etats: dict[str, ConstatReadiness]
     extraits: dict[str, str]
+    #: Ce que l'audit a rencontré en cherchant le texte : récupéré, refusé, introuvable.
+    acces: dict[str, AccesSource]
+    #: Le constat d'audit qui motive un blocage d'accès, recopié tel quel.
+    obstacles: dict[str, str]
     #: Empreinte des artefacts relus : un pack construit dessus peut dire sur
     #: quel état du Rulebook il porte, et cesser d'être valable en silence.
     empreinte: str
@@ -198,16 +239,20 @@ def relire(
     dossier_audit: Path = DOSSIER_AUDIT,
     matrice_gold: Path = MATRICE_GOLD,
     matrice_family: Path = MATRICE_FAMILY,
+    matrice_verification: Path = MATRICE_VERIFICATION,
 ) -> Relecture:
     """Relit les quatre artefacts et reconstruit constats, états et extraits."""
     complets = _lire_csv(dossier_completude, "rule_id")
     audits = _lire_csv(dossier_audit, "rule_id")
     golds = _lire_csv(matrice_gold, "ID")
     familles = _lire_csv(matrice_family, "ID")
+    verifications = _lire_csv(matrice_verification, "rule_id")
 
     constats: dict[str, ConstatCompletude] = {}
     etats: dict[str, ConstatReadiness] = {}
     extraits: dict[str, str] = {}
+    acces: dict[str, AccesSource] = {}
+    obstacles: dict[str, str] = {}
     for regle in regles:
         complet, gold = complets.get(regle.id), golds.get(regle.id)
         if complet is None or gold is None:
@@ -218,6 +263,9 @@ def relire(
         constats[regle.id] = constat_relu(regle, complet, gold)
         etats[regle.id] = evaluer(regle, constats[regle.id])
         extraits[regle.id] = extrait_relu(audits.get(regle.id), regle)
+        verification = verifications.get(regle.id)
+        acces[regle.id] = acces_relu(verification)
+        obstacles[regle.id] = (verification or {}).get("probleme", "")
 
     ecarts = divergences(etats, familles)
     if ecarts:
@@ -226,12 +274,20 @@ def relire(
             "peut se préparer dessus :\n  " + "\n  ".join(ecarts)
         )
 
-    chemins = (dossier_completude, dossier_audit, matrice_gold, matrice_family)
+    chemins = (
+        dossier_completude,
+        dossier_audit,
+        matrice_gold,
+        matrice_family,
+        matrice_verification,
+    )
     empreintes = [hash_fichier(Path(c)) for c in chemins]
     return Relecture(
         constats=constats,
         etats=etats,
         extraits=extraits,
+        acces=acces,
+        obstacles=obstacles,
         empreinte=hash_texte("".join(empreintes))[:16],
         artefacts=tuple(str(c) for c in chemins),
     )

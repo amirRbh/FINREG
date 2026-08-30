@@ -702,6 +702,46 @@ CLI : `finreg-bench rulebook adjudication`. Sorties dans
 `reports/HUMAN_REVIEW_P0_P1.md`, `reports/HUMAN_REVIEW_PROGRESS.md` et
 `data/verification/dossier-adjudication.csv`.
 
+### Plan de revue (`plan_action.py`)
+
+Le pack d'arbitrage dit quoi trancher ; il ne dit pas par où commencer. Or les
+quarante-quatre décisions n'ont pas le même rendement : **une** consultation du
+Code monétaire et financier lève le blocage de douze règles.
+
+**Une action principale par règle**, choisie sur le blocage principal — et, pour
+un blocage de source, corrigée par ce que l'audit a rencontré. Les trois cas ne
+demandent pas le même travail : la source refuse (403 après tunnel établi) et il
+faut aller lire ailleurs ; l'URL ne désigne plus rien (404) et la source se
+réancre ; l'acte a bien été récupéré et c'est alors l'**ancrage** qui manque —
+« Ensemble de la directive » ne désigne aucune disposition. Envoyer quelqu'un
+consulter un texte déjà consulté ne lèverait rien.
+
+**Deux axes de regroupement, qui ne disent pas la même chose.** Un *cluster de
+décision* partage une question : une décision couvre ses règles. Un *lot de
+lecture* partage un empêchement : une consultation sert ses dossiers, et chaque
+règle garde sa décision. Un lot suppose plusieurs dossiers — en annoncer un pour
+une règle seule gonflerait le rendement affiché.
+
+**L'ordre d'exécution ne touche pas aux priorités.** P0 dit ce qu'une erreur
+coûte ; le rang dit par où commencer. Une consultation qui débloque douze règles
+passe devant un P0 isolé parce qu'elle coûte une action pour douze résultats —
+pas parce qu'elle serait plus grave.
+
+**« Débloque » n'est pas « achève ».** Une action lève le blocage principal ;
+les règles qui en portent d'autres retombent dans la file. Le plan compte les
+deux, sans quoi une consultation aurait l'air de finir douze règles.
+
+**Rien n'est promu, et la projection le dit à chaque ligne** (`PROJECTED_ONLY`).
+`expected_status_after_decision` parle au conditionnel, et sur une règle dont le
+texte n'a pas été lu il dit ce qu'il ignore : les blocages qu'un texte encore
+fermé révélera ne se devinent pas.
+
+CLI : `finreg-bench rulebook plan-action`. Sorties dans
+`reports/HUMAN_REVIEW_ACTION_PLAN.md` et `.csv`,
+`reports/LCBFT_MANUAL_CONSULTATION_PACK.md` — qui n'affirme rien du contenu des
+articles qu'il énumère — et `reports/AMF-R-005-SOURCE-REANCHORING.md`, qui
+n'inscrit aucune URL de remplacement.
+
 ### Question Family Map (phase 7)
 
 `familles.py` (modèle `CandidateFamily`) + `carte_familles.py` (dérivation) +

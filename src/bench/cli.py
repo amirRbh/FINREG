@@ -42,6 +42,12 @@ from src.bench.rapport_adjudication import (
     PACK_ADJUDICATION,
     PROGRESSION,
 )
+from src.bench.rapport_plan_action import (
+    DOSSIER_REANCRAGE,
+    PACK_LCBFT,
+    PLAN_ACTION,
+    PLAN_ACTION_CSV,
+)
 from src.bench.rapport_readiness import (
     FILE_REVUE,
     MATRICE_READINESS,
@@ -430,6 +436,40 @@ def rulebook_adjudication(
             fg=typer.colors.YELLOW,
         )
     typer.echo(f"  empreinte de l'audit relu : {resultat['empreinte']}")
+
+
+@rulebook.command("plan-action")
+def rulebook_plan_action(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    plan: Annotated[Path, typer.Option("--plan", help="Plan de revue.")] = PLAN_ACTION,
+    plan_csv: Annotated[
+        Path, typer.Option("--plan-csv", help="Queue P0/P1 en CSV.")
+    ] = PLAN_ACTION_CSV,
+    lcbft: Annotated[
+        Path, typer.Option("--lcbft", help="Pack de consultation manuelle LCB-FT.")
+    ] = PACK_LCBFT,
+    reancrage: Annotated[
+        Path, typer.Option("--reancrage", help="Dossier de réancrage de source.")
+    ] = DOSSIER_REANCRAGE,
+) -> None:
+    """Range les arbitrages P0/P1 en actions et calcule l'ordre de travail.
+
+    Ne décide rien, ne promeut rien, n'écrit ni règle, ni registre, ni famille.
+    """
+    from scripts.preparer_plan_action import preparer_plan_action
+
+    resultat = preparer_plan_action(racine, plan, plan_csv, lcbft, reancrage)
+    typer.secho(f"{resultat['regles']} règle(s) au plan", fg=typer.colors.GREEN)
+    for action, compte in resultat["par_action"].items():
+        typer.echo(f"  {action:24s} {compte}")
+    typer.echo(f"  regroupements : {resultat['groupes']} — étapes : {resultat['etapes']}")
+    typer.echo(
+        f"  LCB-FT à consulter : {resultat['lcbft']} — "
+        f"réancrages documentés : {resultat['reancrages']}"
+    )
+    for item in resultat["bloquants"]:
+        typer.secho(f"  BLOQUANT — {item}", fg=typer.colors.YELLOW)
+    typer.secho(f"  PROCHAINE ACTION — {resultat['prochaine_action']}", fg=typer.colors.CYAN)
 
 # -- Question Family Map ------------------------------------------------------------ #
 
