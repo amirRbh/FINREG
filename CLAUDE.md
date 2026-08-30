@@ -524,8 +524,22 @@ reproduction, c'est l'acte. Mesuré depuis l'environnement d'exécution :
 |---|---|---|
 | CELLAR | texte authentique du JO | **voie retenue** |
 | `eur-lex.europa.eu` | HTTP 200 mais sert la page d'accueil du JO | inutilisable |
-| `legifrance.gouv.fr` | HTTP 403 | Code monétaire et financier hors d'atteinte |
-| `amf-france.org` | page réelle | doctrine AMF atteignable |
+| `legifrance.gouv.fr` | HTTP 403 servi par Cloudflare, **après** tunnel établi | Code monétaire et financier hors d'atteinte |
+| `amf-france.org` | page réelle ; l'URL du RG enregistrée rend 404 | doctrine atteignable, RG à réancrer |
+
+**Un refus de la source et un refus de l'environnement ne se confondent pas.**
+Un bac à sable dont la politique réseau n'autorise pas un hôte refuse le CONNECT
+lui-même : rien n'atteint le site, et le 403 est celui de la passerelle. Le 403
+de Légifrance, lui, arrive *après* un tunnel établi — c'est le site qui refuse.
+Les traiter pareil ferait chercher la solution du mauvais côté : l'un se règle
+en ouvrant la politique de l'environnement, l'autre pas.
+
+**CELLAR se demande en HTTPS, redirections comprises.** Ses URI sont publiées en
+`http://` et son 303 renvoie lui aussi vers une URI en clair : ne basculer que
+l'URL de départ laisse le second saut en HTTP, et il échoue partout où seul le
+HTTPS est relayé. La bascule est dans le transport (`_en_https`,
+`_RedirectionHttps`) — jamais dans les identifiants enregistrés, qui restent
+ceux de l'acte.
 
 Un `200` qui rend une page d'accueil est plus dangereux qu'un `403` : il se lit
 comme un succès. Chaque récupération est donc **validée sur son contenu** —
@@ -677,11 +691,12 @@ schéma, pas une consigne dans un rapport. La lecture est tout ou rien.
 rejouant l'audit sur le Rulebook corrigé ; un « après » prévisionnel serait un
 `gold_ready` accordé par anticipation.
 
-**Les constats sont relus, pas refaits.** CELLAR et Légifrance sont hors
-d'atteinte depuis cet environnement : `relecture.py` reconstruit les constats
+**Les constats sont relus, pas refaits.** `relecture.py` reconstruit les constats
 depuis les artefacts d'audit publiés, stampe le pack de leur empreinte, et
 **refuse d'écrire** si le blocage reconstruit diffère de celui que l'audit avait
-publié. Une relecture ne peut rien établir de neuf.
+publié. Une relecture ne peut rien établir de neuf — elle sert quand le texte
+primaire n'est pas atteignable. Un audit relancé avec l'accès à CELLAR reproduit
+les artefacts au bit près : c'est la vérification la plus forte de la relecture.
 
 CLI : `finreg-bench rulebook adjudication`. Sorties dans
 `reports/HUMAN_REVIEW_P0_P1.md`, `reports/HUMAN_REVIEW_PROGRESS.md` et
