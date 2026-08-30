@@ -42,6 +42,7 @@ from src.bench.rapport_adjudication import (
     PACK_ADJUDICATION,
     PROGRESSION,
 )
+from scripts.preparer_lot import DOSSIER_LOT_CMF, FEUILLE_LOT_CMF
 from src.bench.rapport_plan_action import (
     DOSSIER_REANCRAGE,
     PACK_LCBFT,
@@ -470,6 +471,40 @@ def rulebook_plan_action(
     for item in resultat["bloquants"]:
         typer.secho(f"  BLOQUANT — {item}", fg=typer.colors.YELLOW)
     typer.secho(f"  PROCHAINE ACTION — {resultat['prochaine_action']}", fg=typer.colors.CYAN)
+
+
+@rulebook.command("lot")
+def rulebook_lot(
+    identifiant: Annotated[
+        str, typer.Option("--id", help="Identifiant du lot ou du cluster.")
+    ] = "LOT-CMF",
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier de consultation du lot.")
+    ] = DOSSIER_LOT_CMF,
+    feuille: Annotated[
+        Path, typer.Option("--feuille", help="Feuille de décision, colonnes vides.")
+    ] = FEUILLE_LOT_CMF,
+) -> None:
+    """Prépare le dossier de consultation d'un lot et sa feuille de décision vierge.
+
+    Ne lit aucun texte primaire, ne décide rien, ne promeut rien.
+    """
+    from scripts.preparer_lot import preparer_lot
+
+    resultat = preparer_lot(identifiant, racine, dossier, feuille)
+    typer.secho(
+        f"{resultat['lot']} — {len(resultat['regles'])} règle(s) : {resultat['source']}",
+        fg=typer.colors.GREEN,
+    )
+    for rule_id in resultat["regles"]:
+        typer.echo(f"  {rule_id}")
+    typer.echo(f"  statuts : {resultat['statuts']}")
+    typer.echo(f"  exceptions : {resultat['exceptions_statuts']}")
+    typer.secho(
+        "  aucune décision écrite : les colonnes de décision sortent vides",
+        fg=typer.colors.YELLOW,
+    )
 
 # -- Question Family Map ------------------------------------------------------------ #
 

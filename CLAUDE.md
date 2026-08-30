@@ -742,6 +742,38 @@ CLI : `finreg-bench rulebook plan-action`. Sorties dans
 articles qu'il énumère — et `reports/AMF-R-005-SOURCE-REANCHORING.md`, qui
 n'inscrit aucune URL de remplacement.
 
+### Lot de consultation et verrou du périmètre (`rapport_lot.py`)
+
+Un lot rassemble les règles qu'un seul document, une fois ouvert, sert toutes.
+Son dossier pose **deux décisions par règle**, jamais une : l'énoncé est-il
+soutenu par la disposition citée, et cette disposition est-elle limitée
+ailleurs ? Confirmer la première ne répond pas à la seconde — une règle
+confirmée dont les exceptions restent `unknown` se testerait comme un absolu.
+
+**La feuille de décision est celle du circuit de vérification**, restreinte aux
+règles du lot. Une seconde feuille ferait exister deux chemins vers le registre,
+donc deux vérités. Le vocabulaire de la revue s'y traduit : `NONE_IDENTIFIED` →
+`confirme` + `none_identified` ; `IDENTIFIED_AND_INCORPORATED` → `confirme` +
+exceptions recopiées ; `REQUIRES_CORRECTION` → `corrige` ; `REJECTED` →
+`refute`.
+
+**Une conclusion sur les exceptions dit son périmètre** (`VerificationSignee`) :
+`none_identified` sans `perimetre_exceptions` est refusé, et une exception
+incorporée doit dire de quelle disposition et de quelle version elle sort. C'est
+ce verrou qui empêche `unknown` de devenir `none_identified` au seul motif
+qu'une recherche automatique n'a rien trouvé — l'automate ne remplit jamais ce
+champ.
+
+**Le barème du jour s'applique à la porte, pas à l'histoire.** Poser ce verrou
+sur `Verification` l'aurait appliqué rétroactivement aux constats déjà signés au
+registre : ils auraient cessé de se rejouer, ou il aurait fallu les compléter
+après coup — c'est-à-dire falsifier une signature. `VerificationSignee` ne
+s'applique donc qu'à un dossier entrant ; le registre reste rejouable tel qu'il
+a été écrit.
+
+CLI : `finreg-bench rulebook lot --id LOT-CMF`. Sorties dans
+`reports/LOT_CMF_REVIEW_DOSSIER.md` et `data/verification/dossier-lot-cmf.csv`.
+
 ### Question Family Map (phase 7)
 
 `familles.py` (modèle `CandidateFamily`) + `carte_familles.py` (dérivation) +

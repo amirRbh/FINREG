@@ -115,6 +115,11 @@ class Verification(ModeleStrict):
     version_date: dt.date | None = None
     exceptions_status: ExceptionsStatus | None = None
     exceptions: list[str] = Field(default_factory=list)
+    #: Le périmètre réellement examiné pour conclure sur les exceptions : quels
+    #: articles, quel acte, quelle version. Obligatoire dès qu'on conclut —
+    #: sans lui, « je n'ai pas trouvé » passerait pour « il n'y en a pas », et
+    #: une dérogation incorporée ne dirait pas d'où elle sort.
+    exceptions_scope: str = ""
     #: Une règle peut être juridiquement validée et rester trop abstraite pour
     #: qu'on en tire une réponse de référence sans réinterpréter le droit.
     gold_ready: bool | None = None
@@ -201,6 +206,51 @@ class Verification(ModeleStrict):
         return self
 
 
+class VerificationSignee(Verification):
+    """Un constat **rendu aujourd'hui** par un relecteur, sous le barème courant.
+
+    Le barème se durcit avec le temps ; l'histoire, elle, ne se réécrit pas. Un
+    verrou posé sur `Verification` s'appliquerait rétroactivement aux constats
+    déjà signés au registre : soit ils cesseraient de se rejouer, soit il
+    faudrait les compléter après coup — c'est-à-dire falsifier une signature.
+    Le barème du jour s'applique donc à la porte d'entrée, là où une décision
+    nouvelle arrive, et le registre reste rejouable tel qu'il a été écrit.
+    """
+
+    @model_validator(mode="after")
+    def _une_conclusion_sur_les_exceptions_dit_son_perimetre(self) -> VerificationSignee:
+        """« Aucune exception » n'est recevable que si l'on dit où l'on a cherché.
+
+        C'est la même règle que pour les affirmations négatives, et c'est elle
+        qui empêche `unknown` de devenir `none_identified` au seul motif qu'une
+        recherche automatique n'a rien trouvé : l'automate ne remplit jamais ce
+        champ, seul un relecteur le peut.
+
+        Une exception incorporée doit dire d'où elle sort et de quelle version :
+        un extrait sans date n'est opposable à personne.
+        """
+        if (
+            self.exceptions_status is ExceptionsStatus.NONE_IDENTIFIED
+            and not self.exceptions_scope.strip()
+        ):
+            raise ValueError(
+                "exceptions_statut « none_identified » sans perimetre_exceptions : "
+                "une absence ne s'établit que sur un périmètre attesté"
+            )
+        if self.exceptions_status in EXCEPTIONS_PORTEES:
+            if not self.exceptions_scope.strip():
+                raise ValueError(
+                    "exceptions incorporées sans perimetre_exceptions : une "
+                    "dérogation doit dire de quelle disposition elle sort"
+                )
+            if self.version_date is None:
+                raise ValueError(
+                    "exceptions incorporées sans version_date_constatee : un "
+                    "extrait sans date n'est opposable à personne"
+                )
+        return self
+
+
 # -- dossier de vérification (CSV) ------------------------------------------------ #
 
 #: Colonnes de contexte, remplies par l'export : ce qu'il faut lire.
@@ -232,6 +282,7 @@ COLONNES_A_REMPLIR = [
     "version_date_constatee",
     "exceptions_statut",
     "exceptions_constatees",
+    "perimetre_exceptions",
     "gold_ready",
     "gold_ready_motif",
     "commentaire",
@@ -335,6 +386,7 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                     for e in (ligne.get("exceptions_constatees") or "").split("|")
                     if e.strip()
                 ],
+                "exceptions_scope": (ligne.get("perimetre_exceptions") or "").strip(),
             }
 
             methode = (ligne.get("methode") or "").strip()
@@ -356,7 +408,7 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                 ).strip()
 
             try:
-                verifications.append(Verification.model_validate(donnees))
+                verifications.append(VerificationSignee.model_validate(donnees))
             except ValueError as exc:
                 premiere = str(exc).splitlines()
                 detail = next(
