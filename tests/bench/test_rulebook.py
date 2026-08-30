@@ -100,11 +100,17 @@ def test_exceptions_vides_et_exceptions_inconnues_sont_distinctes():
     assert aucune.exceptions == inconnues.exceptions == []
 
 
-def test_exceptions_listees_sans_exception_refusees():
-    refuse(regle(exceptions_status="listed"), "sans exception listée")
+def test_incorporer_une_exception_cest_lecrire():
+    """« Identifiées » et « incorporées » ne sont pas la même chose.
 
-
-def test_exceptions_listees_hors_statut_listed_refusees():
+    Une règle qui sait que des dérogations existent sans les porter est plus
+    dangereuse qu'une règle qui les ignore : elle a l'air complète.
+    """
+    refuse(regle(exceptions_status="identified_and_incorporated"), "sans exception portée")
+    refuse(
+        regle(exceptions_status="identified_but_not_incorporated", exceptions=["une exception"]),
+        "exceptions listées",
+    )
     refuse(regle(exceptions_status="unknown", exceptions=["une exception"]), "exceptions listées")
 
 
@@ -271,7 +277,9 @@ def test_le_manifeste_est_exact(regles):
     manifeste = lire_json(MANIFESTE)
     assert manifeste["number_of_rules"] == len(regles)
     # Le manifeste compte ce que le Rulebook contient, pas ce qu'on espérait.
-    assert manifeste["number_validated"] == sum(1 for r in regles if r.is_usable)
+    assert manifeste["number_validated"] == sum(
+        1 for r in regles if r.status is RuleStatus.VALIDATED
+    )
     assert manifeste["number_source_checked"] == sum(
         1 for r in regles if r.status is RuleStatus.SOURCE_CHECKED
     )

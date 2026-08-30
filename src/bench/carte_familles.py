@@ -43,6 +43,7 @@ from src.bench.plan import CIBLES_DOMAINES_EXPLICITES_V0, CIBLES_V0, POIDS_TYPES
 from src.bench.qc_rulebook import ANCRAGES_IMPRECIS, SEUIL_DOUBLON, proximite_enonces
 from src.bench.regles import Rule
 from src.bench.rulebook import (
+    EXCEPTIONS_PORTEES,
     ExceptionsStatus,
     NegativeClaimStatus,
     Priority,
@@ -389,7 +390,7 @@ def _potentiel(regle: Rule, famille: FamilyKind) -> Potentiel:
         )
 
     if famille is FamilyKind.CONDITIONAL_ANSWER:
-        if regle.exceptions_status is ExceptionsStatus.LISTED:
+        if regle.exceptions_status in EXCEPTIONS_PORTEES:
             return Potentiel(
                 3,
                 "des exceptions listées font des branches : la réponse correcte est "
@@ -457,7 +458,7 @@ def _potentiel(regle: Rule, famille: FamilyKind) -> Potentiel:
         return Potentiel(0, "aucun régime voisin : la confusion ne serait pas plausible")
 
     if famille is FamilyKind.EXCEPTION:
-        if regle.exceptions_status is ExceptionsStatus.LISTED:
+        if regle.exceptions_status in EXCEPTIONS_PORTEES:
             return Potentiel(
                 3,
                 f"{len(regle.exceptions)} exception(s) listée(s) : la surgénéralisation "
@@ -588,7 +589,7 @@ def _difficulte(regle: Rule, famille: FamilyKind) -> tuple[int, str]:
             f"+1 : {len(regle.related_rules)} règles liées — la réponse doit être "
             f"tenue face à des règles voisines"
         )
-    if regle.exceptions_status is ExceptionsStatus.LISTED and famille in (
+    if regle.exceptions_status in EXCEPTIONS_PORTEES and famille in (
         FamilyKind.QUALIFICATION,
         FamilyKind.FACT_RECALL,
     ):
@@ -617,7 +618,7 @@ def _erreurs_disqualifiantes(regle: Rule, famille: FamilyKind) -> list[CriticalE
     if famille is FamilyKind.CROSS_REGULATORY or _regimes_voisins(regle):
         trouvees.add(CriticalErrorKind.WRONG_REGULATORY_REGIME)
     if famille in (FamilyKind.EXCEPTION, FamilyKind.CONDITIONAL_ANSWER) or (
-        regle.exceptions_status is ExceptionsStatus.LISTED
+        regle.exceptions_status in EXCEPTIONS_PORTEES
     ):
         trouvees.add(CriticalErrorKind.FAILURE_TO_MENTION_EXCEPTION)
     if regle.rule_type in (RuleType.OBLIGATION, RuleType.PROHIBITION):
@@ -704,7 +705,7 @@ def _abstention_focus(regle: Rule, famille: FamilyKind) -> list[str]:
         besoins.append("les données chiffrées permettant de situer le cas par rapport au seuil")
     if regle.rule_type in (RuleType.DEADLINE, RuleType.PROCEDURE):
         besoins.append("la date de l'événement déclencheur et l'état de la procédure")
-    if regle.exceptions_status is ExceptionsStatus.LISTED:
+    if regle.exceptions_status in EXCEPTIONS_PORTEES:
         besoins.append("les éléments permettant d'écarter ou de retenir une exception")
     if regle.time_sensitive:
         besoins.append("la date à laquelle la situation doit être appréciée")

@@ -111,7 +111,10 @@ def test_une_refutation_dit_ce_qui_cloche():
 
 def test_les_exceptions_restent_distinctes_du_silence():
     refuse(constat(exceptions=["une exception"]), "sans exceptions_statut")
-    refuse(constat(exceptions_status="listed"), "sans exception constatée")
+    refuse(
+        constat(exceptions_status="identified_and_incorporated"),
+        "sans exception constatée",
+    )
 
 
 # -- application aux règles ---------------------------------------------------------- #
@@ -137,6 +140,8 @@ def test_une_correction_reversionne_au_lieu_decraser():
             target_status="validated",
             statement="Ce que le texte dit réellement.",
             exceptions_status="none_identified",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
         )
     )
     [resultat] = appliquer([regle], [correction])
@@ -168,9 +173,36 @@ def test_une_regle_validee_ne_peut_pas_ignorer_ses_exceptions():
     """Une règle validée sans ses exceptions se teste comme un absolu qu'elle n'est pas."""
     regle = brouillon(exceptions_status="unknown")
     correction = Verification.model_validate(
-        constat(verdict="corrige", target_status="validated", statement="Énoncé rectifié.")
+        constat(
+            verdict="corrige",
+            target_status="validated",
+            statement="Énoncé rectifié.",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+        )
     )
-    with pytest.raises(VerificationInvalide, match="exceptions restent"):
+    with pytest.raises(VerificationInvalide, match="recherche d'exceptions vaut"):
+        appliquer([regle], [correction])
+
+
+def test_des_exceptions_identifiees_mais_non_incorporees_bloquent_la_validation():
+    """Le cas le plus trompeur : la règle sait, et ne porte pas.
+
+    Savoir que des dérogations existent sans les écrire donne à la règle
+    l'apparence de la complétude. C'est pire que de les ignorer.
+    """
+    regle = brouillon(exceptions_status="unknown")
+    correction = Verification.model_validate(
+        constat(
+            verdict="corrige",
+            target_status="validated",
+            statement="Énoncé rectifié.",
+            exceptions_status="identified_but_not_incorporated",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+        )
+    )
+    with pytest.raises(VerificationInvalide, match="identifiées mais non incorporées"):
         appliquer([regle], [correction])
 
 
@@ -325,14 +357,32 @@ def test_un_registre_absent_vaut_aucune_verification(tmp_path):
     assert charger_registre(tmp_path / "jamais-ecrit.json") == []
 
 
-def test_la_fusion_garde_le_constat_le_plus_recent(tmp_path):
+def test_la_fusion_nefface_aucun_constat(tmp_path):
+    """Le registre est une mémoire, pas un état courant.
+
+    Une règle corrigée deux fois doit rester reconstructible : garder seulement
+    le dernier constat ferait réapparaître une version intermédiaire à la
+    première régénération du Rulebook.
+    """
     chemin = ecrire_registre([Verification.model_validate(constat())], tmp_path / "ledger.json")
     fusionne = fusionner_registre(
-        [Verification.model_validate(constat(target_status="validated", exceptions_status="none_identified"))],
+        [
+            Verification.model_validate(
+                constat(
+                    target_status="validated",
+                    exceptions_status="none_identified",
+                    gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+                )
+            )
+        ],
         chemin,
     )
-    assert len(fusionne) == 1
-    assert fusionne[0].target_status is RuleStatus.VALIDATED
+    assert len(fusionne) == 2
+    assert [v.target_status for v in fusionne] == [
+        RuleStatus.SOURCE_CHECKED,
+        RuleStatus.VALIDATED,
+    ]
 
 
 def test_une_regeneration_neffacerait_pas_la_verification(tmp_path, monkeypatch):
@@ -516,11 +566,18 @@ def test_les_exceptions_inconnues_bloquent_la_validation_des_regles_livrees():
     assert regles
     correction = [
         Verification.model_validate(
-            constat(rule_id=r.id, verdict="corrige", target_status="validated", statement="X.")
+            constat(
+                rule_id=r.id,
+                verdict="corrige",
+                target_status="validated",
+                statement="X.",
+                gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+            )
         )
         for r in regles[:1]
     ]
-    with pytest.raises(VerificationInvalide, match="exceptions restent"):
+    with pytest.raises(VerificationInvalide, match="recherche d'exceptions vaut"):
         appliquer(charger_rulebook(), correction)
 
 

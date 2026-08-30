@@ -3,9 +3,9 @@
   "number_critical": 31,
   "number_needing_verification": 13,
   "number_of_rules": 58,
-  "number_source_checked": 43,
+  "number_source_checked": 33,
   "number_time_sensitive": 9,
-  "number_validated": 0,
+  "number_validated": 12,
   "number_with_negative_claims": 7,
   "rulebook_version": "v0.1.0",
   "rules_per_domain": {
@@ -28,8 +28,9 @@
     "MEDIUM": 4
   },
   "rules_per_status": {
-    "draft": 15,
-    "source_checked": 43
+    "draft": 13,
+    "source_checked": 33,
+    "validated": 12
   },
   "rules_per_type": {
     "CLASSIFICATION": 6,

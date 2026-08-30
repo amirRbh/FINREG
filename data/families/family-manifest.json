@@ -77,5 +77,6 @@
   "number_ready": 0,
   "number_requiring_negative_claim": 25,
   "retention_threshold": 2,
+  "rulebook_fingerprint": "e0538b03ebf77b7538eff85b3fec798b7d135ae54f385d6e86b424f1d30573b1",
   "status_note": "Aucune règle du Rulebook n'est validée : les 316 familles de la carte sont toutes « blocked » et aucune ne peut engendrer un item du benchmark. La carte décrit ce qui sera mesurable une fois la vérification faite, pas ce qui l'est aujourd'hui."
 }

@@ -214,6 +214,95 @@ def _verifier_affirmations_negatives(
     return len(regle.negative_claims), absentes, notes
 
 
+@dataclass(frozen=True)
+class TexteDeLaRegle:
+    """Le texte officiel d'une règle, et les dispositions qu'elle cite.
+
+    Extrait de l'audit de sources pour être partagé avec l'audit de complétude :
+    deux résolutions concurrentes du même acte finiraient par diverger, et la
+    seconde passe vérifierait une autre version du droit que la première.
+    """
+
+    texte: TextePrimaire | None
+    article: str = ""
+    trouvees: tuple[str, ...] = ()
+    manquantes: tuple[str, ...] = ()
+    cles: tuple[str, ...] = ()
+    celex_url: str | None = None
+    celex_cite: str | None = None
+    doctrinale: bool = False
+    consolidation_manquante: str = ""
+    echec: str = ""
+
+
+def texte_de_la_regle(
+    regle: Rule, recuperateur: Recuperateur = recuperateur_http, cache=None
+) -> TexteDeLaRegle:
+    """Résout l'acte cité, le récupère, et isole les dispositions citées.
+
+    L'URL et la citation ne désignent pas toujours le même acte : une règle
+    pointe volontiers l'acte **modificatif** alors qu'elle énonce l'acte modifié.
+    On vérifie contre l'acte cité, qui est celui dont la règle parle. Et une
+    règle qui énonce un texte « modifié » est cherchée dans sa version
+    consolidée : la confronter à l'acte d'origine lui reprocherait de ne pas
+    contenir une disposition ajoutée depuis.
+    """
+    celex_url = celex_de_url(regle.source.url)
+    celex_cite = celex_du_texte(regle.source.text)
+    doctrinale = any(hote in regle.source.url for hote in SOURCES_DOCTRINALES)
+    celex = celex_cite or celex_url
+
+    if celex is None and not doctrinale:
+        return TexteDeLaRegle(
+            None,
+            celex_url=celex_url,
+            celex_cite=celex_cite,
+            echec="URL sans identifiant CELEX ni source institutionnelle reconnue",
+        )
+
+    consolidation_manquante = ""
+    texte = None
+    if celex is not None and CITATION_MODIFIEE.search(regle.source.text):
+        vise = celex_consolide(celex, regle.source.version_date)
+        if vise is not None:
+            try:
+                texte = recuperer_texte(vise, "FRA", recuperateur, cache)
+            except RecuperationImpossible:
+                consolidation_manquante = vise
+
+    if texte is None:
+        try:
+            texte = (
+                recuperer_page(regle.source.url, recuperateur, cache)
+                if celex is None
+                else recuperer_texte(celex, "FRA", recuperateur, cache)
+            )
+        except RecuperationImpossible as exc:
+            return TexteDeLaRegle(
+                None,
+                celex_url=celex_url,
+                celex_cite=celex_cite,
+                doctrinale=doctrinale,
+                consolidation_manquante=consolidation_manquante,
+                echec=f"texte primaire non récupéré : {exc}",
+            )
+
+    cles = cles_articles(regle.source.article) if texte.articles else []
+    trouvees = [c for c in cles if c in texte.articles]
+    manquantes = [c for c in cles if c not in texte.articles]
+    return TexteDeLaRegle(
+        texte=texte,
+        article=" ".join(texte.articles[c] for c in trouvees),
+        trouvees=tuple(trouvees),
+        manquantes=tuple(manquantes),
+        cles=tuple(cles),
+        celex_url=celex_url,
+        celex_cite=celex_cite,
+        doctrinale=doctrinale,
+        consolidation_manquante=consolidation_manquante,
+    )
+
+
 def auditer_regle(
     regle: Rule,
     recuperateur: Recuperateur = recuperateur_http,

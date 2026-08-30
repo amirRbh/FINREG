@@ -11,11 +11,16 @@
       "oublier que les prestataires tiers TIC entrent dans le dispositif"
     ],
     "domain": "DORA",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Sans préjudice des paragraphes 3 et 4, le présent règlement s’applique aux entités suivantes: a) les établissements de crédit; b) les établissements de paiement, y compris les établissements de paiement exemptés en vertu de la directive (UE) 2015/2366; c) les prestataires de services d’information sur les comptes; d) les établissements de monnaie électronique, y compris les établissements de monna",
+      "Le présent règlement ne s’applique pas aux: a) gestionnaires de fonds d’investissement alternatifs visés à l’article 3, paragraphe 2, de la directive 2011/61/UE; b) entreprises d’assurance et de réassurance visées à l’article 4 de la directive 2009/138/CE; c) institutions de retraite professionnelle qui gèrent des régimes de retraite qui, ensemble, ne comptent pas plus de quinze affiliés au total;"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 2 » (220 caractères), exceptions « identified_and_incorporated »",
     "id": "DORA-R-001",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 2 Champ d’application 1. Sans préjudice des paragraphes 3 et 4, le présent règlement s’applique aux entités suivantes: a) les établissements de crédit; b) les établissements de paiement, y compris les établissements de paiement exemptés en vertu de la directive (UE) 2015/2366; c) les prestataires de services d’information sur les comptes; d) les établissements de monnaie électronique, y compris les établissements de monnaie électronique exemptés en vertu de la directive 2009/110/CE; e) les entreprises d’investissement; f) les prestataires de services sur crypto-actifs agréés en vertu d || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation, exemption, conditions_cumulatives, regime_particulier || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption) [confirme] STRUCTURES — derogation, exemption, conditions_cumulatives, regime_particulier || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption)",
     "operational_rule": "Le périmètre est large et transsectoriel : il ne se limite ni aux banques ni aux entités systémiques. La question du périmètre se tranche par l'énumération, pas par la taille.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -40,15 +45,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "L'article 2 du règlement (UE) 2022/2554 énumère les catégories d'entités financières auxquelles le règlement s'applique, ainsi que les prestataires tiers de services TIC, et prévoit des exclusions pour certaines entités.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Article 2 — champ d'application",
-    "supersedes": null,
+    "supersedes": "DORA-R-001-v1",
     "time_sensitive": false,
     "title": "Entités financières couvertes par DORA",
     "valid_from": "2025-01-17",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -63,6 +68,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-002",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 5 Gouvernance et organisation 1. Les entités financières disposent d’un cadre de gouvernance et de contrôle interne qui garantit une gestion efficace et prudente du risque lié aux TIC, conformément à l’article 6, paragraphe 4, en vue d’atteindre un niveau élevé de résilience opérationnelle numérique. 2. L’organe de direction de l’entité financière définit, approuve, supervise et est responsable de la mise en œuvre de toutes les dispositions relatives au cadre de gestion du risque lié aux TIC visé à l’article 6, paragraphe 1. Aux fins du premier alinéa, l’organe de direction: a) assume  || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -114,6 +121,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-003",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 6 Cadre de gestion du risque lié aux TIC 1. Les entités financières disposent d’un cadre de gestion du risque lié aux TIC solide, complet et bien documenté, faisant partie de leur système global de gestion des risques, qui leur permet de parer au risque lié aux TIC de manière rapide, efficiente et exhaustive et de garantir un niveau élevé de résilience opérationnelle numérique. 2. Le cadre de gestion du risque lié aux TIC englobe au moins les stratégies, les politiques, les procédures, les protocoles et les outils de TIC qui sont nécessaires pour protéger dûment et de manière approprié || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -165,6 +174,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-004",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 8 Identification 1. Aux fins du cadre de gestion du risque lié aux TIC visé à l’article 6, paragraphe 1, les entités financières identifient, classent et documentent de manière adéquate toutes les fonctions métiers , tous les rôles et toutes les responsabilités s’appuyant sur les TIC, les actifs informationnels et les actifs de TIC qui soutiennent ces fonctions, ainsi que leurs rôles et dépendances en ce qui concerne le risque lié aux TIC. Les entités financières examinent si nécessaire, et au moins une fois par an, le caractère adéquat de cette classification et de toute documentation || RÉSERVES — ancrage « Articles 8 à 13 » : 6 articles couverts (8, 9, 10, 11, 12, 13), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -213,11 +224,16 @@
       "croire que le régime simplifié dispense de tout cadre"
     ],
     "domain": "DORA",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Les articles 5 à 15 du présent règlement ne s’appliquent pas aux petites entreprises d’investissement non interconnectées et aux établissements de paiement exemptés en vertu de la directive (UE) 2015/2366; aux établissements exemptés en vertu de la directive 2013/36/UE pour lesquels les États membres ont décidé de ne pas appliquer l’option visée à l’article 2, paragraphe 4, du présent règlement; a",
+      "Sans préjudice du premier alinéa, les entités énumérées au premier alinéa doivent: a) mettre en place et maintenir un cadre de gestion du risque lié aux TIC solide et documenté qui détaille les mécanismes et les mesures permettant une gestion rapide, efficace et complète du risque lié aux TIC, y compris en ce qui concerne la protection des composantes et infrastructures physiques pertinentes; b) s"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 16 » (133 caractères), exceptions « identified_and_incorporated »",
     "id": "DORA-R-005",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 16 Cadre simplifié de gestion du risque lié aux TIC 1. Les articles 5 à 15 du présent règlement ne s’appliquent pas aux petites entreprises d’investissement non interconnectées et aux établissements de paiement exemptés en vertu de la directive (UE) 2015/2366; aux établissements exemptés en vertu de la directive 2013/36/UE pour lesquels les États membres ont décidé de ne pas appliquer l’option visée à l’article 2, paragraphe 4, du présent règlement; aux établissements de monnaie électronique exemptés en vertu de la directive 2009/110/CE; et aux petites institutions de retraite professi || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation, exemption, conditions_cumulatives, delai || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption) [confirme] STRUCTURES — derogation, exemption, conditions_cumulatives, delai || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption)",
     "operational_rule": "Le régime simplifié est ouvert par énumération d'entités, pas par appréciation de la taille ou de la complexité par l'entité elle-même.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -243,15 +259,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "L'article 16 prévoit un cadre simplifié de gestion du risque lié aux TIC pour certaines entités financières limitativement énumérées.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Article 16 — cadre simplifié",
-    "supersedes": null,
+    "supersedes": "DORA-R-005-v1",
     "time_sensitive": false,
     "title": "Cadre simplifié de gestion du risque TIC",
     "valid_from": "2025-01-17",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -265,6 +281,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-006",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 17 Processus de gestion des incidents liés aux TIC 1. Les entités financières définissent, établissent et mettent en œuvre un processus de gestion des incidents liés aux TIC afin de détecter, de gérer et de notifier les incidents liés aux TIC. 2. Les entités financières enregistrent tous les incidents liés aux TIC et les cybermenaces importantes. Les entités financières mettent en place des procédures et des processus adéquats pour assurer une surveillance, un traitement et un suivi cohérents et intégrés des incidents liés aux TIC, pour veiller à ce que les causes originelles soient id || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -317,6 +335,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-007",
     "negative_claims": [
       {
@@ -378,6 +398,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-008",
     "negative_claims": [
       {
@@ -436,11 +458,17 @@
       "confondre programme de tests et audit de sécurité classique"
     ],
     "domain": "DORA",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Sans préjudice du paragraphe 2, premier et deuxième alinéas, lorsque l’on peut raisonnablement s’attendre à ce que la participation d’un prestataire tiers de services TIC au test de pénétration fondé sur la menace, visée au paragraphe 3, ait une incidence négative sur la qualité ou sur la sécurité des services que le prestataire tiers de services TIC fournit à des clients qui sont des entités ne r",
+      "Sans préjudice de ladite attestation, les entités financières restent à tout moment pleinement responsables de l’incidence des tests visée au paragraphe 4. 8.",
+      "En l’absence de désignation conformément au paragraphe 9 du présent article, et sans préjudice du pouvoir de désigner les entités financières qui sont tenues de réaliser un test de pénétration fondé sur la menace, une autorité compétente peut déléguer l’exercice de tout ou partie des tâches visées au présent article et à l’article 27 à une autre autorité nationale du secteur financier. 11."
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Articles 24 à 26 » (203 caractères), exceptions « identified_and_incorporated »",
     "id": "DORA-R-009",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 24 Exigences générales applicables à la réalisation de tests de résilience opérationnelle numérique 1. Afin d’évaluer l’état de préparation en vue du traitement d’incidents liés aux TIC, de recenser les faiblesses, les défaillances et les lacunes en matière de résilience opérationnelle numérique et de mettre rapidement en œuvre des mesures correctives, les entités financières, autres que les microentreprises, établissent, maintiennent et réexaminent, en tenant compte des critères énoncés à l’article 4, paragraphe 2, un programme solide et complet de tests de résilience opérationnelle n || RÉSERVES — ancrage « Articles 24 à 26 » : 3 articles couverts (24, 25, 26), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation, conditions_cumulatives, delai, regime_particulier || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation, conditions_cumulatives, delai, regime_particulier || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "Deux niveaux d'exigence : un programme de tests pour toutes les entités concernées, et des tests avancés réservés à celles que l'autorité désigne.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -465,15 +493,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "Les articles 24 à 26 du règlement (UE) 2022/2554 imposent un programme de tests de résilience opérationnelle numérique et prévoient, pour certaines entités, des tests de pénétration fondés sur la menace.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Articles 24 à 26 — tests",
-    "supersedes": null,
+    "supersedes": "DORA-R-009-v1",
     "time_sensitive": false,
     "title": "Tests de résilience opérationnelle numérique",
     "valid_from": "2025-01-17",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -488,6 +516,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-010",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 28 Principes généraux 1. Les entités financières gèrent les risques liés aux prestataires tiers de services TIC en tant que partie intégrante du risque lié aux TIC dans leur cadre de gestion du risque lié aux TIC visé à l’article 6, paragraphe 1, et conformément aux principes suivants: a) les entités financières qui ont conclu des accords contractuels pour l’utilisation de services TIC dans le cadre de leurs activités restent à tout moment pleinement responsables du respect et de l’exécution de toutes les obligations découlant du présent règlement et du droit applicable aux services fi || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -538,11 +568,15 @@
       "croire que la sous-traitance échappe au dispositif"
     ],
     "domain": "DORA",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Par dérogation au point e), le prestataire tiers de services TIC et l’entité financière qui est une microentreprise peuvent convenir que les droits d’accès, d’inspection et d’audit de l’entité financière peuvent être délégués à une tierce partie indépendante, nommée par le prestataire tiers de services TIC, et que l’entité financière est habilitée à demander à la tierce partie, en tout temps, des"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 30 » (311 caractères), exceptions « identified_and_incorporated »",
     "id": "DORA-R-011",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 30 Principales dispositions contractuelles 1. Les droits et obligations de l’entité financière et du prestataire tiers de services TIC sont définis clairement et consignés par écrit. L’intégralité du contrat comprend les accords de niveau de service et est consignée dans un document écrit unique qui est mis à la disposition des parties sur papier, ou dans un document sous un autre format téléchargeable, durable et accessible. 2. Les accords contractuels relatifs à l’utilisation de services TIC comportent au moins les éléments suivants: a) une description claire et exhaustive de tous le || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation, conditions_cumulatives, delai, regime_particulier || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation, conditions_cumulatives, delai, regime_particulier || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "Deux niveaux d'exigences contractuelles selon la criticité de la fonction soutenue ; les droits d'audit et la stratégie de sortie relèvent du niveau renforcé.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -568,15 +602,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "L'article 30 énumère les dispositions que doivent contenir les accords contractuels avec les prestataires tiers de services TIC, avec des exigences renforcées lorsque les services soutiennent des fonctions critiques ou importantes, notamment en matière d'accès, d'inspection, d'audit et de stratégies de sortie.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Article 30 — contrats",
-    "supersedes": null,
+    "supersedes": "DORA-R-011-v1",
     "time_sensitive": false,
     "title": "Dispositions contractuelles essentielles avec les prestataires TIC",
     "valid_from": "2025-01-17",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -591,6 +625,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-012",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 31 Désignation de prestataires tiers critiques de services TIC 1. Les AES, agissant par l’intermédiaire du comité mixte et sur recommandation du forum de supervision établi conformément à l’article 32, paragraphe 1: a) désignent les prestataires tiers de services TIC qui sont critiques pour les entités financières, à l’issue d’une évaluation tenant compte des critères précisés au paragraphe 2; b) désignent comme superviseur principal pour chaque prestataire tiers critique de services TIC l’AES responsable, conformément aux règlements (UE) n o 1093/2010, (UE) n o 1094/2010 ou (UE) n o 1 || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -642,6 +678,8 @@
     "domain": "DORA",
     "exceptions": [],
     "exceptions_status": "none_identified",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "DORA-R-013",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 64 Entrée en vigueur et application Le présent règlement entre en vigueur le vingtième jour suivant celui de sa publication au Journal officiel de l’Union européenne . Il s’applique à partir du 17 janvier 2025 .",

@@ -7,22 +7,17 @@ l'exploitation du Rulebook et ce qui la limite.
 
 - règles : **58**
 - erreurs bloquantes : **0**
-- avertissements : **96**
+- avertissements : **80**
 
 ## État de vérification
 
 - règles dont la source n'a pas été consultée : **13 / 58**
-- règles utilisables pour ancrer un gold : **0 / 58**
+- règles utilisables pour ancrer un gold : **10 / 58**
 
 > **45 règle(s) sur 58** ont été confrontées à leur texte
 > primaire, par récupération auprès de CELLAR (Office des publications de
 > l'Union), et signées par un vérificateur nommé. Le détail est dans
 > `reports/RULEBOOK_VERIFICATION_QC.md`.
-
-> **Aucune règle n'est encore utilisable pour ancrer un gold.** Une source
-> attestée dit que le texte a été lu ; elle ne dit pas que la règle est
-> complète. `validated` exige en outre des exceptions cherchées, et elles
-> restent inconnues sur **55 règle(s)**.
 
 ## Circuit de vérification
 
@@ -46,12 +41,12 @@ tant que les exceptions de la règle sont inconnues.
 Constats qui n'exigent pas de lire le texte : ils sont déductibles de la
 citation elle-même, et devront être corrigés au passage.
 
-- **date de version antérieure à l'acte cité** — 16 règle(s) : `DORA-R-001`, `DORA-R-002`, `DORA-R-003`, `DORA-R-004`, `DORA-R-005`, `DORA-R-006`, `DORA-R-007`, `DORA-R-008`, `DORA-R-009`, `DORA-R-010`, `DORA-R-011`, `DORA-R-012`, `DORA-R-013`, `MIFID-R-006`, `MIFID-R-007`, `SFDR-R-014`
+- **date de version antérieure à l'acte cité** — 15 règle(s) : `DORA-R-001`, `DORA-R-002`, `DORA-R-003`, `DORA-R-004`, `DORA-R-005`, `DORA-R-006`, `DORA-R-007`, `DORA-R-008`, `DORA-R-009`, `DORA-R-010`, `DORA-R-011`, `DORA-R-012`, `DORA-R-013`, `MIFID-R-006`, `SFDR-R-014`
 - **ancrage couvrant plusieurs dispositions** — 8 règle(s) : `DORA-R-004`, `DORA-R-009`, `LCBFT-R-005`, `LCBFT-R-008`, `LCBFT-R-013`, `MIFID-R-006`, `SFDR-R-014`, `TAXO-R-003`
-- **URL désignant un autre acte que la source citée** — 2 règle(s) : `MIFID-R-006`, `MIFID-R-007`
+- **URL désignant un autre acte que la source citée** — 1 règle(s) : `MIFID-R-006`
 - **règles distinctes partageant un article** — 3 règle(s) : `AMF-R-003`, `MIFID-R-003`, `MIFID-R-011`
 
-## Avertissements (96)
+## Avertissements (80)
 
 ### `ancrage_imprecis` — 8
 
@@ -64,34 +59,33 @@ citation elle-même, et devront être corrigés au passage.
 - `SFDR-R-014` : l'ancrage « Ensemble du règlement délégué » ne désigne pas une disposition unique : un gold ancré ici ne pourra pas citer son article
 - `TAXO-R-003` : l'ancrage « Articles 17 et 18 » ne désigne pas une disposition unique : un gold ancré ici ne pourra pas citer son article
 
-### `exceptions` — 55
+### `exceptions` — 43
 
 - `AMF-R-001` : exceptions inconnues : la règle peut produire une question simplifiée
 - `AMF-R-002` : exceptions inconnues : la règle peut produire une question simplifiée
 - `AMF-R-003` : exceptions inconnues : la règle peut produire une question simplifiée
 - `AMF-R-004` : exceptions inconnues : la règle peut produire une question simplifiée
 - `AMF-R-005` : exceptions inconnues : la règle peut produire une question simplifiée
-- `DORA-R-001` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-002` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-003` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-004` : exceptions inconnues : la règle peut produire une question simplifiée
-- `DORA-R-005` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-006` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-007` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-008` : exceptions inconnues : la règle peut produire une question simplifiée
-- `DORA-R-009` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-010` : exceptions inconnues : la règle peut produire une question simplifiée
-- `DORA-R-011` : exceptions inconnues : la règle peut produire une question simplifiée
 - `DORA-R-012` : exceptions inconnues : la règle peut produire une question simplifiée
 - `LCBFT-R-001` : exceptions inconnues : la règle peut produire une question simplifiée
 - `LCBFT-R-002` : exceptions inconnues : la règle peut produire une question simplifiée
 - `LCBFT-R-003` : exceptions inconnues : la règle peut produire une question simplifiée
-- … et 35 autre(s)
+- `LCBFT-R-004` : exceptions inconnues : la règle peut produire une question simplifiée
+- `LCBFT-R-005` : exceptions inconnues : la règle peut produire une question simplifiée
+- `LCBFT-R-006` : exceptions inconnues : la règle peut produire une question simplifiée
+- `LCBFT-R-007` : exceptions inconnues : la règle peut produire une question simplifiée
+- … et 23 autre(s)
 
-### `url_acte_different` — 2
+### `url_acte_different` — 1
 
 - `MIFID-R-006` : l'URL désigne l'acte 2021/1253 alors que la source cite 2017/565 : légitime pour un acte modificatif, à confirmer sinon
-- `MIFID-R-007` : l'URL désigne l'acte 2021/1253 alors que la source cite 2017/565 : légitime pour un acte modificatif, à confirmer sinon
 
 ### `verification` — 13
 
@@ -109,12 +103,7 @@ citation elle-même, et devront être corrigés au passage.
 - `LCBFT-R-011` : source non consultée (model_knowledge_unverified)
 - `LCBFT-R-012` : source non consultée (model_knowledge_unverified)
 
-### `verification_sans_promotion` — 2
-
-- `MIFID-R-007` : source consultée mais règle restée en « draft » : réfutée ou non tranchée, elle ne reviendra pas d'elle-même dans le dossier de vérification
-- `MIFID-R-011` : source consultée mais règle restée en « draft » : réfutée ou non tranchée, elle ne reviendra pas d'elle-même dans le dossier de vérification
-
-### `version_date_placeholder` — 16
+### `version_date_placeholder` — 15
 
 - `DORA-R-001` : version consultée datée 2020-01-01, antérieure à l'acte 2022/2554 lui-même : la date est un placeholder, à établir lors de la vérification
 - `DORA-R-002` : version consultée datée 2020-01-01, antérieure à l'acte 2022/2554 lui-même : la date est un placeholder, à établir lors de la vérification
@@ -130,7 +119,6 @@ citation elle-même, et devront être corrigés au passage.
 - `DORA-R-012` : version consultée datée 2020-01-01, antérieure à l'acte 2022/2554 lui-même : la date est un placeholder, à établir lors de la vérification
 - `DORA-R-013` : version consultée datée 2020-01-01, antérieure à l'acte 2022/2554 lui-même : la date est un placeholder, à établir lors de la vérification
 - `MIFID-R-006` : version consultée datée 2020-01-01, antérieure à l'acte 2021/1253 lui-même : la date est un placeholder, à établir lors de la vérification
-- `MIFID-R-007` : version consultée datée 2020-01-01, antérieure à l'acte 2021/1253 lui-même : la date est un placeholder, à établir lors de la vérification
 - `SFDR-R-014` : version consultée datée 2020-01-01, antérieure à l'acte 2022/1288 lui-même : la date est un placeholder, à établir lors de la vérification
 
 ## Infos (3)
@@ -139,5 +127,5 @@ citation elle-même, et devront être corrigés au passage.
 
 - `AMF-R-003` : partage l'article de « AMF-R-002 » mais dit autre chose (12% de mots communs) : ancrage à préciser au paragraphe
 - `MIFID-R-003` : partage l'article de « MIFID-R-002 » mais dit autre chose (33% de mots communs) : ancrage à préciser au paragraphe
-- `MIFID-R-011` : partage l'article de « MIFID-R-007 » mais dit autre chose (8% de mots communs) : ancrage à préciser au paragraphe
+- `MIFID-R-011` : partage l'article de « MIFID-R-007 » mais dit autre chose (15% de mots communs) : ancrage à préciser au paragraphe
 

@@ -1,107 +1,113 @@
 [
   {
-    "id": "RULE-SYNTH-001",
+    "candidate_question_families": [
+      "recall",
+      "qualification"
+    ],
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
     "domain": "SFDR",
+    "exceptions_status": "none_identified",
+    "gold_ready": true,
+    "gold_ready_reason": "règle synthétique de test : énoncé porteur d'un fait vérifiable, ancré sur un article unique",
+    "id": "RULE-SYNTH-001",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
+    "priority": "MEDIUM",
+    "reasoning_traps": [
+      "NONE"
+    ],
     "regulatory_regime": "Régime synthétique de test",
-    "title": "Règle synthétique 1",
+    "regulatory_status": "in_force",
+    "rule_type": "OBLIGATION",
     "source": {
-      "text": "Texte synthétique de test (aucune valeur juridique)",
       "article": "Article SYNTH-1",
       "paragraph": "1",
+      "text": "Texte synthétique de test (aucune valeur juridique)",
       "url": "https://example.invalid/synth/1",
-      "version_date": "2020-01-01",
+      "verification_date": "2026-01-15",
       "verified_by": "Relecteur synthétique",
-      "verification_date": "2026-01-15"
+      "version_date": "2020-01-01"
     },
-    "regulatory_status": "in_force",
-    "valid_from": "2020-01-01",
-    "status": "validated",
-    "rule_type": "OBLIGATION",
     "statement": "Énoncé synthétique 1 (aucune valeur juridique).",
-    "operational_rule": "Interprétation synthétique, sans portée juridique.",
-    "common_confusions": [
-      "confusion synthétique typique"
-    ],
-    "exceptions_status": "none_identified",
-    "verification_method": "primary_text_review",
-    "priority": "MEDIUM",
+    "status": "validated",
     "time_sensitive": false,
+    "title": "Règle synthétique 1",
+    "valid_from": "2020-01-01",
+    "verification_method": "primary_text_review"
+  },
+  {
     "candidate_question_families": [
       "recall",
       "qualification"
     ],
-    "reasoning_traps": [
-      "NONE"
-    ]
-  },
-  {
-    "id": "RULE-SYNTH-002",
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
     "domain": "MIFID",
-    "regulatory_regime": "Régime synthétique de test",
-    "title": "Règle synthétique 2",
-    "source": {
-      "text": "Texte synthétique de test (aucune valeur juridique)",
-      "article": "Article SYNTH-1",
-      "paragraph": "1",
-      "url": "https://example.invalid/synth/1",
-      "version_date": "2020-01-01",
-      "verified_by": "Relecteur synthétique",
-      "verification_date": "2026-01-15"
-    },
-    "regulatory_status": "in_force",
-    "valid_from": "2020-01-01",
-    "status": "validated",
-    "rule_type": "OBLIGATION",
-    "statement": "Énoncé synthétique 2 (aucune valeur juridique).",
-    "operational_rule": "Interprétation synthétique, sans portée juridique.",
-    "common_confusions": [
-      "confusion synthétique typique"
-    ],
     "exceptions_status": "none_identified",
-    "verification_method": "primary_text_review",
+    "gold_ready": true,
+    "gold_ready_reason": "règle synthétique de test : énoncé porteur d'un fait vérifiable, ancré sur un article unique",
+    "id": "RULE-SYNTH-002",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
     "priority": "MEDIUM",
-    "time_sensitive": false,
-    "candidate_question_families": [
-      "recall",
-      "qualification"
-    ],
     "reasoning_traps": [
       "NONE"
-    ]
+    ],
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "url": "https://example.invalid/synth/1",
+      "verification_date": "2026-01-15",
+      "verified_by": "Relecteur synthétique",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Énoncé synthétique 2 (aucune valeur juridique).",
+    "status": "validated",
+    "time_sensitive": false,
+    "title": "Règle synthétique 2",
+    "valid_from": "2020-01-01",
+    "verification_method": "primary_text_review"
   },
   {
-    "id": "RULE-SYNTH-003",
-    "domain": "DORA",
-    "regulatory_regime": "Régime synthétique de test",
-    "title": "Règle synthétique 3",
-    "source": {
-      "text": "Texte synthétique de test (aucune valeur juridique)",
-      "article": "Article SYNTH-1",
-      "paragraph": "1",
-      "url": "https://example.invalid/synth/1",
-      "version_date": "2020-01-01",
-      "verified_by": "Relecteur synthétique",
-      "verification_date": "2026-01-15"
-    },
-    "regulatory_status": "in_force",
-    "valid_from": "2020-01-01",
-    "status": "validated",
-    "rule_type": "OBLIGATION",
-    "statement": "Énoncé synthétique 3 (aucune valeur juridique).",
-    "operational_rule": "Interprétation synthétique, sans portée juridique.",
-    "common_confusions": [
-      "confusion synthétique typique"
-    ],
-    "exceptions_status": "none_identified",
-    "verification_method": "primary_text_review",
-    "priority": "MEDIUM",
-    "time_sensitive": false,
     "candidate_question_families": [
       "recall",
       "qualification"
     ],
+    "common_confusions": [
+      "confusion synthétique typique"
+    ],
+    "domain": "DORA",
+    "exceptions_status": "none_identified",
+    "gold_ready": true,
+    "gold_ready_reason": "règle synthétique de test : énoncé porteur d'un fait vérifiable, ancré sur un article unique",
+    "id": "RULE-SYNTH-003",
+    "operational_rule": "Interprétation synthétique, sans portée juridique.",
+    "priority": "MEDIUM",
     "reasoning_traps": [
       "NONE"
-    ]
+    ],
+    "regulatory_regime": "Régime synthétique de test",
+    "regulatory_status": "in_force",
+    "rule_type": "OBLIGATION",
+    "source": {
+      "article": "Article SYNTH-1",
+      "paragraph": "1",
+      "text": "Texte synthétique de test (aucune valeur juridique)",
+      "url": "https://example.invalid/synth/1",
+      "verification_date": "2026-01-15",
+      "verified_by": "Relecteur synthétique",
+      "version_date": "2020-01-01"
+    },
+    "statement": "Énoncé synthétique 3 (aucune valeur juridique).",
+    "status": "validated",
+    "time_sensitive": false,
+    "title": "Règle synthétique 3",
+    "valid_from": "2020-01-01",
+    "verification_method": "primary_text_review"
   }
 ]

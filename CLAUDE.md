@@ -360,7 +360,8 @@ couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine
 le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
-`finreg-bench rulebook qc|auditer|exporter-verification|appliquer-verification`, et
+`finreg-bench rulebook qc|auditer|completude|exporter-verification|appliquer-verification`,
+et
 `finreg-bench familles generer|qc|exporter-matrice`.
 
 ### Regulatory Rulebook (phase 6)
@@ -387,28 +388,80 @@ progresser parce qu'un modèle a écrit une référence de mémoire, ni parce qu
 page web la mentionne. Seul `validated` rend une règle utilisable pour ancrer un
 gold (`Rule.is_usable`).
 
-**Exceptions.** `exceptions_status` distingue `none_identified` (on a cherché,
-il n'y en a pas) de `unknown` (on n'a pas cherché). Les confondre produit des
-questions dangereusement simplifiées.
+**Exceptions.** `exceptions_status` a six valeurs, et la distinction qui porte
+tout le reste n'est pas celle qu'on croit : ce n'est pas « il y en a » contre
+« il n'y en a pas », c'est **identifiées** contre **incorporées**. Une règle qui
+sait que des dérogations existent sans les porter (`identified_but_not_incorporated`)
+est plus dangereuse qu'une règle qui les ignore : elle a l'air complète.
+`none_identified` (on a cherché, il n'y en a pas) ne se confond ni avec `unknown`
+(on n'a pas cherché) ni avec `requires_human_review` (on a cherché sans pouvoir
+conclure).
 
 **Connaissance négative.** Une `NegativeClaim` ne peut passer en
 `verified_absent` sans méthode suffisante **et** `searched_in`. C'est ce qui
 empêche de transformer « je n'ai pas trouvé » en « cela n'existe pas ».
 
-**État du Rulebook V0 : 58 règles, 43 en `source_checked`, 15 en `draft`,
-aucune `validated`.** Les 43 promues ont été confrontées à leur texte primaire
+**État du Rulebook V0 : 58 règles, 12 `validated` (dont 10 `gold_ready`),
+33 `source_checked`, 13 `draft`.** Les 43 promues ont été confrontées à leur texte primaire
 par récupération auprès de CELLAR (voir l'audit ci-dessous) et signées au
 registre de vérification. Les 15 restantes sont hors d'atteinte depuis cet
 environnement : 12 règles LCB-FT adossées au Code monétaire et financier
 (Légifrance 403), le Règlement général de l'AMF, et deux règles MiFID dont
 l'énoncé ne se retrouve pas dans le texte cité.
 
-**`source_checked` n'est pas `validated`.** Une source attestée dit que le texte
-a été lu ; elle ne dit pas que la règle est complète. `validated` exige en outre
-des exceptions cherchées — elles restent `unknown` sur 55 règles. C'est pourquoi
-**aucune règle n'ancre encore un gold**, et pourquoi les familles candidates
-restent toutes `blocked`. Le rapport `RULEBOOK_QC.md` calcule cet état à partir
-des règles, il ne le récite pas.
+**`source_checked` n'est pas `validated`, et `validated` n'est pas utilisable.**
+Une source attestée dit que le texte a été lu ; elle ne dit pas que la règle est
+complète. Une règle complète peut rester trop abstraite pour porter une réponse
+de référence. Les trois états se suivent sans se confondre, et seul le dernier
+ancre un gold : `Rule.is_usable` vaut `status is VALIDATED and gold_ready`. Le
+rapport `RULEBOOK_QC.md` calcule cet état à partir des règles, il ne le récite
+pas.
+
+### Audit de complétude et gold-readiness (`completude.py`)
+
+L'audit de sources établit qu'une règle cite le bon texte. Celui-ci examine ce
+que ce texte contient **autour** d'elle, et si ce qu'elle en dit suffit à écrire
+un gold.
+
+Il cherche la **structure juridique**, pas le mot « exception » : un texte déroge
+en écrivant « par dérogation », « toutefois », « ne s'applique pas », « n'est pas
+tenu », « est autorisée à présumer » — rarement en s'annonçant. Onze structures
+sont repérées, des dérogations aux renvois en passant par les conditions
+cumulatives et les dispositions transitoires.
+
+Deux règles qu'il ne franchit pas :
+
+- **il ne conclut jamais à l'absence d'exception.** Ne rien trouver dans
+  l'article cité ne prouve pas qu'aucun autre article n'y déroge. Ce cas ressort
+  en `requires_human_review`, jamais en `none_identified` ;
+- **il n'interprète pas.** Les exceptions incorporées sont des phrases du texte
+  officiel, recopiées. Une exception reformulée est une exception interprétée.
+
+`gold_ready` est le second axe, indépendant du premier. « Le règlement précise
+les modalités de l'évaluation » peut être parfaitement exact et ne rien permettre
+de rédiger : valider une telle règle sans le dire ferait porter l'interprétation
+juridique à l'étape de rédaction, là où elle ne serait plus contrôlée. Le motif
+est obligatoire dans les deux sens — prête ou écartée, la décision se conteste.
+
+Les huit critères de validation sont nommés et cochés un par un ; un seul
+manquant refuse la promotion. Les règles `CRITICAL` subissent un contrôle
+renforcé : exceptions **et** renvois établis, sans quoi elles restent
+`source_checked`.
+
+CLI : `finreg-bench rulebook completude`. Rapports dans
+`reports/RULEBOOK_COMPLETENESS_QC.md` et `RULEBOOK_GOLD_READINESS.csv`.
+
+**Le registre est une histoire, pas un état.** Il a d'abord gardé un seul constat
+par règle, le plus récent — et une règle corrigée deux fois cessait d'être
+reconstructible : la première régénération faisait réapparaître une version
+intermédiaire. Il est désormais append-only et se rejoue dans l'ordre
+(`appliquer(..., historique=True)`). Un test vérifie que la régénération
+reproduit le Rulebook livré à l'identique.
+
+**La carte des familles peut retarder sur le Rulebook — jamais en silence.** Son
+manifeste porte l'empreinte de l'état du Rulebook dont elle dérive, et le QC
+signale l'écart (`carte_en_retard`). Régénérer la carte est une décision, pas un
+effet de bord.
 
 ### Circuit de vérification (`verification.py`)
 

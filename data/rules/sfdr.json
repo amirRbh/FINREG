@@ -13,6 +13,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "none_identified",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-001",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — 17) investissement durable : un investissement dans une activité économique qui contribue à un objectif environnemental, mesuré par exemple au moyen d’indicateurs clés en matière d’utilisation efficace des ressources concernant l’utilisation d’énergie, d’énergies renouvelables, de matières premières, d’eau et de terres, en matière de production de déchets et d’émissions de gaz à effet de serre ou en matière d’effets sur la biodiversité et l’économie circulaire, ou un investissement dans une activité économique qui contribue à un objectif social, en particulier un investissement qui contribue à",
@@ -65,6 +67,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-002",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 3 Transparence des politiques relatives aux risques en matière de durabilité 1. Les acteurs des marchés financiers publient sur leur site internet des informations concernant leurs politiques relatives à l’intégration des risques en matière de durabilité dans leur processus de prise de décision en matière d’investissement. 2. Les conseillers financiers publient sur leur site internet des informations concernant leurs politiques relatives à l’intégration des risques en matière de durabilité dans leurs conseils en investissement ou leurs conseils en assurance. || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -116,6 +120,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-003",
     "negative_claims": [
       {
@@ -173,6 +179,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-004",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 5 Transparence des politiques de rémunération en ce qui concerne l’intégration des risques en matière de durabilité 1. Les acteurs des marchés financiers et les conseillers financiers incluent dans leurs politiques de rémunération des informations sur la manière dont ces politiques sont adaptées à l’intégration des risques en matière de durabilité et publient ces informations sur leur site internet. 2. Les informations visées au paragraphe 1 sont incluses dans les politiques de rémunération que les acteurs des marchés financiers et les conseillers financiers sont tenus d’établir et de  || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -220,6 +228,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-005",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 6 Transparence de l’intégration des risques en matière de durabilité 1. Dans les informations précontractuelles publiées, les acteurs des marchés financiers décrivent: a) la manière dont les risques en matière de durabilité sont intégrés dans leurs décisions d’investissement; et b) les résultats de l’évaluation des incidences probables des risques en matière de durabilité sur le rendement des produits financiers qu’ils mettent à disposition. Lorsque les acteurs des marchés financiers estiment que les risques en matière de durabilité ne sont pas pertinents, les descriptions visées au pr || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -271,6 +281,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-006",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 7 Transparence des incidences négatives en matière de durabilité au niveau des produits financiers 1. Au plus tard le 30 décembre 2022 , pour chaque produit financier, lorsqu’un acteur des marchés financiers applique l’article 4, paragraphe 1, point a), ou l’article 4, paragraphe 3 ou 4, les informations à publier visées à l’article 6, paragraphe 3, comprennent ce qui suit: a) une explication claire et motivée indiquant si un produit financier prend en compte les principales incidences négatives sur les facteurs de durabilité et, dans l’affirmative, la manière dont il le fait; b) une d || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -323,6 +335,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-008",
     "negative_claims": [
       {
@@ -383,11 +397,15 @@
       "confondre objectif durable et alignement taxonomique"
     ],
     "domain": "SFDR",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Par dérogation au paragraphe 2 du présent article, lorsqu’aucun indice de référence transition climatique de l’Union ou indice de référence accord de Paris de l’Union conformément au règlement (UE) 2016/1011 du Parlement européen et du Conseil Règlement (UE) 2016/1011 du Parlement européen et du Conseil du 8 juin 2016 concernant les indices utilisés comme indices de référence dans le cadre d’instr"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 9 » (327 caractères), exceptions « identified_and_incorporated »",
     "id": "SFDR-R-009",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 9 Transparence des investissements durables dans les informations précontractuelles publiées 1. Lorsqu’un produit financier a pour objectif l’investissement durable et qu’un indice a été désigné comme indice de référence, les informations à publier en vertu de l’article 6, paragraphes 1 et 3, sont accompagnées: a) d’informations sur la manière dont l’indice désigné est aligné sur cet objectif; b) d’une explication indiquant pourquoi et comment l’indice désigné aligné sur cet objectif diffère d’un indice de marché large. 2. Lorsqu’un produit financier a pour objectif l’investissement du || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation, conditions_cumulatives, delai || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation, conditions_cumulatives, delai || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "L'objectif d'investissement durable engage sur le fond : la démonstration des trois conditions de l'article 2 doit pouvoir être faite au niveau du produit.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -414,15 +432,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "L'article 9 vise les produits financiers qui ont l'investissement durable pour objectif et fixe les informations précontractuelles correspondantes, notamment l'explication de la manière dont cet objectif doit être atteint et, lorsqu'un indice est désigné comme indice de référence, la façon dont il est aligné sur cet objectif.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Article 9",
-    "supersedes": null,
+    "supersedes": "SFDR-R-009-v1",
     "time_sensitive": false,
     "title": "Produits ayant l'investissement durable pour objectif",
     "valid_from": "2021-03-10",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -435,6 +453,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-010",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 10 Transparence de la promotion des caractéristiques environnementales ou sociales et des investissements durables sur les sites internet 1. Les acteurs des marchés financiers publient et tiennent à jour sur leur site internet les informations suivantes pour chaque produit financier visé à l’article 8, paragraphe 1, et à l’article 9, paragraphes 1, 2 et 3: a) une description des caractéristiques environnementales ou sociales ou de l’objectif d’investissement durable; b) des informations sur les méthodes utilisées pour évaluer, mesurer et surveiller les caractéristiques environnementale || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -483,6 +503,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-011",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 11 Transparence de la promotion des caractéristiques environnementales ou sociales et des investissements durables dans les rapports périodiques 1. Lorsque les acteurs des marchés financiers mettent à disposition un produit financier visé à l’article 8, paragraphe 1, ou à l’article 9, paragraphe 1, 2 ou 3, ils décrivent notamment dans les rapports périodiques: a) pour un produit financier visé à l’article 8, paragraphe 1, la mesure dans laquelle les caractéristiques environnementales ou sociales sont respectées; b) pour un produit financier visé à l’article 9, paragraphe 1, 2 ou 3: i)  || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -531,6 +553,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-012",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 12 Réexamen des informations publiées 1. Les acteurs des marchés financiers veillent à ce que toutes les informations publiées conformément à l’article 3, à l’article 5 ou à l’article 10 soient tenues à jour. Lorsqu’un acteur des marchés financiers modifie ces informations, il publie une explication claire de cette modification sur le même site internet. 2. Le paragraphe 1 s’applique mutatis mutandis aux conseillers financiers en ce qui concerne toute information publiée conformément aux articles 3 et 5. || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -576,11 +600,15 @@
       "croire que la communication commerciale échappe au périmètre du règlement"
     ],
     "domain": "SFDR",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Sans préjudice d’une législation sectorielle plus stricte, en particulier les directives 2009/65/CE, 2014/65/UE et (UE) 2016/97 et le règlement (UE) n o 1286/2014, les acteurs des marchés financiers et les conseillers financiers veillent à ce que leurs communications publicitaires ne contredisent pas les informations publiées en vertu du présent règlement. 2."
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 13 » (125 caractères), exceptions « identified_and_incorporated »",
     "id": "SFDR-R-013",
     "negative_claims": [],
-    "notes": "[confirme] TEXTE OFFICIEL — Article 13 Communications publicitaires 1. Sans préjudice d’une législation sectorielle plus stricte, en particulier les directives 2009/65/CE, 2014/65/UE et (UE) 2016/97 et le règlement (UE) n o 1286/2014, les acteurs des marchés financiers et les conseillers financiers veillent à ce que leurs communications publicitaires ne contredisent pas les informations publiées en vertu du présent règlement. 2. Les autorités européennes de surveillance peuvent élaborer, par l’intermédiaire du comité mixte, des projets de normes techniques d’exécution pour déterminer la présentation type des informations || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
+    "notes": "[confirme] STRUCTURES — derogation || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "C'est le fondement réglementaire direct du contrôle du greenwashing commercial : la publicité est jugée par rapport aux documents réglementaires.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -604,15 +632,15 @@
       "version_date": "2020-01-01"
     },
     "statement": "L'article 13 impose que les communications publicitaires ne contredisent pas les informations publiées au titre du règlement.",
-    "status": "source_checked",
+    "status": "validated",
     "subdomain": "Article 13",
-    "supersedes": null,
+    "supersedes": "SFDR-R-013-v1",
     "time_sensitive": false,
     "title": "Cohérence des communications publicitaires",
     "valid_from": "2021-03-10",
     "valid_until": null,
     "verification_method": "primary_text_fetched",
-    "version": 1
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -628,6 +656,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "SFDR-R-014",
     "negative_claims": [],
     "notes": "[confirme] RÉSERVES — ancrage « Ensemble du règlement délégué » : aucun article désigné, la règle est vérifiée contre l'acte entier et aucun gold ne pourra citer sa disposition ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -679,6 +709,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "TAXO-R-001",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 3 Critères de durabilité environnementale des activités économiques Aux fins de la détermination du degré de durabilité environnementale d’un investissement, une activité économique est considérée comme durable sur le plan environnemental si cette activité économique: a) contribue substantiellement à un ou plusieurs des objectifs environnementaux énoncés à l’article 9, conformément aux articles 10 à 16; b) ne cause de préjudice important à aucun des objectifs environnementaux énoncés à l’article 9, conformément à l’article 17; c) est exercée dans le respect des garanties minimales prév || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
@@ -730,6 +762,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "none_identified",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "TAXO-R-002",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 9 Objectifs environnementaux Aux fins du présent règlement, constituent des objectifs environnementaux: a) l’atténuation du changement climatique; b) l’adaptation au changement climatique; c) l’utilisation durable et la protection des ressources aquatiques et marines; d) la transition vers une économie circulaire; e) la prévention et la réduction de la pollution; f) la protection et la restauration de la biodiversité et des écosystèmes.",
@@ -780,6 +814,8 @@
     "domain": "SFDR",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "TAXO-R-003",
     "negative_claims": [],
     "notes": "[confirme] TEXTE OFFICIEL — Article 17 Préjudice important causé aux objectifs environnementaux 1. Aux fins de l’article 3, point b), compte tenu du cycle de vie des produits et des services fournis par une activité économique, y compris des éléments de fait tirés d’analyses du cycle de vie existantes, cette activité économique est considérée comme causant un préjudice important: a) à l’atténuation du changement climatique, lorsque cette activité génère des émissions importantes de gaz à effet de serre; b) à l’adaptation au changement climatique, lorsque cette activité entraîne une augmentation des incidences négatives d || RÉSERVES — ancrage « Articles 17 et 18 » : 2 articles couverts (17, 18), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",

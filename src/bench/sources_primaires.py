@@ -63,7 +63,9 @@ FORMATS_MANIFESTATION = ("02", "03")
 #: français tombe sur 9 dans le régime à 24 langues, sur 8 pour un acte antérieur
 #: à l'entrée du croate. On sonde ces valeurs d'abord, les autres ensuite — et
 #: on **valide toujours sur le texte** : un index n'est pas une preuve.
-INDICES_PROBABLES = (9, 8, 10, 7, 11)
+#: Le consolidé décale encore l'index : il porte des langues que l'acte d'origine
+#: n'avait pas. On sonde donc large, et la langue se vérifie sur le texte.
+INDICES_PROBABLES = (9, 10, 8, 7, 11)
 INDICES_MANIFESTATION = tuple(
     f"{i:04d}" for i in INDICES_PROBABLES + tuple(
         j for j in range(1, 26) if j not in INDICES_PROBABLES
@@ -222,6 +224,14 @@ INTERVALLE_ARTICLES = re.compile(r"(?P<debut>\d+)\s*(?:à|-|–)\s*(?P<fin>\d+)"
 #: « article 54 du règlement 2017/565 » livrerait aussi 2017 et 565.
 REFERENCE_ACTE = re.compile(r"\(?\bUE\b\)?\s*\d{4}/\d{1,4}|\b\d{4}/\d{1,4}\b")
 
+#: Subdivisions internes à écarter aussi : « article 54, paragraphe 10 » cite un
+#: seul article. Lire « 10 » comme un article ferait vérifier la règle contre
+#: l'article 10 de l'acte, qui parle d'autre chose.
+SUBDIVISION = re.compile(
+    r"\b(?:paragraphes?|points?|alinéas?|§)\s*\d+(?:\s*(?:et|à|,)\s*\d+)*",
+    re.IGNORECASE,
+)
+
 
 def cles_articles(libelle: str) -> list[str]:
     """Articles désignés par un libellé d'ancrage, intervalles et listes compris.
@@ -232,7 +242,7 @@ def cles_articles(libelle: str) -> list[str]:
     """
     if ANCRAGE_GLOBAL.search(libelle):
         return []
-    nettoye = REFERENCE_ACTE.sub(" ", libelle)
+    nettoye = SUBDIVISION.sub(" ", REFERENCE_ACTE.sub(" ", libelle))
     cles: list[str] = []
     for intervalle in INTERVALLE_ARTICLES.finditer(nettoye):
         debut, fin = int(intervalle.group("debut")), int(intervalle.group("fin"))
@@ -267,9 +277,14 @@ def _en_texte(fragment: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(sans_balise)).strip()
 
 
-#: Le titre d'article dans le rendu XHTML du JO, porteur des identifiants ELI.
+#: Le titre d'article dans les rendus HTML de CELLAR. Deux habillages coexistent :
+#: `oj-ti-art` pour le Journal officiel tel que publié, `title-article-norm` pour
+#: les **versions consolidées**. Le second n'est pas un détail de présentation :
+#: sans lui, aucune version consolidée n'est découpable, et une règle qui énonce
+#: un texte modifié ne peut pas être vérifiée contre le droit applicable.
 TITRE_ARTICLE_ELI = re.compile(
-    r'<p[^>]*class="[^"]*oj-ti-art[^"]*"[^>]*>(?P<titre>.*?)</p>', re.S | re.I
+    r'<p[^>]*class="[^"]*(?:oj-ti-art|title-article-norm)[^"]*"[^>]*>(?P<titre>.*?)</p>',
+    re.S | re.I,
 )
 
 

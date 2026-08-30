@@ -37,6 +37,8 @@ from pydantic import Field, model_validator
 from src.bench.modeles import ModeleStrict
 from src.bench.regles import Rule
 from src.bench.rulebook import (
+    EXCEPTIONS_ABOUTIES,
+    EXCEPTIONS_PORTEES,
     METHODES_SUFFISANTES,
     ExceptionsStatus,
     RuleStatus,
@@ -104,10 +106,19 @@ class Verification(ModeleStrict):
     #: Énoncé corrigé, au plus près de la lettre du texte consulté.
     statement: str = ""
     article: str = ""
+    paragraph: str = ""
+    #: URL corrigée. Une règle pointe volontiers l'acte modificatif au lieu de
+    #: l'acte modifié, ou l'acte d'origine au lieu de sa version consolidée :
+    #: sans ce champ, le constat ne pouvait pas réparer ce qu'il diagnostiquait.
+    url: str = ""
     #: Date de la version effectivement consultée — ce que le placeholder ignore.
     version_date: dt.date | None = None
     exceptions_status: ExceptionsStatus | None = None
     exceptions: list[str] = Field(default_factory=list)
+    #: Une règle peut être juridiquement validée et rester trop abstraite pour
+    #: qu'on en tire une réponse de référence sans réinterpréter le droit.
+    gold_ready: bool | None = None
+    gold_ready_reason: str = ""
     comment: str = ""
 
     @model_validator(mode="after")
@@ -157,12 +168,34 @@ class Verification(ModeleStrict):
         return self
 
     @model_validator(mode="after")
+    def _gold_ready_se_motive(self) -> Verification:
+        """Prête ou écartée, la décision se motive — et une validation la tranche.
+
+        Valider une règle sans dire si elle porte un gold laisserait la question
+        à l'étape de rédaction, où plus personne ne la contrôlerait.
+        """
+        if self.gold_ready is not None and not self.gold_ready_reason.strip():
+            raise ValueError("gold_ready renseigné sans motif")
+        if self.target_status is RuleStatus.VALIDATED and self.gold_ready is None:
+            raise ValueError(
+                "statut visé « validated » sans décision sur gold_ready : une règle "
+                "validée dit si elle est assez précise pour porter un gold"
+            )
+        return self
+
+    @model_validator(mode="after")
     def _exceptions_coherentes(self) -> Verification:
         """Même distinction que dans `Rule` : listées, aucune identifiée, inconnues."""
-        if self.exceptions and self.exceptions_status is not ExceptionsStatus.LISTED:
-            raise ValueError("exceptions constatées sans exceptions_statut « listed »")
-        if self.exceptions_status is ExceptionsStatus.LISTED and not self.exceptions:
-            raise ValueError("exceptions_statut « listed » sans exception constatée")
+        if self.exceptions and self.exceptions_status not in EXCEPTIONS_PORTEES:
+            raise ValueError(
+                "exceptions constatées sans exceptions_statut qui les porte "
+                "(« identified_and_incorporated »)"
+            )
+        if self.exceptions_status in EXCEPTIONS_PORTEES and not self.exceptions:
+            raise ValueError(
+                f"exceptions_statut « {self.exceptions_status.value} » sans exception "
+                f"constatée : incorporer une exception, c'est l'écrire"
+            )
         if any(not e.strip() for e in self.exceptions):
             raise ValueError("exceptions : aucune entrée ne peut être vide")
         return self
@@ -194,9 +227,13 @@ COLONNES_A_REMPLIR = [
     "statut_vise",
     "enonce_corrige",
     "article_corrige",
+    "paragraphe_corrige",
+    "url_corrigee",
     "version_date_constatee",
     "exceptions_statut",
     "exceptions_constatees",
+    "gold_ready",
+    "gold_ready_motif",
     "commentaire",
 ]
 
@@ -281,6 +318,8 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                 "verified_by": (ligne.get("verifie_par") or "").strip(),
                 "statement": (ligne.get("enonce_corrige") or "").strip(),
                 "article": (ligne.get("article_corrige") or "").strip(),
+                "paragraph": (ligne.get("paragraphe_corrige") or "").strip(),
+                "url": (ligne.get("url_corrigee") or "").strip(),
                 "comment": (ligne.get("commentaire") or "").strip(),
                 "verification_date": _date(
                     ligne.get("date_verification") or "", "date_verification", numero, erreurs
@@ -307,6 +346,14 @@ def lire_dossier(chemin: Path) -> list[Verification]:
             exceptions_statut = (ligne.get("exceptions_statut") or "").strip()
             if exceptions_statut:
                 donnees["exceptions_status"] = exceptions_statut
+            # Vide veut dire « non renseigné », pas « non prête » : une colonne
+            # laissée blanche ne doit jamais déclasser une règle en silence.
+            gold_ready = (ligne.get("gold_ready") or "").strip().lower()
+            if gold_ready in ("oui", "true", "1", "non", "false", "0"):
+                donnees["gold_ready"] = gold_ready in ("oui", "true", "1")
+                donnees["gold_ready_reason"] = (
+                    ligne.get("gold_ready_motif") or ""
+                ).strip()
 
             try:
                 verifications.append(Verification.model_validate(donnees))
@@ -326,11 +373,21 @@ def lire_dossier(chemin: Path) -> list[Verification]:
 # -- application aux règles -------------------------------------------------------- #
 
 
-def appliquer(regles: list[Rule], verifications: list[Verification]) -> list[Rule]:
+def appliquer(
+    regles: list[Rule],
+    verifications: list[Verification],
+    historique: bool = False,
+) -> list[Rule]:
     """Reporte les constats sur les règles. Tout est validé avant d'appliquer.
 
     Une règle corrigée est **reversionnée**, jamais écrasée : `version` avance et
     `supersedes` nomme ce qui est remplacé, comme pour un gold.
+
+    `historique` distingue deux usages qu'il ne faut pas confondre. Un **dossier**
+    ne porte qu'un constat par règle : deux lignes pour la même règle y sont une
+    erreur de saisie, et le lot entier est refusé. Un **registre** porte au
+    contraire toute l'histoire d'une règle, et se rejoue dans l'ordre — c'est ce
+    qui permet de reconstruire une règle corrigée deux fois.
     """
     index = {r.id: r for r in regles}
     erreurs: list[str] = []
@@ -341,7 +398,7 @@ def appliquer(regles: list[Rule], verifications: list[Verification]) -> list[Rul
         if rid not in index:
             erreurs.append(f"{rid} : aucune règle de ce nom dans le Rulebook")
             continue
-        if rid in vus:
+        if rid in vus and not historique:
             erreurs.append(f"{rid} : deux vérifications pour la même règle")
             continue
         vus.add(rid)
@@ -349,28 +406,36 @@ def appliquer(regles: list[Rule], verifications: list[Verification]) -> list[Rul
         regle = index[rid]
         if verification.target_status is RuleStatus.VALIDATED:
             statut = verification.exceptions_status or regle.exceptions_status
-            if statut is ExceptionsStatus.UNKNOWN:
+            if statut not in EXCEPTIONS_ABOUTIES:
                 erreurs.append(
-                    f"{rid} : statut « validated » alors que les exceptions restent "
-                    f"inconnues — une règle validée sans ses exceptions se teste "
-                    f"comme un absolu qu'elle n'est pas"
+                    f"{rid} : statut « validated » alors que la recherche d'exceptions "
+                    f"vaut « {statut.value} » — une règle validée sans ses exceptions "
+                    f"se teste comme un absolu qu'elle n'est pas ; « identifiées mais "
+                    f"non incorporées » est le cas le plus trompeur, la règle a l'air "
+                    f"complète"
                 )
 
     if erreurs:
         raise VerificationInvalide(erreurs)
 
-    par_regle = {v.rule_id: v for v in verifications}
+    par_regle: dict[str, list[Verification]] = {}
+    for verification in verifications:
+        par_regle.setdefault(verification.rule_id, []).append(verification)
     appliquees: list[Rule] = []
 
     for regle in regles:
-        verification = par_regle.get(regle.id)
-        if verification is None:
-            appliquees.append(regle)
-            continue
+        # Les constats d'une même règle se rejouent dans l'ordre du registre :
+        # chacun part de l'état laissé par le précédent, comme ils ont été
+        # appliqués. Rejouer seulement le dernier ferait disparaître les
+        # versions intermédiaires de l'historique.
+        courante = regle
         try:
-            appliquees.append(_appliquer_une(regle, verification))
+            for verification in par_regle.get(regle.id, []):
+                courante = _appliquer_une(courante, verification)
         except ValueError as exc:
             erreurs.append(f"{regle.id} : {exc}")
+            continue
+        appliquees.append(courante)
 
     if erreurs:
         raise VerificationInvalide(erreurs)
@@ -395,6 +460,10 @@ def _appliquer_une(regle: Rule, verification: Verification) -> Rule:
 
     if verification.article:
         source["article"] = verification.article
+    if verification.url:
+        source["url"] = verification.url
+    if verification.paragraph:
+        source["paragraph"] = verification.paragraph
     if verification.version_date is not None:
         source["version_date"] = verification.version_date.isoformat()
     donnees["source"] = source
@@ -403,10 +472,20 @@ def _appliquer_une(regle: Rule, verification: Verification) -> Rule:
         donnees["exceptions_status"] = verification.exceptions_status.value
         donnees["exceptions"] = list(verification.exceptions)
 
-    if verification.verdict is Verdict.CORRIGE:
-        # Un énoncé corrigé remplace du droit : on reversionne au lieu d'écraser.
+    if verification.gold_ready is not None:
+        donnees["gold_ready"] = verification.gold_ready
+        donnees["gold_ready_reason"] = verification.gold_ready_reason
+
+    # Un énoncé corrigé remplace du droit ; des exceptions incorporées en
+    # ajoutent. Les deux changent ce que la règle dit, et se reversionnent donc
+    # au lieu d'écraser — c'est la même exigence que pour un gold.
+    exceptions_ajoutees = bool(verification.exceptions) and list(
+        verification.exceptions
+    ) != list(regle.exceptions)
+    if verification.verdict is Verdict.CORRIGE or exceptions_ajoutees:
         donnees["supersedes"] = f"{regle.id}-v{regle.version}"
         donnees["version"] = regle.version + 1
+    if verification.verdict is Verdict.CORRIGE:
         donnees["statement"] = verification.statement
 
     if verification.comment:
@@ -432,7 +511,13 @@ def charger_registre(chemin: Path = REGISTRE_VERIFICATION) -> list[Verification]
 def ecrire_registre(
     verifications: list[Verification], chemin: Path = REGISTRE_VERIFICATION
 ) -> Path:
-    """Écrit le registre sous forme canonique, trié par identifiant de règle."""
+    """Écrit le registre sous forme canonique, groupé par règle.
+
+    Le tri est **stable** : les constats successifs d'une même règle gardent
+    l'ordre dans lequel ils ont été appliqués. C'est cet ordre qui permet de
+    rejouer l'historique et de retrouver la version courante, pas seulement la
+    dernière correction.
+    """
     chemin = Path(chemin)
     ecrire_json(
         chemin,
@@ -450,8 +535,12 @@ def ecrire_registre(
 def fusionner_registre(
     nouvelles: list[Verification], chemin: Path = REGISTRE_VERIFICATION
 ) -> list[Verification]:
-    """Ajoute des constats au registre ; le plus récent l'emporte sur une même règle."""
-    par_regle = {v.rule_id: v for v in charger_registre(chemin)}
-    for verification in nouvelles:
-        par_regle[verification.rule_id] = verification
-    return sorted(par_regle.values(), key=lambda v: v.rule_id)
+    """Ajoute des constats au registre, **sans en effacer aucun**.
+
+    Le registre a d'abord gardé un seul constat par règle, le plus récent. C'était
+    une erreur : une règle corrigée deux fois n'était plus reconstructible, et
+    régénérer le Rulebook faisait réapparaître une version intermédiaire. Le
+    registre est la mémoire durable de **toutes** les promotions et corrections ;
+    il est donc append-only, et se rejoue dans l'ordre.
+    """
+    return [*charger_registre(chemin), *nouvelles]

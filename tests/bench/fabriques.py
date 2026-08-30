@@ -46,6 +46,11 @@ REGLE: dict[str, Any] = {
     "regulatory_status": "in_force",
     "valid_from": "2020-01-01",
     "status": "validated",
+    "gold_ready": True,
+    "gold_ready_reason": (
+        "règle synthétique de test : énoncé porteur d'un fait vérifiable, ancré "
+        "sur un article unique"
+    ),
 }
 
 CONCEPT: dict[str, Any] = {

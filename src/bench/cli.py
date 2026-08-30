@@ -32,6 +32,11 @@ from src.bench.rapport_audit import (
     MATRICE_VERIFICATION,
     RAPPORT_VERIFICATION,
 )
+from src.bench.rapport_completude import (
+    DOSSIER_COMPLETUDE,
+    MATRICE_GOLD,
+    RAPPORT_COMPLETUDE,
+)
 from src.bench.qc_rulebook import (
     RACINE_RULEBOOK,
     charger_par_fichier,
@@ -294,6 +299,44 @@ def rulebook_auditer(
     )
     typer.echo(f"  rapport : {resultat['report']} — matrice : {resultat['matrix']}")
     typer.echo(f"  dossier à signer : {resultat['dossier']}")
+    typer.secho(
+        "  aucune règle promue : renseigner verifie_par et date_verification, "
+        "puis « finreg-bench rulebook appliquer-verification »",
+        fg=typer.colors.YELLOW,
+    )
+
+
+@rulebook.command("completude")
+def rulebook_completude(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    rapport: Annotated[
+        Path, typer.Option("--rapport", help="Rapport de complétude à écrire.")
+    ] = RAPPORT_COMPLETUDE,
+    matrice: Annotated[
+        Path, typer.Option("--matrice", help="Matrice de gold-readiness CSV.")
+    ] = MATRICE_GOLD,
+    dossier: Annotated[
+        Path, typer.Option("--dossier", help="Dossier de vérification pré-rempli.")
+    ] = DOSSIER_COMPLETUDE,
+) -> None:
+    """Cherche la structure juridique des articles cités : exceptions, conditions, renvois.
+
+    Ne promeut rien. Une règle peut être validée et rester inutilisable : c'est
+    ce que « gold_ready » dit, et c'est ce qui empêche un faux sentiment de
+    complétude.
+    """
+    from scripts.auditer_completude import auditer_completude
+
+    resultat = auditer_completude(racine, rapport, matrice, dossier)
+    typer.secho(f"{resultat['rules']} règle(s) examinées", fg=typer.colors.GREEN)
+    for statut, nombre in resultat["by_status"].items():
+        typer.echo(f"  {statut:24} {nombre}")
+    typer.echo(f"  gold_ready : {resultat['gold_ready']}")
+    typer.echo(
+        f"  utilisables pour les familles (validated ET gold_ready) : "
+        f"{resultat['usable_for_families']}"
+    )
+    typer.echo(f"  rapport : {resultat['report']} — matrice : {resultat['matrix']}")
     typer.secho(
         "  aucune règle promue : renseigner verifie_par et date_verification, "
         "puis « finreg-bench rulebook appliquer-verification »",
