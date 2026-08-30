@@ -360,7 +360,7 @@ couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine
 le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
-`finreg-bench rulebook qc|auditer|completude|readiness|exporter-verification|appliquer-verification`,
+`finreg-bench rulebook qc|auditer|completude|readiness|preparer-revue|appliquer-revue|exporter-verification|appliquer-verification`,
 et
 `finreg-bench familles generer|qc|exporter-matrice`.
 
@@ -649,6 +649,53 @@ CLI : `finreg-bench rulebook readiness` — sort en erreur tant que la
 recommandation n'est pas `READY_FOR_FAMILY_GENERATION`. Rapports dans
 `reports/RULEBOOK_READINESS_SUMMARY.md`, `HUMAN_REVIEW_QUEUE.md` et
 `RULEBOOK_FAMILY_READINESS.csv`.
+
+### Pack d'arbitrage P0/P1 (`dossier_revue.py`, `rapport_revue.py`)
+
+La file de revue disait **quoi** trancher ; elle ne disait pas **où regarder**.
+Un relecteur à qui l'on demande « cet article comporte-t-il des dérogations
+ailleurs dans l'acte ? » devait relire l'acte entier. Le pack va les chercher et
+les lui présente, avec la raison de les suspecter.
+
+**Dispositions de soutien.** Une disposition n'entre au dossier que si elle porte
+une formule limitante **et** l'un de deux titres : citer explicitement l'article
+de la règle, ou limiter la portée de l'acte entier. Les trois formes de citation
+comptent — mention directe, intervalle (« les articles 5 à 15 ne s'appliquent
+pas »), énumération : ne reconnaître que la première ferait passer pour une
+dérogation générale ce qui est une exclusion nominative. La portée générale, elle,
+s'exige **dans la même phrase** que la limitation : sinon une définition employant
+le mot « exempté » passerait pour une dérogation.
+
+**Trois séparations que le pack ne franchit jamais** :
+
+| Champ | Ce qu'il contient |
+|---|---|
+| `TEXTUAL_FACTS` | des phrases du texte et des constats mécaniques |
+| `INTERPRETIVE_QUESTION` | ce qui demande un jugement |
+| `mechanical_proposal` | ce que la recherche a trouvé, dans son vocabulaire |
+
+`EXCEPTION_LIKELY` signifie « une disposition limitante cite cet article », pas
+« il existe une exception ». `NO_EXCEPTION_IDENTIFIED_IN_REVIEWED_SCOPE` nomme le
+périmètre dans son intitulé, pour qu'on ne le lise jamais comme une absence.
+
+**Regroupement.** Quand la même disposition commande le sort de plusieurs règles,
+`review_cluster_id` les réunit : le relecteur tranche une fois. Les règles ne sont
+jamais fusionnées dans le Rulebook — c'est l'arbitrage qui est mutualisé.
+
+**Une absence dit où l'on a cherché.** `Verification.source_scope` est obligatoire
+pour porter `none_identified` : la même exigence que pour une `NegativeClaim`,
+remontée au niveau de la règle. Sans elle, une lecture partielle deviendrait une
+attestation.
+
+**Une décision humaine ne vaut jamais `gold_ready`.** Le relecteur lève un
+blocage ; il vise `source_checked`, pas `validated`. C'est le calcul de complétude
+qui proposera ensuite la validation, sur la règle telle qu'elle est devenue, avec
+sa gold-readiness recalculée. Le bordereau sort avec ses colonnes de décision
+vides, et rien ne les remplit à sa place.
+
+CLI : `finreg-bench rulebook preparer-revue|appliquer-revue`. Sorties dans
+`reports/HUMAN_REVIEW_QUEUE.md`, `HUMAN_REVIEW_PROGRESS.md` et
+`data/verification/dossier-revue-p0p1.csv`.
 
 ### Arbitrage humain P0/P1 (`adjudication.py`, `relecture.py`)
 

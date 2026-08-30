@@ -1,42 +1,38 @@
-# Arbitrage humain — progression
+# Rulebook — avancement de la revue humaine
 
-Au 2026-08-30. Les décisions sont comptées en relisant
-`data/verification/dossier-adjudication.csv` : une ligne vide n'est pas une
-décision, et aucune n'est écrite par le générateur.
+```
+P0 total     : 28
+P0 reviewed  : 0
+P0 remaining : 28
 
-## Avancement
+P1 total     : 16
+P1 reviewed  : 0
+P1 remaining : 16
+```
 
-| Priorité | Total | Arbitrées | Restantes |
-|---|---:|---:|---:|
-| P0 | 28 | 0 | 28 |
-| P1 | 16 | 0 | 16 |
+## Effet sur l'exploitabilité
 
-Regroupements : 0 tranché(s) sur 39.
-
-## Effet sur les seuils
-
-| Seuil | Avant | Après |
-|---|---:|---|
-| `validated` | 12 | — |
-| `gold_ready` | 9 | — |
-| `family_ready` | 9 | — |
-
-La colonne « après » reste vide tant que les décisions n'ont pas été
-appliquées puis l'audit rejoué. Un « après » prévisionnel serait un
-`gold_ready` accordé par anticipation — ce que la spécification interdit.
-
-## Ce qui reste bloqué
-
-| Blocage | P0 | P1 |
+| | avant | après |
 |---|---:|---:|
-| `EXCEPTION_UNRESOLVED` | 11 | 11 |
-| `NEGATIVE_CLAIM_UNRESOLVED` | 6 | 0 |
-| `SOURCE_INCOMPLETE` | 10 | 5 |
-| `TEMPORAL_UNRESOLVED` | 1 | 0 |
+| `validated` | 12 | 12 |
+| `gold_ready` | 9 | 9 |
+| `family_ready` | 9 | 9 |
 
-## Après chaque décision
+Aucune décision n'a encore été portée : le bordereau
+`data/verification/dossier-revue-p0p1.csv` sort avec ses colonnes de
+décision vides, comme prévu. Les colonnes « après » reproduisent donc
+l'état actuel.
 
-1. revalider la règle ; 2. recalculer la gold-readiness ; 3. recalculer la
-family-readiness ; 4. rejouer les contrôles d'intégrité ; 5. écrire au
-registre append-only. Dans cet ordre, et jamais l'un sans les autres.
+## Après chaque décision appliquée
+
+L'application d'un bordereau rejoue toute la chaîne, dans cet ordre :
+
+1. la règle est revalidée par le schéma ;
+2. la gold-readiness est recalculée, jamais héritée de la décision ;
+3. la family-readiness est recalculée ;
+4. les contrôles d'intégrité sont réexécutés ;
+5. le registre append-only enregistre la décision, sans écraser la précédente.
+
+Une décision humaine ne vaut donc jamais `gold_ready` par elle-même : elle
+lève un blocage, et le calcul dit ensuite ce que la règle est devenue.
 

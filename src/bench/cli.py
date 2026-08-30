@@ -37,23 +37,20 @@ from src.bench.rapport_completude import (
     MATRICE_GOLD,
     RAPPORT_COMPLETUDE,
 )
+from scripts.preparer_lot import DOSSIER_LOT_CMF, FEUILLE_LOT_CMF
 from src.bench.rapport_adjudication import (
     DOSSIER_ADJUDICATION,
     PACK_ADJUDICATION,
     PROGRESSION,
 )
-from scripts.preparer_lot import DOSSIER_LOT_CMF, FEUILLE_LOT_CMF
 from src.bench.rapport_plan_action import (
     DOSSIER_REANCRAGE,
     PACK_LCBFT,
     PLAN_ACTION,
     PLAN_ACTION_CSV,
 )
-from src.bench.rapport_readiness import (
-    FILE_REVUE,
-    MATRICE_READINESS,
-    SYNTHESE_READINESS,
-)
+from src.bench.rapport_readiness import MATRICE_READINESS, SYNTHESE_READINESS
+from src.bench.rapport_revue import BORDEREAU_REVUE, FILE_REVUE
 from src.bench.qc_rulebook import (
     RACINE_RULEBOOK,
     charger_par_fichier,
@@ -265,7 +262,23 @@ def rulebook_appliquer_verification(
         appliquees.extend(resultat)
         compte_par_fichier[chemin.stem] = len(resultat)
 
-    ecrire_registre(fusionner_registre(verifications, registre), registre)
+    # Traçabilité : le registre enregistre l'état d'avant et la version d'après,
+    # pour que l'histoire d'une règle se lise sans avoir à la rejouer.
+    avant = {r.id: r for r in toutes}
+    apres = {r.id: r for r in appliquees}
+    traces = [
+        v.model_copy(
+            update={
+                "previous_status": avant[v.rule_id].status,
+                "previous_version": avant[v.rule_id].version,
+                "new_version": apres[v.rule_id].version,
+            }
+        )
+        if v.rule_id in avant and v.rule_id in apres
+        else v
+        for v in verifications
+    ]
+    ecrire_registre(fusionner_registre(traces, registre), registre)
     ecrire_json(racine / "rulebook-manifest.json", construire_manifeste(appliquees, compte_par_fichier))
     rapport.write_text(
         rapport_markdown(appliquees, controler(appliquees)), encoding="utf-8"
@@ -367,9 +380,6 @@ def rulebook_readiness(
     synthese: Annotated[
         Path, typer.Option("--synthese", help="Synthèse d'exploitabilité.")
     ] = SYNTHESE_READINESS,
-    file_revue: Annotated[
-        Path, typer.Option("--file-revue", help="File de revue humaine.")
-    ] = FILE_REVUE,
     matrice: Annotated[
         Path, typer.Option("--matrice", help="Matrice de readiness CSV.")
     ] = MATRICE_READINESS,
@@ -382,7 +392,7 @@ def rulebook_readiness(
     """
     from scripts.auditer_readiness import auditer_readiness
 
-    resultat = auditer_readiness(racine, synthese, file_revue, matrice)
+    resultat = auditer_readiness(racine, synthese, matrice)
     typer.secho(f"{resultat['rules']} règle(s)", fg=typer.colors.GREEN)
     typer.echo(f"  gold_ready   : {resultat['gold_ready']}")
     typer.echo(f"  family_ready : {resultat['family_ready']}")
@@ -402,7 +412,71 @@ def rulebook_readiness(
         raise typer.Exit(code=1)
 
 
+@rulebook.command("preparer-revue")
+def rulebook_preparer_revue(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    file_revue: Annotated[
+        Path, typer.Option("--file-revue", help="File de revue P0/P1.")
+    ] = FILE_REVUE,
+    bordereau: Annotated[
+        Path, typer.Option("--bordereau", help="Bordereau de décision à remplir.")
+    ] = BORDEREAU_REVUE,
+) -> None:
+    """Prépare les dossiers d'arbitrage P0/P1. Ne décide rien.
 
+    Le bordereau sort avec ses colonnes de décision vides : c'est tout l'objet
+    de cette phase. Une fois rempli, « appliquer-revue » le réinjecte.
+    """
+    from scripts.preparer_revue import preparer_revue
+
+    resultat = preparer_revue(racine, file_revue, bordereau)
+    typer.secho(
+        f"{resultat['dossiers']} dossier(s) — P0 {resultat['p0']}, P1 {resultat['p1']}",
+        fg=typer.colors.GREEN,
+    )
+    typer.echo(f"  arbitrages distincts : {resultat['clusters']}")
+    typer.echo(
+        f"  groupes partagés : {resultat['clusters_partages']} "
+        f"({resultat['arbitrages_economises']} arbitrage(s) économisé(s))"
+    )
+    typer.echo(f"  file : {resultat['queue']}")
+    typer.echo(f"  bordereau à remplir : {resultat['bordereau']}")
+
+
+@rulebook.command("appliquer-revue")
+def rulebook_appliquer_revue(
+    bordereau: Annotated[
+        Path, typer.Argument(help="Bordereau de revue rempli.")
+    ] = BORDEREAU_REVUE,
+) -> None:
+    """Traduit les décisions du relecteur en constats, et les applique.
+
+    Rien n'est appliqué si une seule décision est irrecevable. Après
+    application, relancer « completude » puis « readiness » : une décision
+    humaine lève un blocage, elle ne décrète pas qu'une règle est exploitable.
+    """
+    from scripts.preparer_revue import decisions_en_verifications
+
+    try:
+        verifications = decisions_en_verifications(bordereau)
+    except VerificationInvalide as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+
+    if not verifications:
+        typer.secho(
+            "Aucune décision portée au bordereau : rien à appliquer.",
+            fg=typer.colors.YELLOW,
+        )
+        raise typer.Exit(code=1)
+
+    typer.secho(
+        f"{len(verifications)} décision(s) recevable(s).", fg=typer.colors.GREEN
+    )
+    typer.echo(
+        "  appliquer avec : finreg-bench rulebook appliquer-verification "
+        f"{bordereau} — puis relancer completude et readiness"
+    )
 @rulebook.command("adjudication")
 def rulebook_adjudication(
     racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
@@ -505,7 +579,6 @@ def rulebook_lot(
         "  aucune décision écrite : les colonnes de décision sortent vides",
         fg=typer.colors.YELLOW,
     )
-
 # -- Question Family Map ------------------------------------------------------------ #
 
 

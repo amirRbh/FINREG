@@ -140,6 +140,7 @@ def test_une_correction_reversionne_au_lieu_decraser():
             target_status="validated",
             statement="Ce que le texte dit réellement.",
             exceptions_status="none_identified",
+            source_scope="Texte synthétique de test, version 2020-01-01, acte entier",
             gold_ready=True,
             gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
         )
@@ -204,6 +205,51 @@ def test_des_exceptions_identifiees_mais_non_incorporees_bloquent_la_validation(
     )
     with pytest.raises(VerificationInvalide, match="identifiées mais non incorporées"):
         appliquer([regle], [correction])
+
+
+def test_une_absence_dexception_exige_le_perimetre_examine():
+    """« Je n'ai pas trouvé » ne devient jamais « cela n'existe pas ».
+
+    La même exigence que pour une affirmation négative, portée au niveau de la
+    règle : sans périmètre attesté, un relecteur pressé transformerait une
+    lecture partielle en constat d'absence.
+    """
+    refuse(
+        constat(target_status="validated", exceptions_status="none_identified",
+                gold_ready=True, gold_ready_reason="motif"),
+        "sans source_scope",
+    )
+    accepte = Verification.model_validate(
+        constat(
+            target_status="validated",
+            exceptions_status="none_identified",
+            source_scope="Règlement synthétique, version 2020-01-01, acte entier",
+            gold_ready=True,
+            gold_ready_reason="motif",
+        )
+    )
+    assert accepte.source_scope
+
+
+def test_le_perimetre_examine_est_reporte_sur_la_regle():
+    """Le périmètre doit rester lisible sur la règle, pas seulement au registre."""
+    regle = brouillon()
+    [resultat] = appliquer(
+        [regle],
+        [
+            Verification.model_validate(
+                constat(
+                    target_status="validated",
+                    exceptions_status="none_identified",
+                    source_scope="Acte synthétique entier, version 2020-01-01",
+                    gold_ready=True,
+                    gold_ready_reason="motif",
+                )
+            )
+        ],
+    )
+    assert "périmètre examiné" in resultat.notes
+    assert "Acte synthétique entier" in resultat.notes
 
 
 def test_une_regle_inconnue_arrete_le_lot_entier():
@@ -371,6 +417,7 @@ def test_la_fusion_nefface_aucun_constat(tmp_path):
                 constat(
                     target_status="validated",
                     exceptions_status="none_identified",
+                    source_scope="Texte synthétique de test, acte entier",
                     gold_ready=True,
             gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
                 )
@@ -618,7 +665,7 @@ def test_une_absence_sans_perimetre_est_refusee_a_la_porte() -> None:
     """`unknown` ne devient pas `none_identified` faute d'avoir trouvé."""
     from src.bench.verification import VerificationSignee
 
-    with pytest.raises(ValueError, match="perimetre_exceptions"):
+    with pytest.raises(ValueError, match="source_scope"):
         VerificationSignee.model_validate(
             _decision(exceptions_status="none_identified")
         )
@@ -630,10 +677,10 @@ def test_une_absence_attestee_sur_son_perimetre_passe() -> None:
     decision = VerificationSignee.model_validate(
         _decision(
             exceptions_status="none_identified",
-            exceptions_scope="articles L.561-1 à L.561-22, version consolidée au 2026-01-01",
+            source_scope="articles L.561-1 à L.561-22, version consolidée au 2026-01-01",
         )
     )
-    assert decision.exceptions_scope.startswith("articles")
+    assert decision.source_scope.startswith("articles")
 
 
 def test_une_exception_incorporee_dit_dou_elle_sort_et_de_quelle_version() -> None:
@@ -647,10 +694,10 @@ def test_une_exception_incorporee_dit_dou_elle_sort_et_de_quelle_version() -> No
         VerificationSignee.model_validate(portee)
 
     with pytest.raises(ValueError, match="opposable à personne"):
-        VerificationSignee.model_validate({**portee, "exceptions_scope": "article L.561-9"})
+        VerificationSignee.model_validate({**portee, "source_scope": "article L.561-9"})
 
     complete = VerificationSignee.model_validate(
-        {**portee, "exceptions_scope": "article L.561-9", "version_date": "2026-01-01"}
+        {**portee, "source_scope": "article L.561-9", "version_date": "2026-01-01"}
     )
     assert complete.exceptions
 
@@ -669,7 +716,7 @@ def test_le_registre_deja_signe_reste_rejouable() -> None:
             exceptions=["Par dérogation au premier alinéa, …"],
         )
     )
-    assert ancien.exceptions_scope == ""
+    assert ancien.source_scope == ""
 
 
 def test_le_perimetre_traverse_le_dossier_csv(tmp_path: Path) -> None:
@@ -704,4 +751,4 @@ def test_le_perimetre_traverse_le_dossier_csv(tmp_path: Path) -> None:
     chemin.write_text("\n".join(lignes) + "\n", encoding=ENCODAGE_CSV)
 
     (relu,) = lire_dossier(chemin)
-    assert relu.exceptions_scope == "acte entier, version consolidée au 2026-01-01"
+    assert relu.source_scope == "acte entier, version consolidée au 2026-01-01"

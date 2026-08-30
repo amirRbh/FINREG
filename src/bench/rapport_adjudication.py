@@ -4,7 +4,7 @@
 |---|---|---|
 | `HUMAN_REVIEW_P0_P1.md` | le juriste | un dossier par règle, P0 puis P1, par domaine |
 | `dossier-adjudication.csv` | le juriste | les mêmes règles, une ligne à remplir |
-| `HUMAN_REVIEW_PROGRESS.md` | la décision | ce qui est tranché, ce qui reste, et l'effet |
+| `HUMAN_REVIEW_ADJUDICATION_PROGRESS.md` | la décision | ce qui est tranché, ce qui reste, et l'effet |
 
 Le dossier CSV sort avec ses colonnes de décision **vides**, et le rapport de
 progression compte les décisions en relisant ce fichier : tant que personne n'a
@@ -37,7 +37,11 @@ from src.bench.rulebook import RuleStatus
 from src.bench.verification import ENCODAGE_CSV, SEPARATEUR_CSV, SEPARATEUR_LISTE
 
 PACK_ADJUDICATION = Path("reports/HUMAN_REVIEW_P0_P1.md")
-PROGRESSION = Path("reports/HUMAN_REVIEW_PROGRESS.md")
+#: Le circuit « revue » (rapport_revue.py) écrit déjà HUMAN_REVIEW_PROGRESS.md.
+#: Deux générateurs sur un même chemin s'écraseraient l'un l'autre, et le
+#: dernier passé ferait autorité par accident : celui-ci porte donc son propre
+#: nom tant que les deux circuits coexistent.
+PROGRESSION = Path("reports/HUMAN_REVIEW_ADJUDICATION_PROGRESS.md")
 DOSSIER_ADJUDICATION = Path("data/verification/dossier-adjudication.csv")
 
 #: Ce que le dossier donne au relecteur — jamais rempli par lui.
@@ -436,7 +440,7 @@ def progression(
     etats: dict[str, ConstatReadiness],
     jour: dt.date,
 ) -> str:
-    """`reports/HUMAN_REVIEW_PROGRESS.md` — ce qui est tranché, ce qui reste."""
+    """`reports/HUMAN_REVIEW_ADJUDICATION_PROGRESS.md` — ce qui est tranché, ce qui reste."""
     tranchees = {d.rule_id for d in decisions}
     par_priorite = {
         priorite: [d for d in dossiers if d.priorite_revue == priorite]

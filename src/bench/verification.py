@@ -115,15 +115,19 @@ class Verification(ModeleStrict):
     version_date: dt.date | None = None
     exceptions_status: ExceptionsStatus | None = None
     exceptions: list[str] = Field(default_factory=list)
-    #: Le périmètre réellement examiné pour conclure sur les exceptions : quels
-    #: articles, quel acte, quelle version. Obligatoire dès qu'on conclut —
-    #: sans lui, « je n'ai pas trouvé » passerait pour « il n'y en a pas », et
-    #: une dérogation incorporée ne dirait pas d'où elle sort.
-    exceptions_scope: str = ""
     #: Une règle peut être juridiquement validée et rester trop abstraite pour
     #: qu'on en tire une réponse de référence sans réinterpréter le droit.
     gold_ready: bool | None = None
     gold_ready_reason: str = ""
+    #: Périmètre réellement examiné. Obligatoire pour conclure à l'absence
+    #: d'exception : sans lui, « none_identified » ne serait qu'un « je n'ai pas
+    #: trouvé » déguisé en constat.
+    source_scope: str = ""
+    #: État de la règle avant application, enregistré au registre pour que
+    #: l'histoire se lise sans avoir à la rejouer.
+    previous_status: RuleStatus | None = None
+    previous_version: int | None = None
+    new_version: int | None = None
     comment: str = ""
 
     @model_validator(mode="after")
@@ -189,6 +193,25 @@ class Verification(ModeleStrict):
         return self
 
     @model_validator(mode="after")
+    def _une_absence_dit_ou_lon_a_cherche(self) -> Verification:
+        """`none_identified` exige le périmètre examiné (spécification §11).
+
+        C'est la même exigence que pour une `NegativeClaim`, portée cette fois au
+        niveau de la règle : une recherche infructueuse ne devient un constat
+        d'absence que si l'on peut dire où l'on a cherché. Sans cela, un
+        relecteur pressé transformerait une lecture partielle en attestation.
+        """
+        if (
+            self.exceptions_status is ExceptionsStatus.NONE_IDENTIFIED
+            and not self.source_scope.strip()
+        ):
+            raise ValueError(
+                "exceptions_statut « none_identified » sans source_scope : une "
+                "absence n'est opposable que si l'on dit où l'on a cherché"
+            )
+        return self
+
+    @model_validator(mode="after")
     def _exceptions_coherentes(self) -> Verification:
         """Même distinction que dans `Rule` : listées, aucune identifiée, inconnues."""
         if self.exceptions and self.exceptions_status not in EXCEPTIONS_PORTEES:
@@ -218,27 +241,16 @@ class VerificationSignee(Verification):
     """
 
     @model_validator(mode="after")
-    def _une_conclusion_sur_les_exceptions_dit_son_perimetre(self) -> VerificationSignee:
-        """« Aucune exception » n'est recevable que si l'on dit où l'on a cherché.
+    def _une_exception_incorporee_dit_son_origine(self) -> VerificationSignee:
+        """Une dérogation portée doit dire d'où elle sort et de quelle version.
 
-        C'est la même règle que pour les affirmations négatives, et c'est elle
-        qui empêche `unknown` de devenir `none_identified` au seul motif qu'une
-        recherche automatique n'a rien trouvé : l'automate ne remplit jamais ce
-        champ, seul un relecteur le peut.
-
-        Une exception incorporée doit dire d'où elle sort et de quelle version :
-        un extrait sans date n'est opposable à personne.
+        Le modèle de base tient déjà l'absence : `none_identified` sans
+        `source_scope` y est refusé. Ce qui s'ajoute ici vise l'autre issue —
+        une exception recopiée sans disposition d'origine ni date n'est
+        opposable à personne, et un extrait non daté ne se réoppose pas.
         """
-        if (
-            self.exceptions_status is ExceptionsStatus.NONE_IDENTIFIED
-            and not self.exceptions_scope.strip()
-        ):
-            raise ValueError(
-                "exceptions_statut « none_identified » sans perimetre_exceptions : "
-                "une absence ne s'établit que sur un périmètre attesté"
-            )
         if self.exceptions_status in EXCEPTIONS_PORTEES:
-            if not self.exceptions_scope.strip():
+            if not self.source_scope.strip():
                 raise ValueError(
                     "exceptions incorporées sans perimetre_exceptions : une "
                     "dérogation doit dire de quelle disposition elle sort"
@@ -386,7 +398,7 @@ def lire_dossier(chemin: Path) -> list[Verification]:
                     for e in (ligne.get("exceptions_constatees") or "").split("|")
                     if e.strip()
                 ],
-                "exceptions_scope": (ligne.get("perimetre_exceptions") or "").strip(),
+                "source_scope": (ligne.get("perimetre_exceptions") or "").strip(),
             }
 
             methode = (ligne.get("methode") or "").strip()
@@ -543,6 +555,12 @@ def _appliquer_une(regle: Rule, verification: Verification) -> Rule:
         donnees["version"] = regle.version + 1
     if verification.verdict is Verdict.CORRIGE:
         donnees["statement"] = verification.statement
+
+    if verification.source_scope:
+        notes = donnees.get("notes", "")
+        donnees["notes"] = (
+            f"{notes} [périmètre examiné] {verification.source_scope}".strip()
+        )
 
     if verification.comment:
         notes = donnees.get("notes", "")
