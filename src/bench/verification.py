@@ -119,6 +119,15 @@ class Verification(ModeleStrict):
     #: qu'on en tire une réponse de référence sans réinterpréter le droit.
     gold_ready: bool | None = None
     gold_ready_reason: str = ""
+    #: Périmètre réellement examiné. Obligatoire pour conclure à l'absence
+    #: d'exception : sans lui, « none_identified » ne serait qu'un « je n'ai pas
+    #: trouvé » déguisé en constat.
+    source_scope: str = ""
+    #: État de la règle avant application, enregistré au registre pour que
+    #: l'histoire se lise sans avoir à la rejouer.
+    previous_status: RuleStatus | None = None
+    previous_version: int | None = None
+    new_version: int | None = None
     comment: str = ""
 
     @model_validator(mode="after")
@@ -180,6 +189,25 @@ class Verification(ModeleStrict):
             raise ValueError(
                 "statut visé « validated » sans décision sur gold_ready : une règle "
                 "validée dit si elle est assez précise pour porter un gold"
+            )
+        return self
+
+    @model_validator(mode="after")
+    def _une_absence_dit_ou_lon_a_cherche(self) -> Verification:
+        """`none_identified` exige le périmètre examiné (spécification §11).
+
+        C'est la même exigence que pour une `NegativeClaim`, portée cette fois au
+        niveau de la règle : une recherche infructueuse ne devient un constat
+        d'absence que si l'on peut dire où l'on a cherché. Sans cela, un
+        relecteur pressé transformerait une lecture partielle en attestation.
+        """
+        if (
+            self.exceptions_status is ExceptionsStatus.NONE_IDENTIFIED
+            and not self.source_scope.strip()
+        ):
+            raise ValueError(
+                "exceptions_statut « none_identified » sans source_scope : une "
+                "absence n'est opposable que si l'on dit où l'on a cherché"
             )
         return self
 
@@ -491,6 +519,12 @@ def _appliquer_une(regle: Rule, verification: Verification) -> Rule:
         donnees["version"] = regle.version + 1
     if verification.verdict is Verdict.CORRIGE:
         donnees["statement"] = verification.statement
+
+    if verification.source_scope:
+        notes = donnees.get("notes", "")
+        donnees["notes"] = (
+            f"{notes} [périmètre examiné] {verification.source_scope}".strip()
+        )
 
     if verification.comment:
         notes = donnees.get("notes", "")

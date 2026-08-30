@@ -1,16 +1,13 @@
 """Rapports d'exploitabilité : file de revue humaine et synthèse de readiness.
 
-Deux artefacts, deux lecteurs. `HUMAN_REVIEW_QUEUE.md` s'adresse à un juriste :
-il y trouve, règle par règle, ce que le texte dit, ce qui est acquis, ce qui ne
-l'est pas, et **la question exacte à trancher**. `RULEBOOK_READINESS_SUMMARY.md`
-s'adresse à la décision : il chiffre l'écart et rend une recommandation
+`RULEBOOK_READINESS_SUMMARY.md` s'adresse à la décision : il chiffre l'écart
+entre une règle vérifiée et une règle exploitable, et rend une recommandation
 déterminée par des seuils, pas par une appréciation.
 
-La file de revue ne donne **aucun conseil juridique**. Elle présente le point à
-arbitrer, l'extrait officiel qui le porte, et ce que chaque issue changerait pour
-les futurs items. Une proposition n'y figure que lorsqu'elle est mécanique — une
-reformulation au plus près de la lettre, un découpage d'ancrage — jamais lorsque
-la réponse dépend d'une interprétation du droit.
+Il ne produit pas la file de revue : celle-ci appartient au pack d'arbitrage
+(`rapport_revue.py`), qui dispose des dispositions de soutien et des
+regroupements. Un artefact, un auteur — deux modules qui écriraient le même
+fichier finiraient par en donner deux versions.
 """
 
 from __future__ import annotations
@@ -29,7 +26,6 @@ from src.bench.regles import Rule
 from src.bench.rulebook import ExceptionsStatus, RuleStatus
 from src.bench.verification import ENCODAGE_CSV, SEPARATEUR_CSV
 
-FILE_REVUE = Path("reports/HUMAN_REVIEW_QUEUE.md")
 SYNTHESE_READINESS = Path("reports/RULEBOOK_READINESS_SUMMARY.md")
 MATRICE_READINESS = Path("reports/RULEBOOK_FAMILY_READINESS.csv")
 
@@ -129,176 +125,6 @@ def ecrire_matrice_readiness(etats: list[ConstatReadiness], chemin: Path) -> Non
                     "explanation": etat.explanation,
                 }
             )
-
-
-def file_de_revue(
-    etats: list[ConstatReadiness],
-    regles: dict[str, Rule],
-    constats: dict[str, ConstatCompletude],
-    extraits: dict[str, str],
-) -> str:
-    """`reports/HUMAN_REVIEW_QUEUE.md` — P0 et P1 en tête."""
-    ordre = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
-    en_attente = sorted(
-        (e for e in etats if e.demande_arbitrage),
-        key=lambda e: (ordre.get(e.priorite_revue, 9), e.rule_id),
-    )
-    par_priorite = Counter(e.priorite_revue for e in en_attente)
-
-    lignes = [
-        "# Rulebook — file de revue humaine",
-        "",
-        "Chaque entrée présente un point à trancher, l'extrait officiel qui le",
-        "porte, et ce que chaque issue changerait pour les futurs items.",
-        "",
-        "**Ce document ne donne aucun conseil juridique.** Il ne dit pas ce que le",
-        "texte veut dire : il dit ce qui est acquis, ce qui ne l'est pas, et la",
-        "question exacte qui reste ouverte. Les propositions qui y figurent sont",
-        "mécaniques — reformuler au plus près de la lettre, découper un ancrage —",
-        "jamais interprétatives.",
-        "",
-        "## Priorités",
-        "",
-        "| Priorité | Ce qu'elle signifie | Règles |",
-        "|---|---|---:|",
-        f"| **P0** | une erreur ici serait dangereuse pour un professionnel | "
-        f"{par_priorite.get('P0', 0)} |",
-        f"| **P1** | affecte la validité du benchmark | {par_priorite.get('P1', 0)} |",
-        f"| **P2** | utile, non bloquant | {par_priorite.get('P2', 0)} |",
-        f"| **P3** | faible enjeu | {par_priorite.get('P3', 0)} |",
-        "",
-        f"Total en attente d'arbitrage : **{len(en_attente)}**",
-        "",
-    ]
-    lignes += _tableau_exceptions(en_attente, regles, constats)
-
-    for priorite in ("P0", "P1", "P2", "P3"):
-        concernees = [e for e in en_attente if e.priorite_revue == priorite]
-        if not concernees:
-            continue
-        lignes += [f"## {priorite} — {len(concernees)} règle(s)", ""]
-        for etat in concernees:
-            lignes.extend(_fiche(etat, regles[etat.rule_id], constats.get(etat.rule_id), extraits))
-    return "\n".join(lignes) + "\n"
-
-
-def _tableau_exceptions(
-    en_attente: list[ConstatReadiness],
-    regles: dict[str, Rule],
-    constats: dict[str, ConstatCompletude],
-) -> list[str]:
-    """Les règles dont la **recherche d'exceptions** demande un juriste.
-
-    C'est la population la plus nombreuse et la plus homogène : à chaque fois,
-    la même question — le texte déroge-t-il quelque part, et l'automate ne l'a-t-il
-    pas vu ? La lister à part évite de la noyer dans les fiches détaillées.
-    """
-    concernees = [
-        e
-        for e in en_attente
-        if constats.get(e.rule_id)
-        and constats[e.rule_id].exceptions_status is ExceptionsStatus.REQUIRES_HUMAN_REVIEW
-    ]
-    if not concernees:
-        return []
-
-    lignes = [
-        f"## Recherche d'exceptions à trancher ({len(concernees)} règles)",
-        "",
-        "Aucune dérogation n'a été repérée dans l'article cité. **Ce n'est pas une",
-        "absence de dérogation** : un autre article, ou un acte ultérieur, peut y",
-        "déroger sans que le texte de l'article le dise. Seul un juriste peut porter",
-        "`none_identified`.",
-        "",
-        "| ID | Domaine | Statut | Exceptions | Source | Article | Décision attendue |",
-        "|---|---|---|---|---|---|---|",
-    ]
-    for etat in concernees:
-        regle = regles[etat.rule_id]
-        lignes.append(
-            f"| `{etat.rule_id}` | {etat.domain} | {etat.status.value} | "
-            f"`{constats[etat.rule_id].exceptions_status.value}` | "
-            f"{regle.source.text[:40]} | {regle.source.article[:30]} | "
-            f"{etat.decision_requise[:120]} |"
-        )
-    lignes.append("")
-    return lignes
-
-
-def _fiche(
-    etat: ConstatReadiness,
-    regle: Rule,
-    constat: ConstatCompletude | None,
-    extraits: dict[str, str],
-) -> list[str]:
-    """Une entrée de la file : ce qui est acquis, ce qui ne l'est pas, la question."""
-    extrait = (extraits.get(regle.id) or "").strip()
-    acquis: list[str] = []
-    incertain: list[str] = []
-
-    if regle.source.is_verified:
-        acquis.append(
-            f"la source primaire a été consultée et signée le "
-            f"{regle.source.verification_date} par {regle.source.verified_by}"
-        )
-    else:
-        incertain.append("la source primaire n'a pas été consultée")
-    if constat is not None:
-        if constat.criteres.get("article_verifie"):
-            acquis.append(f"« {regle.source.article} » existe dans l'acte cité")
-        else:
-            incertain.append(f"« {regle.source.article} » n'a pas été retrouvé")
-        if constat.criteres.get("enonce_fidele"):
-            acquis.append("le vocabulaire de l'énoncé se retrouve dans l'article")
-        else:
-            incertain.append("l'énoncé n'est pas corroboré par l'article cité")
-        if constat.structures:
-            acquis.append(
-                "structures repérées dans le texte : "
-                + ", ".join(s.value for s in constat.structures)
-            )
-        if constat.exceptions_extraites:
-            acquis.append(
-                f"{len(constat.exceptions_extraites)} disposition(s) limitante(s) "
-                f"recopiée(s) du texte officiel"
-            )
-    for blocage in etat.blocages:
-        incertain.append(blocage.explanation)
-
-    proposition = _proposition(etat, regle, constat)
-
-    fiche = [
-        f"### `{regle.id}` — {regle.domain.value} · {regle.priority.value} · "
-        f"{regle.status.value}",
-        "",
-        f"**Énoncé actuel (v{regle.version})** — {regle.statement}",
-        "",
-        f"**Source primaire** — {regle.source.text}",
-        f"**Article / paragraphe** — {regle.source.article}"
-        + (f", {regle.source.paragraph}" if regle.source.paragraph else ""),
-        f"**Version consultée** — {regle.source.version_date.isoformat()}",
-        "",
-    ]
-    if extrait:
-        fiche += ["**Ce que dit le texte**", "", f"> {extrait[:900]}", ""]
-    fiche += ["**Ce qui est certain**", ""]
-    fiche += [f"- {a}" for a in acquis] or ["- rien d'établi à ce stade"]
-    fiche += ["", "**Ce qui est incertain**", ""]
-    fiche += [f"- {i}" for i in dict.fromkeys(incertain)]
-    fiche += [
-        "",
-        f"**Question à trancher** — {etat.decision_requise}",
-        "",
-    ]
-    if proposition:
-        fiche += [f"**Proposition** — {proposition}", ""]
-    fiche += [
-        f"**Pourquoi cela affecte les futurs items** — {_impact(etat, regle)}",
-        "",
-        "---",
-        "",
-    ]
-    return fiche
 
 
 def _proposition(

@@ -4,7 +4,6 @@ Sorties :
 
 - `reports/RULEBOOK_READINESS_SUMMARY.md` — les trois seuils, les blocages, la
   recommandation ;
-- `reports/HUMAN_REVIEW_QUEUE.md` — ce qu'un juriste doit trancher, P0 en tête ;
 - `reports/RULEBOOK_FAMILY_READINESS.csv` — une ligne par règle.
 
 Le script ne modifie rien : il constate. Les corrections passent par le circuit
@@ -18,11 +17,9 @@ from pathlib import Path
 from src.bench.audit_rulebook import texte_de_la_regle
 from src.bench.qc_rulebook import RACINE_RULEBOOK, charger_rulebook
 from src.bench.rapport_readiness import (
-    FILE_REVUE,
     MATRICE_READINESS,
     SYNTHESE_READINESS,
     ecrire_matrice_readiness,
-    file_de_revue,
     recommandation,
     synthese,
 )
@@ -54,7 +51,6 @@ def _rulebook_initial() -> list:
 def auditer_readiness(
     racine: Path = RACINE_RULEBOOK,
     synthese_chemin: Path = SYNTHESE_READINESS,
-    file_chemin: Path = FILE_REVUE,
     matrice: Path = MATRICE_READINESS,
     registre: Path = REGISTRE_VERIFICATION,
     recuperateur=recuperateur_http,
@@ -103,9 +99,6 @@ def auditer_readiness(
     Path(synthese_chemin).parent.mkdir(parents=True, exist_ok=True)
     Path(synthese_chemin).write_text(
         synthese(etats, regles, anomalies, tests_integrite), encoding="utf-8"
-    )
-    Path(file_chemin).write_text(
-        file_de_revue(etats, par_id, constats, extraits), encoding="utf-8"
     )
     ecrire_matrice_readiness(etats, Path(matrice))
 
