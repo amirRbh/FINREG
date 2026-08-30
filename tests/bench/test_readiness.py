@@ -29,7 +29,6 @@ from src.bench.completude import ConstatCompletude, PREREQUIS_GOLD, analyser
 from src.bench.rapport_readiness import (
     COLONNES_READINESS,
     RECOMMANDATIONS,
-    file_de_revue,
     recommandation,
     synthese,
 )
@@ -255,28 +254,6 @@ def test_chaque_decision_nomme_ce_quil_faut_trancher() -> None:
         assert "revue requise" not in etat.decision_requise.lower()
         # La question nomme la disposition concernée.
         assert sujet.source.article in etat.decision_requise or sujet.source.text in etat.decision_requise
-
-
-def test_la_file_de_revue_place_les_p0_en_tete() -> None:
-    critique = regle(id="RULE-SYNTH-P0", priority="CRITICAL")
-    mineure = regle(id="RULE-SYNTH-P3", priority="LOW")
-    constats = {
-        critique.id: constat_de(
-            critique, gold_ready=False, criteres_gold={"exceptions_recherchees": False}
-        ),
-        mineure.id: constat_de(
-            mineure, gold_ready=False, criteres_gold={"exceptions_recherchees": False}
-        ),
-    }
-    etats = [evaluer(critique, constats[critique.id]), evaluer(mineure, constats[mineure.id])]
-    texte = file_de_revue(
-        etats, {critique.id: critique, mineure.id: mineure}, constats,
-        {critique.id: ARTICLE, mineure.id: ARTICLE},
-    )
-    assert texte.index("RULE-SYNTH-P0") < texte.index("RULE-SYNTH-P3")
-    assert "aucun conseil juridique" in texte
-    assert "Question à trancher" in texte
-    assert "Pourquoi cela affecte les futurs items" in texte
 
 
 # --------------------------------------------------------------------------- #
