@@ -37,6 +37,7 @@ from src.bench.regles import Rule
 from src.bench.rulebook import (
     EXCEPTIONS_ABOUTIES,
     ExceptionsStatus,
+    NegativeClaimStatus,
     Priority,
     RuleStatus,
     RuleType,
@@ -213,6 +214,10 @@ class ConstatCompletude:
     gold_ready_reason: str = ""
     #: Les huit critères de validation, nommés et cochés ou non.
     criteres: dict[str, bool] = field(default_factory=dict)
+    #: Les prérequis de `gold_ready` : les huit critères, plus la résolution des
+    #: affirmations négatives. Séparés parce qu'une règle peut être juridiquement
+    #: établie tout en portant une absence encore à vérifier.
+    criteres_gold: dict[str, bool] = field(default_factory=dict)
     statut_propose: RuleStatus = RuleStatus.SOURCE_CHECKED
     motifs: tuple[str, ...] = ()
     temporal_status: str = ""
@@ -275,12 +280,14 @@ def renvois_de(texte: str) -> list[str]:
     return sorted(trouves, key=lambda n: (len(n), n))
 
 
-def evaluer_gold_readiness(regle: Rule) -> tuple[bool, str]:
-    """Une règle validée est-elle assez précise pour qu'on en tire un gold ?
+def evaluer_portance(regle: Rule) -> tuple[bool, str]:
+    """L'énoncé est-il assez précis pour qu'on en tire une réponse de référence ?
 
-    Le critère n'est pas la véracité — elle est acquise — mais la **portance** :
-    peut-on écrire une réponse de référence sans rouvrir le texte et sans
-    trancher une question de droit ?
+    La **portance** ne dit rien de la véracité ni de la complétude : elle dit si
+    la formulation permet d'écrire un gold sans rouvrir le texte et sans trancher
+    une question de droit. C'est une condition de `gold_ready`, pas `gold_ready`
+    lui-même — un énoncé peut être parfaitement porteur et reposer sur une source
+    non vérifiée.
     """
     enonce = regle.statement
     motifs: list[str] = []
@@ -312,7 +319,34 @@ def evaluer_gold_readiness(regle: Rule) -> tuple[bool, str]:
 
     return True, (
         f"énoncé porteur d'un fait vérifiable, ancré sur « {regle.source.article} » "
-        f"({len(enonce)} caractères), exceptions « {regle.exceptions_status.value} »"
+        f"({len(enonce)} caractères)"
+    )
+
+
+#: Prérequis probatoires de `gold_ready`, dans l'ordre où ils se lisent. Un
+#: énoncé porteur ne suffit pas : écrire une réponse de référence sur une source
+#: non vérifiée, une exception inconnue ou une temporalité incertaine reviendrait
+#: à faire porter le doute au gold, là où il ne se verrait plus.
+PREREQUIS_GOLD: tuple[str, ...] = (
+    "source_primaire_verifiee",
+    "article_verifie",
+    "exceptions_recherchees",
+    "temporalite_etablie",
+    "renvois_verifies",
+    "affirmations_negatives_resolues",
+)
+
+
+def affirmations_negatives_resolues(regle: Rule) -> bool:
+    """Une règle qui porte une affirmation négative non vérifiée n'est pas prête.
+
+    « Je n'ai pas trouvé » n'est pas « cela n'existe pas » : tant qu'une
+    affirmation négative reste `unverified`, le gold qu'elle porterait
+    affirmerait une absence que rien n'atteste.
+    """
+    return all(
+        revendication.status is not NegativeClaimStatus.UNVERIFIED
+        for revendication in regle.negative_claims
     )
 
 
@@ -408,7 +442,7 @@ def analyser(
     if not temporel_etabli:
         motifs.append(f"temporalité non établie (statut « {temporal} »)")
 
-    gold_ready, motif_gold = evaluer_gold_readiness(regle)
+    portance, motif_portance = evaluer_portance(regle)
 
     # -- les huit critères de la spécification §4 --
     criteres = {
@@ -419,8 +453,28 @@ def analyser(
         "conditions_capturees": bool(structures),
         "temporalite_etablie": temporel_etabli,
         "renvois_verifies": renvois_verifies,
-        "sans_ambiguite": gold_ready or exceptions_status in EXCEPTIONS_ABOUTIES,
+        "sans_ambiguite": portance or exceptions_status in EXCEPTIONS_ABOUTIES,
     }
+    # La résolution des affirmations négatives est un prérequis de `gold_ready`,
+    # pas un neuvième critère de validation : une règle peut être juridiquement
+    # établie tout en portant une absence encore à vérifier.
+    criteres_gold = dict(criteres)
+    criteres_gold["affirmations_negatives_resolues"] = affirmations_negatives_resolues(regle)
+
+    # `gold_ready` exige la portance **et** ses prérequis probatoires. Ne demander
+    # que la portance rendait « prête » une règle dont la source n'était même pas
+    # vérifiée : le doute passait alors du Rulebook au gold, où plus personne ne
+    # l'aurait vu.
+    manquants = [nom for nom in PREREQUIS_GOLD if not criteres_gold.get(nom, False)]
+    gold_ready = portance and not manquants
+    if not portance:
+        motif_gold = motif_portance
+    elif manquants:
+        motif_gold = (
+            f"énoncé porteur, mais prérequis non tenus : {', '.join(manquants)}"
+        )
+    else:
+        motif_gold = motif_portance
 
     # -- statut proposé --
     if regle.status is RuleStatus.DRAFT:
@@ -454,6 +508,7 @@ def analyser(
         gold_ready=gold_ready,
         gold_ready_reason=motif_gold,
         criteres=criteres,
+        criteres_gold=criteres_gold,
         statut_propose=statut,
         motifs=tuple(motifs),
         temporal_status=temporal,

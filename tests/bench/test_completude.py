@@ -26,7 +26,7 @@ from pydantic import ValidationError
 from src.bench.completude import (
     Structure,
     analyser,
-    evaluer_gold_readiness,
+    evaluer_portance,
     evaluer_temporalite,
     extraire_exceptions,
     renvois_de,
@@ -156,7 +156,7 @@ def test_des_derogations_trouvees_et_recopiees_sont_incorporees() -> None:
 # --------------------------------------------------------------------------- #
 
 
-def test_un_enonce_qui_decrit_le_texte_nest_pas_gold_ready() -> None:
+def test_un_enonce_qui_decrit_le_texte_na_pas_de_portance() -> None:
     """L'archétype : exact, et impossible à transformer en réponse de référence."""
     abstraite = regle(
         statement=(
@@ -164,25 +164,25 @@ def test_un_enonce_qui_decrit_le_texte_nest_pas_gold_ready() -> None:
             "l'étendue des diligences à accomplir."
         )
     )
-    pret, motif = evaluer_gold_readiness(abstraite)
+    pret, motif = evaluer_portance(abstraite)
     assert not pret
     assert "décrit le texte au lieu de le dire" in motif
 
 
-def test_un_enonce_porteur_dun_fait_est_gold_ready() -> None:
-    pret, motif = evaluer_gold_readiness(regle())
+def test_un_enonce_porteur_dun_fait_a_de_la_portance() -> None:
+    pret, motif = evaluer_portance(regle())
     assert pret
     assert motif.strip()
 
 
-def test_un_enonce_sans_rien_de_verifiable_nest_pas_gold_ready() -> None:
+def test_un_enonce_sans_rien_de_verifiable_na_pas_de_portance() -> None:
     vague = regle(
         statement=(
             "Ce texte européen s'inscrit dans une démarche générale d'harmonisation "
             "entre les différents régimes applicables au secteur financier européen."
         )
     )
-    pret, motif = evaluer_gold_readiness(vague)
+    pret, motif = evaluer_portance(vague)
     assert not pret
     assert "rien de vérifiable" in motif
 

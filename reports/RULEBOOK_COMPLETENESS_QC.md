@@ -25,9 +25,9 @@ seule population utile à la génération de familles est **`validated` ET
 - `requires_human_review` : **0**
 - `draft` : **13**
 
-- `gold_ready` : **41**
-- non `gold_ready` : **17**
-- **utilisables pour la génération de familles** (`validated` et `gold_ready`) : **10**
+- `gold_ready` : **9**
+- non `gold_ready` : **49**
+- **utilisables pour la génération de familles** (`validated` et `gold_ready`) : **9**
 
 ### Recherche d'exceptions
 
@@ -79,7 +79,6 @@ la validation.
 | `DORA-R-005` | DORA | HIGH | identified_and_incorporated |
 | `DORA-R-009` | DORA | HIGH | identified_and_incorporated |
 | `DORA-R-011` | DORA | CRITICAL | identified_and_incorporated |
-| `MIFID-R-007` | MIFID | CRITICAL | identified_and_incorporated |
 | `MIFID-R-008` | MIFID | HIGH | identified_and_incorporated |
 | `MIFID-R-009` | MIFID | HIGH | identified_and_incorporated |
 | `MIFID-R-011` | MIFID | HIGH | identified_and_incorporated |
@@ -143,14 +142,27 @@ Chaque incorporation **reversionne** la règle, sans écraser l'ancienne.
 | `TAXO-R-002` | HIGH | aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste |
 | `TAXO-R-003` | CRITICAL | aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste |
 
-## Règles non `gold_ready` (17)
+## Règles non `gold_ready` (49)
 
 Elles peuvent être juridiquement exactes : ce qui leur manque est la
 précision, pas la véracité.
 
 | ID | Priorité | Pourquoi |
 |---|---|---|
+| `AMF-R-001` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, affirmations_negatives_resolues |
+| `AMF-R-002` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `AMF-R-003` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `AMF-R-004` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
 | `AMF-R-005` | HIGH |  |
+| `DORA-R-002` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `DORA-R-003` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, temporalite_etablie |
+| `DORA-R-004` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `DORA-R-006` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `DORA-R-007` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, temporalite_etablie, affirmations_negatives_resolues |
+| `DORA-R-008` | CRITICAL | énoncé porteur, mais prérequis non tenus : temporalite_etablie, affirmations_negatives_resolues |
+| `DORA-R-010` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `DORA-R-012` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `DORA-R-013` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, temporalite_etablie |
 | `LCBFT-R-001` | CRITICAL |  |
 | `LCBFT-R-002` | CRITICAL |  |
 | `LCBFT-R-003` | CRITICAL |  |
@@ -165,8 +177,27 @@ précision, pas la véracité.
 | `LCBFT-R-012` | CRITICAL |  |
 | `LCBFT-R-013` | HIGH |  |
 | `MIFID-R-001` | HIGH | l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite |
+| `MIFID-R-002` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `MIFID-R-003` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `MIFID-R-004` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `MIFID-R-005` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `MIFID-R-006` | CRITICAL | énoncé porteur, mais prérequis non tenus : temporalite_etablie |
+| `MIFID-R-007` | CRITICAL | énoncé porteur, mais prérequis non tenus : affirmations_negatives_resolues |
 | `MIFID-R-010` | MEDIUM | l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite |
+| `SFDR-R-001` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-002` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-003` | CRITICAL | énoncé porteur, mais prérequis non tenus : temporalite_etablie, affirmations_negatives_resolues |
+| `SFDR-R-004` | MEDIUM | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-005` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-006` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, temporalite_etablie |
+| `SFDR-R-008` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees, affirmations_negatives_resolues |
+| `SFDR-R-010` | MEDIUM | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-011` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `SFDR-R-012` | MEDIUM | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
 | `SFDR-R-014` | HIGH |  |
+| `TAXO-R-001` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `TAXO-R-002` | HIGH | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
+| `TAXO-R-003` | CRITICAL | énoncé porteur, mais prérequis non tenus : exceptions_recherchees |
 
 ## Règles CRITICAL non validées (27)
 

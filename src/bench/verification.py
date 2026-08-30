@@ -403,17 +403,11 @@ def appliquer(
             continue
         vus.add(rid)
 
-        regle = index[rid]
-        if verification.target_status is RuleStatus.VALIDATED:
-            statut = verification.exceptions_status or regle.exceptions_status
-            if statut not in EXCEPTIONS_ABOUTIES:
-                erreurs.append(
-                    f"{rid} : statut « validated » alors que la recherche d'exceptions "
-                    f"vaut « {statut.value} » — une règle validée sans ses exceptions "
-                    f"se teste comme un absolu qu'elle n'est pas ; « identifiées mais "
-                    f"non incorporées » est le cas le plus trompeur, la règle a l'air "
-                    f"complète"
-                )
+        # La cohérence des exceptions se vérifie à l'application, pas ici : elle
+        # dépend de l'état de la règle **au moment** où le constat est appliqué,
+        # et un rejeu d'historique fait passer une même règle par plusieurs états.
+        # La vérifier sur l'état initial reprocherait à une entrée tardive ce que
+        # les précédentes ont déjà corrigé.
 
     if erreurs:
         raise VerificationInvalide(erreurs)
@@ -449,6 +443,16 @@ def _appliquer_une(regle: Rule, verification: Verification) -> Rule:
     `model_copy` contournerait les validateurs : c'est justement eux qui tiennent
     le verrou de vérification, on repasse donc par `model_validate`.
     """
+    if verification.target_status is RuleStatus.VALIDATED:
+        statut = verification.exceptions_status or regle.exceptions_status
+        if statut not in EXCEPTIONS_ABOUTIES:
+            raise ValueError(
+                f"statut « validated » alors que la recherche d'exceptions vaut "
+                f"« {statut.value} » — une règle validée sans ses exceptions se teste "
+                f"comme un absolu qu'elle n'est pas ; « identifiées mais non "
+                f"incorporées » est le cas le plus trompeur, la règle a l'air complète"
+            )
+
     donnees = regle.model_dump(mode="json")
     source = dict(donnees["source"])
 

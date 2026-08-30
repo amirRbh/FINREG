@@ -37,6 +37,11 @@ from src.bench.rapport_completude import (
     MATRICE_GOLD,
     RAPPORT_COMPLETUDE,
 )
+from src.bench.rapport_readiness import (
+    FILE_REVUE,
+    MATRICE_READINESS,
+    SYNTHESE_READINESS,
+)
 from src.bench.qc_rulebook import (
     RACINE_RULEBOOK,
     charger_par_fichier,
@@ -342,6 +347,47 @@ def rulebook_completude(
         "puis « finreg-bench rulebook appliquer-verification »",
         fg=typer.colors.YELLOW,
     )
+
+
+@rulebook.command("readiness")
+def rulebook_readiness(
+    racine: Annotated[Path, typer.Option("--racine", help="Dossier des règles.")] = RACINE_RULEBOOK,
+    synthese: Annotated[
+        Path, typer.Option("--synthese", help="Synthèse d'exploitabilité.")
+    ] = SYNTHESE_READINESS,
+    file_revue: Annotated[
+        Path, typer.Option("--file-revue", help="File de revue humaine.")
+    ] = FILE_REVUE,
+    matrice: Annotated[
+        Path, typer.Option("--matrice", help="Matrice de readiness CSV.")
+    ] = MATRICE_READINESS,
+) -> None:
+    """Situe chaque règle sur les trois seuils et rend une recommandation.
+
+    Sort en erreur si la recommandation n'est pas `READY_FOR_FAMILY_GENERATION` :
+    la génération de familles ne doit pas pouvoir démarrer sur un Rulebook
+    incohérent ou dont les arbitrages critiques sont en attente.
+    """
+    from scripts.auditer_readiness import auditer_readiness
+
+    resultat = auditer_readiness(racine, synthese, file_revue, matrice)
+    typer.secho(f"{resultat['rules']} règle(s)", fg=typer.colors.GREEN)
+    typer.echo(f"  gold_ready   : {resultat['gold_ready']}")
+    typer.echo(f"  family_ready : {resultat['family_ready']}")
+    typer.echo(
+        f"  intégrité : {resultat['integrity_passed']} passé(s), "
+        f"{resultat['integrity_failed']} échoué(s)"
+    )
+    for anomalie in resultat["anomalies"]:
+        typer.secho(f"    {anomalie}", fg=typer.colors.RED, err=True)
+    couleur = (
+        typer.colors.GREEN
+        if resultat["recommendation"] == "READY_FOR_FAMILY_GENERATION"
+        else typer.colors.YELLOW
+    )
+    typer.secho(f"  {resultat['recommendation']} — {resultat['reason']}", fg=couleur)
+    if resultat["recommendation"] != "READY_FOR_FAMILY_GENERATION":
+        raise typer.Exit(code=1)
 
 
 # -- Question Family Map ------------------------------------------------------------ #

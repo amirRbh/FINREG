@@ -616,6 +616,24 @@
     },
     {
       "article": "",
+      "comment": "Correction d'intégrité : gold_ready était stocké à true alors que le calcul corrigé le refuse. Le statut « validated » n'est pas remis en cause — c'est l'exploitabilité qui l'est.",
+      "exceptions": [],
+      "exceptions_status": null,
+      "gold_ready": false,
+      "gold_ready_reason": "la règle porte une affirmation négative encore non vérifiée (« le texte fixerait une proportion minimale chiffrée d'investissements durables ») : un gold construit ici affirmerait une absence que rien n'atteste. La règle reste juridiquement établie ; elle n'est pas exploitable tant que le périmètre de recherche de cette absence n'a pas été consigné.",
+      "paragraph": "",
+      "rule_id": "MIFID-R-007",
+      "statement": "",
+      "target_status": "validated",
+      "url": "",
+      "verdict": "confirme",
+      "verification_date": "2026-08-30",
+      "verification_method": "primary_text_fetched",
+      "verified_by": "amirRbh",
+      "version_date": null
+    },
+    {
+      "article": "",
       "comment": "STRUCTURES — derogation, exclusion, conditions_cumulatives, delai, regime_particulier || CONSTATS — 5 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exclusion)",
       "exceptions": [
         "Les politiques, processus et dispositifs visés au présent paragraphe sont sans préjudice de toutes les autres prescriptions prévues par la présente directive et par le règlement (UE) n o 600/2014, y compris à celles applicables à la publication, à l’adéquation ou au caractère approprié, à la détection et à la gestion des conflits d’intérêts, et aux incitations. 4.",

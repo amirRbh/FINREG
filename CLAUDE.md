@@ -360,7 +360,7 @@ couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine
 le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
-`finreg-bench rulebook qc|auditer|completude|exporter-verification|appliquer-verification`,
+`finreg-bench rulebook qc|auditer|completude|readiness|exporter-verification|appliquer-verification`,
 et
 `finreg-bench familles generer|qc|exporter-matrice`.
 
@@ -401,8 +401,8 @@ conclure).
 `verified_absent` sans méthode suffisante **et** `searched_in`. C'est ce qui
 empêche de transformer « je n'ai pas trouvé » en « cela n'existe pas ».
 
-**État du Rulebook V0 : 58 règles, 12 `validated` (dont 10 `gold_ready`),
-33 `source_checked`, 13 `draft`.** Les 43 promues ont été confrontées à leur texte primaire
+**État du Rulebook V0 : 58 règles, 12 `validated`, 33 `source_checked`,
+13 `draft` — et 9 seulement sont exploitables (`gold_ready` et `family_ready`).** Les 43 promues ont été confrontées à leur texte primaire
 par récupération auprès de CELLAR (voir l'audit ci-dessous) et signées au
 registre de vérification. Les 15 restantes sont hors d'atteinte depuis cet
 environnement : 12 règles LCB-FT adossées au Code monétaire et financier
@@ -584,6 +584,57 @@ une copie de travail d'un texte officiel, pas un artefact du projet.
 et la suite sert un faux *Journal officiel* synthétique — ce qui permet aussi
 d'éprouver des cas qu'on ne pourrait pas provoquer en vrai, comme un serveur qui
 répond 200 avec une page d'accueil.
+
+### Exploitabilité : trois seuils, pas deux (`readiness.py`)
+
+`validated` dit que la règle est juridiquement établie. `gold_ready` dit qu'on
+peut en tirer une réponse de référence sans réinterpréter le droit.
+`family_ready` dit qu'elle peut ancrer une famille de questions. Les trois se
+suivent sans se confondre.
+
+**`gold_ready` a d'abord été calculé sur la seule portance de l'énoncé, et
+c'était faux.** Le chiffre le trahissait : quarante et une règles étaient dites
+prêtes, dont treize dont la source n'était pas vérifiée. Un énoncé porteur
+adossé à une source non consultée ne donne pas un gold prêt, il donne un gold
+qui a l'air prêt. `gold_ready` exige désormais la portance **et** ses prérequis
+probatoires (`PREREQUIS_GOLD` : source vérifiée, article retrouvé, exceptions
+abouties, temporalité établie, renvois vérifiés, affirmations négatives
+résolues). Le chiffre est passé de 41 à 9 — la logique a été corrigée, pas le
+rapport.
+
+`family_ready` ajoute ce que la génération suppose en plus : un statut
+`validated`, et de quoi construire des angles. Une règle exacte sans aucune
+confusion typique ni piège est vraie et **stérile** : aucune fausse prémisse
+crédible ne s'en déduit.
+
+**Neuf catégories de blocage normalisées**, jamais une par règle, et un ordre de
+fondamentalité : on ne reproche pas son abstraction à une règle dont la source
+n'est pas vérifiée. La priorité de revue (P0 à P3) se déduit de la gravité de la
+règle et de la nature du blocage — P0 n'est pas « urgent » mais « dangereux ».
+
+**La file de revue pose des questions, pas des étiquettes.** « Revue requise »
+ne se traite pas : chaque entrée nomme la disposition, l'acte, et l'alternative
+à trancher, avec l'extrait officiel qui la porte. Elle ne donne aucun conseil
+juridique ; les propositions qui y figurent sont mécaniques (reformuler au plus
+près de la lettre, découper un ancrage), jamais interprétatives.
+
+**La recommandation est calculée, pas appréciée** : une anomalie d'intégrité
+donne `NOT_READY` quel que soit le nombre de règles prêtes ; un arbitrage P0 ou
+P1 en attente donne `READY_AFTER_HUMAN_REVIEW` ; sinon
+`READY_FOR_FAMILY_GENERATION`.
+
+**Le rejeu du registre est le contrôle d'intégrité central.** Compter les
+reversionnements à partir des entrées prises isolément ne marche pas : une
+entrée ne fait avancer la version que si elle ajoute réellement quelque chose à
+l'état du moment. Seul le rejeu complet dit la vérité — et c'est lui qui attrape
+la résurrection d'une formulation antérieure, qui s'est réellement produite. La
+cohérence des exceptions se vérifie donc **à l'application**, pas sur l'état
+initial : un rejeu fait passer une même règle par plusieurs états.
+
+CLI : `finreg-bench rulebook readiness` — sort en erreur tant que la
+recommandation n'est pas `READY_FOR_FAMILY_GENERATION`. Rapports dans
+`reports/RULEBOOK_READINESS_SUMMARY.md`, `HUMAN_REVIEW_QUEUE.md` et
+`RULEBOOK_FAMILY_READINESS.csv`.
 
 ### Question Family Map (phase 7)
 
