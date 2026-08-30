@@ -35,7 +35,7 @@ from src.bench.qc_rulebook import Constat, NIVEAUX
 from src.bench.regles import Rule
 from src.bench.rulebook import Priority, RuleStatus
 from src.bench.verification import ENCODAGE_CSV, SEPARATEUR_CSV
-from src.io_utils import ecrire_json, lire_json
+from src.io_utils import ecrire_json, hash_json, lire_json
 from src.bench.vocabulaires import (
     Answerability,
     Domain,
@@ -266,9 +266,34 @@ def controler(familles: list[CandidateFamily], regles: list[Rule]) -> list[Const
                         f"vérification d'absence avant rédaction")
             )
 
+    constats.extend(_carte_a_jour(familles, regles))
     constats.extend(_coherence_des_jumeaux(familles))
     constats.extend(_doublons(familles, regles))
     return sorted(constats, key=lambda c: (NIVEAUX.index(c.niveau), c.regle_id, c.controle))
+
+
+def _carte_a_jour(familles: list[CandidateFamily], regles: list[Rule]) -> list[Constat]:
+    """La carte dérive-t-elle encore du Rulebook tel qu'il est aujourd'hui ?
+
+    Un avertissement, pas une erreur : une carte en retard n'est pas fausse, elle
+    est datée. Mais le retard doit se voir — une carte qui vieillit en silence
+    finirait par bloquer des familles dont la règle a été validée depuis.
+    """
+    chemin = Path(RACINE_FAMILLES) / "family-manifest.json"
+    if not chemin.is_file():
+        return []
+    declaree = lire_json(chemin).get("rulebook_fingerprint", "")
+    actuelle = empreinte_rulebook(regles)
+    if declaree and declaree != actuelle:
+        return [
+            Constat(
+                "AVERTISSEMENT", "carte", "carte_en_retard",
+                "la carte dérive d'un état antérieur du Rulebook : la régénérer "
+                "débloquera les familles dont la règle a été validée depuis "
+                "(finreg-bench familles generer)",
+            )
+        ]
+    return []
 
 
 def _coherence_des_jumeaux(familles: list[CandidateFamily]) -> list[Constat]:
@@ -358,6 +383,28 @@ def erreurs(constats: list[Constat]) -> list[Constat]:
 # --------------------------------------------------------------------------- #
 
 
+def empreinte_rulebook(regles: list[Rule]) -> str:
+    """Empreinte de l'état du Rulebook dont une carte dérive.
+
+    La carte est un artefact **dérivé** : elle retarde légitimement sur le
+    Rulebook, le temps qu'on décide de la régénérer. Ce qui ne doit jamais
+    arriver, c'est qu'elle retarde sans que personne le sache. L'empreinte rend
+    l'écart visible et datable au lieu de le laisser silencieux.
+    """
+    return hash_json(
+        [
+            {
+                "id": r.id,
+                "version": r.version,
+                "status": r.status.value,
+                "gold_ready": r.gold_ready,
+                "exceptions_status": r.exceptions_status.value,
+            }
+            for r in sorted(regles, key=lambda r: r.id)
+        ]
+    )
+
+
 def construire_manifeste(
     familles: list[CandidateFamily], regles: list[Rule], par_fichier: dict[str, int]
 ) -> dict:
@@ -372,6 +419,7 @@ def construire_manifeste(
 
     return {
         "family_map_version": VERSION_CARTE,
+        "rulebook_fingerprint": empreinte_rulebook(regles),
         "generation_date": DATE_GENERATION.isoformat(),
         "retention_threshold": SCORE_RETENU,
         "number_of_rules": len(regles),

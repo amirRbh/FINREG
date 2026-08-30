@@ -1,0 +1,59 @@
+﻿ID;domain;status;gold_ready;exceptions_status;temporal_status;source_verified;article_verified;cross_reference_checked;human_review_required;reason
+AMF-R-001;AMF;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; renvois vérifiés dans l'acte : articles 19"
+AMF-R-002;AMF;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; renvois vérifiés dans l'acte : articles 19"
+AMF-R-003;AMF;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; renvois vérifiés dans l'acte : articles 19"
+AMF-R-004;AMF;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; renvois vérifiés dans l'acte : articles 19"
+AMF-R-005;AMF;draft;non;unknown;IN_FORCE;non;non;non;non;
+DORA-R-001;DORA;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption)
+DORA-R-002;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+DORA-R-003;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; temporalité non établie (statut « IN_FORCE »)"
+DORA-R-004;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+DORA-R-005;DORA;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exemption)
+DORA-R-006;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+DORA-R-007;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; temporalité non établie (statut « IN_FORCE »)"
+DORA-R-008;DORA;source_checked;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;"2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) ; temporalité non établie (statut « IN_FORCE »)"
+DORA-R-009;DORA;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;3 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)
+DORA-R-010;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+DORA-R-011;DORA;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)
+DORA-R-012;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+DORA-R-013;DORA;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; temporalité non établie (statut « IN_FORCE »)"
+LCBFT-R-001;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-002;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-003;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-004;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-005;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-006;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-007;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-008;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-009;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-010;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-011;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-012;LCBFT;draft;non;unknown;IN_FORCE;non;non;non;non;
+LCBFT-R-013;LCBFT;source_checked;non;unknown;IN_FORCE;oui;non;non;non;
+MIFID-R-001;MIFID;validated;non;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite
+MIFID-R-002;MIFID;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+MIFID-R-003;MIFID;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+MIFID-R-004;MIFID;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+MIFID-R-005;MIFID;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+MIFID-R-006;MIFID;source_checked;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;"3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 3, 25 ; temporalité non établie (statut « IN_FORCE »)"
+MIFID-R-007;MIFID;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;"3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25"
+MIFID-R-008;MIFID;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;5 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exclusion)
+MIFID-R-009;MIFID;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)
+MIFID-R-010;MIFID;validated;non;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite
+MIFID-R-011;MIFID;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;"3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25"
+SFDR-R-001;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-002;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-003;SFDR;source_checked;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;"2 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) ; temporalité non établie (statut « IN_FORCE »)"
+SFDR-R-004;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-005;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-006;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;"aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste ; temporalité non établie (statut « IN_FORCE »)"
+SFDR-R-008;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-009;SFDR;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)
+SFDR-R-010;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-011;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-012;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+SFDR-R-013;SFDR;validated;oui;identified_and_incorporated;IN_FORCE;oui;oui;oui;non;1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)
+SFDR-R-014;SFDR;source_checked;non;unknown;IN_FORCE;oui;non;non;non;
+TAXO-R-001;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+TAXO-R-002;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste
+TAXO-R-003;SFDR;source_checked;oui;requires_human_review;IN_FORCE;oui;oui;oui;oui;aucune structure limitante dans l'article cité — ce qui ne prouve pas qu'aucun autre article n'y déroge : « none_identified » demande un juriste

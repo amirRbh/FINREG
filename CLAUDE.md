@@ -360,7 +360,8 @@ couvert par le `.gitignore` du corpus réel — celui-ci est ancré à la racine
 le contenu synthétique doit être versionné pour que les tests tournent.
 
 CLI : `finreg-bench valider|executer|verifier-reproductibilite`,
-`finreg-bench rulebook qc|exporter-verification|appliquer-verification`, et
+`finreg-bench rulebook qc|auditer|completude|exporter-verification|appliquer-verification`,
+et
 `finreg-bench familles generer|qc|exporter-matrice`.
 
 ### Regulatory Rulebook (phase 6)
@@ -387,19 +388,80 @@ progresser parce qu'un modèle a écrit une référence de mémoire, ni parce qu
 page web la mentionne. Seul `validated` rend une règle utilisable pour ancrer un
 gold (`Rule.is_usable`).
 
-**Exceptions.** `exceptions_status` distingue `none_identified` (on a cherché,
-il n'y en a pas) de `unknown` (on n'a pas cherché). Les confondre produit des
-questions dangereusement simplifiées.
+**Exceptions.** `exceptions_status` a six valeurs, et la distinction qui porte
+tout le reste n'est pas celle qu'on croit : ce n'est pas « il y en a » contre
+« il n'y en a pas », c'est **identifiées** contre **incorporées**. Une règle qui
+sait que des dérogations existent sans les porter (`identified_but_not_incorporated`)
+est plus dangereuse qu'une règle qui les ignore : elle a l'air complète.
+`none_identified` (on a cherché, il n'y en a pas) ne se confond ni avec `unknown`
+(on n'a pas cherché) ni avec `requires_human_review` (on a cherché sans pouvoir
+conclure).
 
 **Connaissance négative.** Une `NegativeClaim` ne peut passer en
 `verified_absent` sans méthode suffisante **et** `searched_in`. C'est ce qui
 empêche de transformer « je n'ai pas trouvé » en « cela n'existe pas ».
 
-**État du Rulebook V0 : 58 règles, toutes en `draft`, aucune utilisable.** Les
-sources primaires sont inaccessibles depuis l'environnement de génération
-(EUR-Lex, Légifrance, AMF, ACPR, TRACFIN, ESMA bloqués par le proxy réseau). Les
-références proviennent de la connaissance du modèle et doivent être confrontées
-au texte par un humain. Le rapport `RULEBOOK_QC.md` le dit en tête.
+**État du Rulebook V0 : 58 règles, 12 `validated` (dont 10 `gold_ready`),
+33 `source_checked`, 13 `draft`.** Les 43 promues ont été confrontées à leur texte primaire
+par récupération auprès de CELLAR (voir l'audit ci-dessous) et signées au
+registre de vérification. Les 15 restantes sont hors d'atteinte depuis cet
+environnement : 12 règles LCB-FT adossées au Code monétaire et financier
+(Légifrance 403), le Règlement général de l'AMF, et deux règles MiFID dont
+l'énoncé ne se retrouve pas dans le texte cité.
+
+**`source_checked` n'est pas `validated`, et `validated` n'est pas utilisable.**
+Une source attestée dit que le texte a été lu ; elle ne dit pas que la règle est
+complète. Une règle complète peut rester trop abstraite pour porter une réponse
+de référence. Les trois états se suivent sans se confondre, et seul le dernier
+ancre un gold : `Rule.is_usable` vaut `status is VALIDATED and gold_ready`. Le
+rapport `RULEBOOK_QC.md` calcule cet état à partir des règles, il ne le récite
+pas.
+
+### Audit de complétude et gold-readiness (`completude.py`)
+
+L'audit de sources établit qu'une règle cite le bon texte. Celui-ci examine ce
+que ce texte contient **autour** d'elle, et si ce qu'elle en dit suffit à écrire
+un gold.
+
+Il cherche la **structure juridique**, pas le mot « exception » : un texte déroge
+en écrivant « par dérogation », « toutefois », « ne s'applique pas », « n'est pas
+tenu », « est autorisée à présumer » — rarement en s'annonçant. Onze structures
+sont repérées, des dérogations aux renvois en passant par les conditions
+cumulatives et les dispositions transitoires.
+
+Deux règles qu'il ne franchit pas :
+
+- **il ne conclut jamais à l'absence d'exception.** Ne rien trouver dans
+  l'article cité ne prouve pas qu'aucun autre article n'y déroge. Ce cas ressort
+  en `requires_human_review`, jamais en `none_identified` ;
+- **il n'interprète pas.** Les exceptions incorporées sont des phrases du texte
+  officiel, recopiées. Une exception reformulée est une exception interprétée.
+
+`gold_ready` est le second axe, indépendant du premier. « Le règlement précise
+les modalités de l'évaluation » peut être parfaitement exact et ne rien permettre
+de rédiger : valider une telle règle sans le dire ferait porter l'interprétation
+juridique à l'étape de rédaction, là où elle ne serait plus contrôlée. Le motif
+est obligatoire dans les deux sens — prête ou écartée, la décision se conteste.
+
+Les huit critères de validation sont nommés et cochés un par un ; un seul
+manquant refuse la promotion. Les règles `CRITICAL` subissent un contrôle
+renforcé : exceptions **et** renvois établis, sans quoi elles restent
+`source_checked`.
+
+CLI : `finreg-bench rulebook completude`. Rapports dans
+`reports/RULEBOOK_COMPLETENESS_QC.md` et `RULEBOOK_GOLD_READINESS.csv`.
+
+**Le registre est une histoire, pas un état.** Il a d'abord gardé un seul constat
+par règle, le plus récent — et une règle corrigée deux fois cessait d'être
+reconstructible : la première régénération faisait réapparaître une version
+intermédiaire. Il est désormais append-only et se rejoue dans l'ordre
+(`appliquer(..., historique=True)`). Un test vérifie que la régénération
+reproduit le Rulebook livré à l'identique.
+
+**La carte des familles peut retarder sur le Rulebook — jamais en silence.** Son
+manifeste porte l'empreinte de l'état du Rulebook dont elle dérive, et le QC
+signale l'écart (`carte_en_retard`). Régénérer la carte est une décision, pas un
+effet de bord.
 
 ### Circuit de vérification (`verification.py`)
 
@@ -447,6 +509,81 @@ Quatre constats se déduisent de la citation elle-même :
 *aussi* des énoncés proches : un article porte couramment plusieurs obligations
 distinctes, et les signaler toutes noierait le vrai doublon dans le bruit. Le
 cas ordinaire ressort en `INFO meme_article`.
+
+### Audit contre le texte primaire (`sources_primaires.py`, `audit_rulebook.py`)
+
+Le circuit dit comment une règle se vérifie ; l'audit va chercher le texte et
+rassemble la preuve. Il ne promeut rien.
+
+**La voie d'accès est CELLAR**, le dépôt de l'Office des publications
+(`publications.europa.eu`) : il sert le texte tel qu'il a paru au *Journal
+officiel*, découpé par article, langue par langue. Ce n'est pas une
+reproduction, c'est l'acte. Mesuré depuis l'environnement d'exécution :
+
+| Voie | État | Conséquence |
+|---|---|---|
+| CELLAR | texte authentique du JO | **voie retenue** |
+| `eur-lex.europa.eu` | HTTP 200 mais sert la page d'accueil du JO | inutilisable |
+| `legifrance.gouv.fr` | HTTP 403 | Code monétaire et financier hors d'atteinte |
+| `amf-france.org` | page réelle | doctrine AMF atteignable |
+
+Un `200` qui rend une page d'accueil est plus dangereux qu'un `403` : il se lit
+comme un succès. Chaque récupération est donc **validée sur son contenu** —
+langue attendue, articles découpables — jamais sur son code de retour. L'index
+de manifestation qui porte le français glisse selon les langues de l'acte : on
+le sonde, on ne le suppose pas.
+
+Quatre classements, qui ne disent pas la même chose :
+
+| Classement | Ce qu'il signifie |
+|---|---|
+| `SOURCE_CHECKED` | un vérificateur nommé a signé — **jamais attribué par l'audit** |
+| `REQUIRES_HUMAN_REVIEW` | texte récupéré, article trouvé, énoncé corroboré : il ne manque que la signature |
+| `DRAFT` | texte récupéré, mais l'article manque ou l'énoncé ne s'y retrouve pas |
+| `BLOCKED` | le texte primaire est hors d'atteinte depuis cet environnement |
+
+`BLOCKED` et `DRAFT` ne se confondent pas : l'un dit « on n'a pas pu regarder »,
+l'autre « on a regardé et ça ne va pas ». Les traiter pareil ferait disparaître
+la seule information qui dit où porter l'effort.
+
+**L'audit ne s'accorde jamais `source_checked`.** Le statut est défini ici comme
+n'étant « jamais un statut qu'un modèle peut s'accorder à lui-même », et cette
+règle n'a pas d'exception. Le dossier `data/verification/dossier-audit.csv` est
+donc pré-rempli — verdict proposé, méthode, extrait officiel en commentaire —
+**sauf `verifie_par` et `date_verification`**. Le modèle `Verification` refuse
+un verdict promoteur sans elles : le verrou est une validation de schéma, pas
+une consigne dans un rapport. Un test le vérifie dans les deux sens — refusé
+sans signature, accepté avec.
+
+Ce que l'audit établit mécaniquement, et qui a une valeur propre :
+
+- l'article cité **existe** dans l'acte cité (ou non) ;
+- le vocabulaire de l'énoncé **se retrouve** dans cet article — une mesure de
+  rattachement, pas de vérité : un énoncé peut être faux avec un vocabulaire
+  parfaitement couvert, mais celui qui cite un article parlant d'autre chose
+  ressort ;
+- les **chiffres porteurs de droit** (seuil, délai, montant) figurent dans le
+  texte, ou non ;
+- l'URL et la citation désignent **le même acte** — une règle pointe volontiers
+  l'acte modificatif au lieu de l'acte modifié ;
+- un ancrage multiple (« Articles 8 à 13 ») est vérifié sur **tous** les
+  articles qu'il couvre, et signalé comme à découper ;
+- une règle qui énonce un texte « modifié » est cherchée dans sa **version
+  consolidée** : la vérifier contre l'acte d'origine lui reprocherait de ne pas
+  contenir une disposition ajoutée depuis.
+
+Les affirmations négatives sont cherchées sur **l'acte entier**, jamais sur un
+extrait : ne pas trouver X dans un fragment ne prouve rien.
+
+CLI : `finreg-bench rulebook auditer`. Rapports dans
+`reports/RULEBOOK_VERIFICATION_QC.md` et `RULEBOOK_VERIFICATION_MATRIX.csv`.
+Le cache des textes récupérés vit dans `.cache/primary/`, hors du dépôt : c'est
+une copie de travail d'un texte officiel, pas un artefact du projet.
+
+**Aucun test n'accède au réseau** : le récupérateur est injecté (`Recuperateur`),
+et la suite sert un faux *Journal officiel* synthétique — ce qui permet aussi
+d'éprouver des cas qu'on ne pourrait pas provoquer en vrai, comme un serveur qui
+répond 200 avec une page d'accueil.
 
 ### Question Family Map (phase 7)
 

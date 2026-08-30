@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from src.bench.qc_rulebook import charger_rulebook, controler, erreurs
 from src.bench.regles import Rule
 from src.bench.rulebook import (
+    METHODES_SUFFISANTES,
     CandidateQuestionFamily,
     ExceptionsStatus,
     NegativeClaim,
@@ -99,11 +100,17 @@ def test_exceptions_vides_et_exceptions_inconnues_sont_distinctes():
     assert aucune.exceptions == inconnues.exceptions == []
 
 
-def test_exceptions_listees_sans_exception_refusees():
-    refuse(regle(exceptions_status="listed"), "sans exception listée")
+def test_incorporer_une_exception_cest_lecrire():
+    """« Identifiées » et « incorporées » ne sont pas la même chose.
 
-
-def test_exceptions_listees_hors_statut_listed_refusees():
+    Une règle qui sait que des dérogations existent sans les porter est plus
+    dangereuse qu'une règle qui les ignore : elle a l'air complète.
+    """
+    refuse(regle(exceptions_status="identified_and_incorporated"), "sans exception portée")
+    refuse(
+        regle(exceptions_status="identified_but_not_incorporated", exceptions=["une exception"]),
+        "exceptions listées",
+    )
     refuse(regle(exceptions_status="unknown", exceptions=["une exception"]), "exceptions listées")
 
 
@@ -198,12 +205,24 @@ def test_les_vocabulaires_sont_respectes(regles):
 
 
 def test_aucune_regle_nest_marquee_verifiee_a_tort(regles):
-    """Le point d'honnêteté de la phase : rien n'est présenté comme vérifié."""
-    assert all(r.status is RuleStatus.DRAFT for r in regles)
-    assert all(
-        r.verification_method is VerificationMethod.MODEL_KNOWLEDGE_UNVERIFIED for r in regles
-    )
-    assert not any(r.is_usable for r in regles)
+    """Le point d'honnêteté du Rulebook : une promotion s'adosse toujours à une preuve.
+
+    Ce test ne fige pas un instantané — le Rulebook progresse, et c'est le but.
+    Il tient le **couplage** : une règle sortie de `draft` a nécessairement une
+    méthode sur texte primaire et une source signée par un vérificateur nommé.
+    Une promotion qui échapperait à l'une des deux serait une règle présentée
+    comme vérifiée sans l'être.
+    """
+    for regle in regles:
+        if regle.status is RuleStatus.DRAFT:
+            continue
+        assert regle.verification_method in METHODES_SUFFISANTES, regle.id
+        assert regle.source.is_verified, regle.id
+        assert regle.source.verified_by.strip(), regle.id
+
+    # Une règle en `draft` n'ancre rien, et `validated` exige davantage que la
+    # source : la grille complète et des exceptions cherchées.
+    assert all(not r.is_usable for r in regles if r.status is RuleStatus.DRAFT)
 
 
 def test_aucune_absence_declaree_verifiee(regles):
@@ -257,8 +276,16 @@ def test_le_manifeste_existe_et_est_complet():
 def test_le_manifeste_est_exact(regles):
     manifeste = lire_json(MANIFESTE)
     assert manifeste["number_of_rules"] == len(regles)
-    assert manifeste["number_validated"] == 0
-    assert manifeste["number_source_checked"] == 0
+    # Le manifeste compte ce que le Rulebook contient, pas ce qu'on espérait.
+    assert manifeste["number_validated"] == sum(
+        1 for r in regles if r.status is RuleStatus.VALIDATED
+    )
+    assert manifeste["number_source_checked"] == sum(
+        1 for r in regles if r.status is RuleStatus.SOURCE_CHECKED
+    )
+    assert manifeste["number_needing_verification"] == sum(
+        1 for r in regles if r.needs_verification
+    )
     assert manifeste["number_critical"] == sum(1 for r in regles if r.priority is Priority.CRITICAL)
     assert manifeste["number_time_sensitive"] == sum(1 for r in regles if r.time_sensitive)
     assert manifeste["rules_per_domain"] == {
@@ -273,11 +300,23 @@ def test_le_manifeste_nest_pas_charge_comme_une_regle():
     assert all(r.id != "rulebook-manifest" for r in charger_rulebook())
 
 
-def test_le_rapport_qc_existe():
+def test_le_rapport_qc_dit_combien_de_regles_ancrent_un_gold():
+    """Le rapport doit chiffrer ce qui est exploitable, pas seulement le décrire.
+
+    L'assertion porte sur le chiffre plutôt que sur une tournure : la phrase a
+    déjà changé quand le Rulebook a progressé, et un test qui verrouille une
+    formulation empêche le rapport de dire la vérité du moment.
+    """
     rapport = Path("RULEBOOK_QC.md")
     assert rapport.is_file()
     contenu = rapport.read_text(encoding="utf-8")
-    assert "n'est utilisable pour ancrer un gold" in contenu
+
+    regles = charger_rulebook()
+    utilisables = sum(1 for r in regles if r.is_usable)
+    assert (
+        f"règles utilisables pour ancrer un gold : **{utilisables} / {len(regles)}**"
+        in contenu
+    )
 
 
 # -- non-régression : la phase 6 ne génère aucune question --------------------------------- #

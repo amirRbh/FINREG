@@ -13,6 +13,7 @@ from pydantic import Field, model_validator
 
 from src.bench.modeles import ModeleStrict, Source
 from src.bench.rulebook import (
+    EXCEPTIONS_PORTEES,
     METHODES_SUFFISANTES,
     CandidateQuestionFamily,
     ExceptionsStatus,
@@ -85,6 +86,13 @@ class Rule(ModeleStrict):
 
     # -- cycle de vie -------------------------------------------------------------- #
     status: RuleStatus = RuleStatus.DRAFT
+    #: Une règle validée est juridiquement établie ; `gold_ready` dit si elle est
+    #: assez précise pour qu'on en tire une réponse de référence **sans nouvelle
+    #: interprétation juridique**. Les deux ne vont pas de pair : « le règlement
+    #: précise les modalités de l'évaluation » peut être parfaitement exact et
+    #: ne rien permettre de rédiger.
+    gold_ready: bool = False
+    gold_ready_reason: str = ""
     notes: str = ""
 
     # ------------------------------------------------------------------------ #
@@ -111,12 +119,16 @@ class Rule(ModeleStrict):
     @model_validator(mode="after")
     def _exceptions_explicites(self) -> Rule:
         """« Aucune exception identifiée » et « exceptions inconnues » ne sont pas la même chose."""
-        if self.exceptions_status is ExceptionsStatus.LISTED and not self.exceptions:
-            raise ValueError("exceptions_status « listed » sans exception listée")
-        if self.exceptions_status is not ExceptionsStatus.LISTED and self.exceptions:
+        if self.exceptions_status in EXCEPTIONS_PORTEES and not self.exceptions:
+            raise ValueError(
+                f"exceptions_status « {self.exceptions_status.value} » sans exception "
+                f"portée : incorporer une exception, c'est l'écrire"
+            )
+        if self.exceptions_status not in EXCEPTIONS_PORTEES and self.exceptions:
             raise ValueError(
                 f"exceptions listées alors que exceptions_status vaut "
-                f"« {self.exceptions_status.value} »"
+                f"« {self.exceptions_status.value} » : une règle qui porte ses "
+                f"exceptions les a incorporées"
             )
         return self
 
@@ -155,10 +167,29 @@ class Rule(ModeleStrict):
             raise ValueError("related_rules : une règle ne se référence pas elle-même")
         return self
 
+    @model_validator(mode="after")
+    def _gold_ready_se_motive(self) -> Rule:
+        """Une règle prête, ou écartée, doit dire pourquoi.
+
+        Sans motif, `gold_ready` deviendrait une case cochée dont personne ne
+        pourrait contester le contenu — exactement ce que ce dépôt refuse
+        ailleurs pour les métriques et pour les blocages.
+        """
+        if self.status is RuleStatus.VALIDATED and not self.gold_ready_reason.strip():
+            raise ValueError(
+                "une règle validée doit motiver son gold_ready, prête ou non"
+            )
+        return self
+
     @property
     def is_usable(self) -> bool:
-        """Une règle utilisable pour ancrer un gold est validée, rien de moins."""
-        return self.status is RuleStatus.VALIDATED
+        """Utilisable pour ancrer un gold : validée **et** assez précise pour l'être.
+
+        Les deux conditions sont indépendantes. Une règle validée mais trop
+        abstraite ancrerait un gold qu'il faudrait interpréter pour rédiger —
+        c'est-à-dire inventer le droit à l'étape suivante.
+        """
+        return self.status is RuleStatus.VALIDATED and self.gold_ready
 
     @property
     def needs_verification(self) -> bool:

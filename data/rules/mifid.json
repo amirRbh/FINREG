@@ -8,11 +8,16 @@
       "restreindre le devoir d'agir au mieux des intérêts au seul conseil en investissement"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Les avantages monétaires mineurs qui sont susceptibles d’améliorer la qualité du service fourni à un client et dont la grandeur et la nature sont telles qu’ils ne peuvent être pas considérés comme empêchant le respect par l’entreprise d’investissement de son devoir d’agir au mieux des intérêts du client, doivent être clairement signalés et sont exclus du présent point. 8.",
+      "Les avantages monétaires mineurs qui sont susceptibles d’améliorer la qualité du service fourni à un client et dont la grandeur et la nature sont telles qu’ils ne peuvent pas être considérés comme empêchant le respect par l’entreprise d’investissement de son devoir d’agir au mieux des intérêts du client, sont clairement signalés et sont exclus du présent paragraphe. 9."
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": false,
+    "gold_ready_reason": "l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite",
     "id": "MIFID-R-001",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — exclusion, conditions_cumulatives, delai, regime_particulier || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (exclusion) [confirme] STRUCTURES — exclusion, conditions_cumulatives, delai, regime_particulier || CONSTATS — 2 disposition(s) limitante(s) recopiée(s) du texte officiel (exclusion)",
     "operational_rule": "Socle applicable à tous les services d'investissement, indépendamment de la fourniture d'un conseil.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -31,20 +36,20 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 24 de la directive 2014/65/UE impose aux entreprises d'investissement d'agir d'une manière honnête, équitable et professionnelle qui serve au mieux les intérêts de leurs clients, et fixe les exigences générales d'information, notamment le caractère correct, clair et non trompeur des informations adressées aux clients.",
-    "status": "draft",
+    "status": "validated",
     "subdomain": "Article 24 — principes généraux",
-    "supersedes": null,
+    "supersedes": "MIFID-R-001-v1",
     "time_sensitive": false,
     "title": "Agir de manière honnête, équitable et professionnelle",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -60,9 +65,11 @@
     "domain": "MIFID",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "MIFID-R-002",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] TEXTE OFFICIEL — 2. Lorsqu’elle fournit des conseils en investissement ou des services de gestion de portefeuille, l’entreprise d’investissement se procure les informations nécessaires concernant les connaissances et l’expérience du client ou du client potentiel en matière d’investissement en rapport avec le type spécifique de produit ou de service, sa situation financière, y compris sa capacité à subir des pertes, et ses objectifs d’investissement, y compris sa tolérance au risque, de manière à pouvoir lui recommander les services d’investissement et les instruments financiers qui lui conviennent et, en parti || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Le test d'adéquation est réservé au conseil et à la gestion de portefeuille. Hors de ces deux services, c'est le test du caractère approprié qui s'applique.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -84,19 +91,19 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 25 de la directive 2014/65/UE impose, lorsqu'un conseil en investissement ou un service de gestion de portefeuille est fourni, de se procurer les informations nécessaires sur les connaissances et l'expérience du client, sa situation financière y compris sa capacité à subir des pertes, et ses objectifs d'investissement y compris sa tolérance au risque, afin de recommander les services et instruments qui lui conviennent.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Article 25 — adéquation",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Évaluation de l'adéquation dans le conseil et la gestion de portefeuille",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -112,9 +119,11 @@
     "domain": "MIFID",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "MIFID-R-003",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] TEXTE OFFICIEL — 3. Lorsque les entreprises d’investissement fournissent des services d’investissement autres que ceux visés au paragraphe 2, les États membres veillent à ce qu’elles demandent au client ou au client potentiel de donner des informations sur ses connaissances et sur son expérience en matière d’investissement en rapport avec le type spécifique de produit ou de service proposé ou demandé pour être en mesure de déterminer si le service ou le produit d’investissement envisagé convient au client. Lorsqu’une offre groupée de services ou de produits est envisagée conformément à l’article 24, paragraphe || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Le test du caractère approprié ne porte que sur connaissances et expérience — ni la situation financière ni les objectifs n'y entrent. Un avis négatif n'interdit pas l'opération : il déclenche un avertissement.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -135,19 +144,19 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 25 impose, pour les services autres que le conseil en investissement et la gestion de portefeuille, de demander au client des informations sur ses connaissances et son expérience afin d'évaluer si le service ou l'instrument est approprié, et de l'avertir lorsque tel n'est pas le cas.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Article 25 — caractère approprié",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Évaluation du caractère approprié hors conseil",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -164,9 +173,11 @@
     "domain": "MIFID",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "MIFID-R-004",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] TEXTE OFFICIEL — 4. Les États membres autorisent les entreprises d’investissement, lorsqu’elles fournissent des services d’investissement qui comprennent uniquement l’exécution ou la réception et la transmission d’ordres de clients, avec ou sans services auxiliaires, à l’exclusion de l’octroi des crédits ou des prêts visés à la section B.1 de l’annexe I, dans le cadre desquels les limites existantes concernant les prêts, les comptes courants et les découverts pour les clients ne s’appliquent pas, à fournir ces services d’investissement à leurs clients sans devoir obtenir les informations ni procéder à l’évalua || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Trois conditions cumulatives, dont l'initiative du client. Le régime est une exception d'interprétation stricte, pas un régime par défaut.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -186,19 +197,19 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 25 permet, à certaines conditions, de fournir des services de réception-transmission ou d'exécution d'ordres sans procéder à l'évaluation du caractère approprié, lorsque le service porte sur des instruments financiers non complexes, qu'il est fourni à l'initiative du client et que celui-ci a été averti.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Article 25 — exécution simple",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Régime d'exécution simple pour les instruments non complexes",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -212,9 +223,11 @@
     "domain": "MIFID",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "MIFID-R-005",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] TEXTE OFFICIEL — 6. L’entreprise d’investissement fournit au client des rapports adéquats sur le service qu’elle dispense sur un support durable. Ces rapports incluent des communications périodiques aux clients, en fonction du type et de la complexité des instruments financiers concernés ainsi que de la nature du service fourni aux clients, et comprennent, lorsqu’il y a lieu, les coûts liés aux transactions effectuées et aux services fournis au nom du client. Lorsqu’elle fournit des conseils en investissement, l’entreprise d’investissement remet au client, avant que la transaction ne soit effectuée, une déclar || RÉSERVES — exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Le rapport d'adéquation est la trace opposable du raisonnement de recommandation ; son absence rend le conseil indéfendable en contrôle.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -233,19 +246,19 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 25 impose, en cas de conseil en investissement à un client de détail, de lui fournir une déclaration d'adéquation précisant le conseil fourni et la manière dont il répond à ses préférences, objectifs et autres caractéristiques.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Article 25 — rapport d'adéquation",
     "supersedes": null,
     "time_sensitive": false,
     "title": "Rapport d'adéquation au client de détail",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -263,9 +276,11 @@
     "domain": "MIFID",
     "exceptions": [],
     "exceptions_status": "unknown",
+    "gold_ready": false,
+    "gold_ready_reason": "",
     "id": "MIFID-R-006",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] TEXTE OFFICIEL — Article 2 Définitions Aux fins du présent règlement, on entend par: 1) «personne concernée» : dans le cas d'une entreprise d'investissement, l'une quelconque des personnes suivantes: a) un administrateur, associé ou équivalent, gérant ou agent lié de l'entreprise; b) un administrateur, associé ou équivalent, ou gérant de tout agent lié de l'entreprise; c) un membre du personnel de l'entreprise ou d'un agent lié de l'entreprise, ainsi que toute autre personne physique dont les services sont mis à la disposition et placés sous le contrôle de l'entreprise ou d'un agent lié de l'entreprise et qui  || RÉSERVES — l'URL désigne l'acte 32021R1253 alors que la source cite 32017R0565 : vérification conduite contre l'acte cité ; la source dit l'acte modifié, mais aucune version consolidée au 2020-01-01 n'existe (02017R0565-20200101) : la date de consolidation applicable doit être établie, sans quoi la règle est vérifiée contre le texte d'origine ; ancrage « Article 2 et article 54 du règlement délégué (UE) 2017/565 modifié » : 2 articles couverts (2, 54), à découper avant qu'un gold puisse le citer ; exceptions jamais cherchées : à trancher entre « listed » et « none_identified » avant toute validation",
     "operational_rule": "Les préférences de durabilité sont une composante de l'adéquation, pas un test séparé : elles n'interviennent qu'une fois l'adéquation financière établie.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -287,19 +302,19 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "Le règlement délégué (UE) 2021/1253, qui modifie le règlement délégué (UE) 2017/565, introduit la notion de préférences en matière de durabilité et impose de les recueillir dans le cadre de l'évaluation de l'adéquation.",
-    "status": "draft",
+    "status": "source_checked",
     "subdomain": "Préférences de durabilité",
     "supersedes": null,
     "time_sensitive": true,
     "title": "Préférences en matière de durabilité",
     "valid_from": "2022-08-02",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
+    "verification_method": "primary_text_fetched",
     "version": 1
   },
   {
@@ -315,8 +330,14 @@
       "conclure qu'un produit non conforme peut être recommandé sans adaptation"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Lorsqu'une entreprise d'investissement fournit un service d'investissement à un client professionnel, elle est autorisée à présumer qu'en ce qui concerne les produits, les transactions et les services pour lesquels il est classé comme tel, le client possède le niveau requis d'expérience et de connaissance aux fins du paragraphe 2, point c).",
+      "Lorsque ce service d'investissement consiste en la fourniture d'un conseil en investissement à un client professionnel relevant de l'annexe II, section 1, de la directive 2014/65/UE, l'entreprise d'investissement est autorisée à présumer, aux fins du paragraphe 2, point b), que ce client est financièrement en mesure de supporter tout risque lié à l'investissement compte tenu des objectifs d'invest",
+      "Lorsqu'une entreprise d'investissement fournit un service qui implique de mener périodiquement des évaluations de l'adéquation et d'établir les rapports connexes, les rapports établis après la mise en place du service initial peuvent ne couvrir que les changements affectant les services ou instruments concernés et/ou la situation du client et peuvent ne pas répéter tous les détails du premier rapp"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 54 » (416 caractères), exceptions « identified_and_incorporated »",
     "id": "MIFID-R-007",
     "negative_claims": [
       {
@@ -328,7 +349,7 @@
         "verification_method": "model_knowledge_unverified"
       }
     ],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — exemption, conditions_cumulatives, regime_particulier, renvoi || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25 [corrige] L'énoncé d'origine était exact sur le fond mais introuvable dans l'acte cité : l'URL désignait le règlement modificatif 2021/1253, et la disposition ne figure pas dans le texte d'origine de 2017/565. Elle a été introduite par l'article 1er de 2021/1253. Version consolidée du règlement délégué (UE) 2017/565 applicable au 2 août 2022, récupérée auprès de CELLAR (Office des publications de l'Union). Dates établies dans le texte officiel et non déduites d'une source secondaire : le règlement délégué (UE) 2021/1253 a été publié au JO L 277 du 2.8.2021 ; son article 2 dispose qu'il « entre en vigueur le vingtième jour suivant celui de sa publication » (soit le 22 août 2021) et qu'« il est applicable à partir du 2 août 2022 ». Aucune disposition transitoire n'y figure. [confirme] STRUCTURES — exemption, conditions_cumulatives, regime_particulier, renvoi || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25",
     "operational_rule": "L'adaptation vient du client et doit être documentée. Elle ne peut pas être présumée par le conseiller, ni servir de contournement systématique.",
     "priority": "CRITICAL",
     "reasoning_traps": [
@@ -345,23 +366,23 @@
     "secondary_sources": [],
     "source": {
       "article": "Article 54",
-      "paragraph": "",
+      "paragraph": "paragraphe 10",
       "text": "Règlement délégué (UE) 2017/565 modifié",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
-      "version_date": "2020-01-01"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:02017R0565-20220802",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
+      "version_date": "2022-08-02"
     },
-    "statement": "Le règlement délégué (UE) 2017/565 modifié prévoit que, lorsqu'aucun instrument financier ne correspond aux préférences de durabilité exprimées par le client, celui-ci peut adapter ses préférences, l'entreprise devant consigner cette adaptation et la raison qui la motive.",
-    "status": "draft",
+    "statement": "L'article 54, paragraphe 10, du règlement délégué (UE) 2017/565, dans sa version applicable à partir du 2 août 2022, prévoit que lorsque aucun instrument financier ne répond aux préférences du client ou du client potentiel en matière de durabilité, et que le client décide de modifier ces préférences, l'entreprise d'investissement conserve un enregistrement de la décision du client et des motifs de cette dernière.",
+    "status": "validated",
     "subdomain": "Préférences de durabilité — adaptation",
-    "supersedes": null,
+    "supersedes": "MIFID-R-007-v2",
     "time_sensitive": true,
     "title": "Adaptation des préférences de durabilité",
     "valid_from": "2022-08-02",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 3
   },
   {
     "candidate_question_families": [
@@ -374,11 +395,19 @@
       "confondre la conservation MiFID II et la conservation LCB-FT"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Les politiques, processus et dispositifs visés au présent paragraphe sont sans préjudice de toutes les autres prescriptions prévues par la présente directive et par le règlement (UE) n o 600/2014, y compris à celles applicables à la publication, à l’adéquation ou au caractère approprié, à la détection et à la gestion des conflits d’intérêts, et aux incitations. 4.",
+      "Sans préjudice de la capacité des autorités compétentes d’exiger l’accès aux communications conformément à la présente directive et au règlement (UE) n o 600/2014, toute entreprise d’investissement dispose de mécanismes de sécurité solides pour garantir la sécurité et l’authentification des moyens de transfert de l’information, réduire au minimum le risque de corruption des données et d’accès non",
+      "Toute entreprise d’investissement prend, lorsqu’elle détient des instruments financiers appartenant à des clients, des dispositions appropriées pour sauvegarder les droits de propriété desdits clients, notamment en cas d’insolvabilité de l’entreprise, et pour empêcher l’utilisation des instruments financiers en question pour compte propre, sauf consentement exprès des clients. 9.",
+      "Toute entreprise d’investissement prend, lorsqu’elle détient des fonds appartenant à des clients, des dispositions appropriées pour sauvegarder les droits desdits clients et, sauf dans le cas d’établissements de crédit, pour empêcher l’utilisation des fonds en question pour compte propre. 10.",
+      "Pour toute succursale d’une entreprise d’investissement, l’autorité compétente de l’État membre où cette succursale est établie fait appliquer l’obligation prévue aux paragraphes 6 et 7 pour ce qui concerne les transactions effectuées par la succursale, sans préjudice de la possibilité, pour l’autorité compétente de l’État membre d’origine de l’entreprise d’investissement, d’accéder directement au"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 16 » (255 caractères), exceptions « identified_and_incorporated »",
     "id": "MIFID-R-008",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — derogation, exclusion, conditions_cumulatives, delai, regime_particulier || CONSTATS — 5 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exclusion) [confirme] STRUCTURES — derogation, exclusion, conditions_cumulatives, delai, regime_particulier || CONSTATS — 5 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation, exclusion)",
     "operational_rule": "L'obligation porte sur la reconstitution du parcours complet, pas sur la seule conservation de pièces isolées.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -398,20 +427,20 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 16 de la directive 2014/65/UE impose de conserver les enregistrements de tous les services, activités et transactions, d'une manière permettant à l'autorité compétente de reconstituer chaque étape essentielle du traitement de chaque transaction.",
-    "status": "draft",
+    "status": "validated",
     "subdomain": "Article 16 — organisation",
-    "supersedes": null,
+    "supersedes": "MIFID-R-008-v1",
     "time_sensitive": false,
     "title": "Conservation des enregistrements",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -423,11 +452,15 @@
       "en faire une obligation de résultat"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Néanmoins, chaque fois qu’il existe une instruction spécifique donnée par les clients, l’entreprise d’investissement exécute l’ordre en suivant cette instruction."
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 27 » (314 caractères), exceptions « identified_and_incorporated »",
     "id": "MIFID-R-009",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — derogation, conditions_cumulatives, delai || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation, conditions_cumulatives, delai || CONSTATS — 1 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "La meilleure exécution est une obligation de moyens portant sur un faisceau de facteurs, pas une obligation d'obtenir le meilleur prix.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -445,20 +478,20 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 27 de la directive 2014/65/UE impose de prendre toutes les mesures suffisantes pour obtenir, lors de l'exécution des ordres, le meilleur résultat possible pour le client, compte tenu du prix, du coût, de la rapidité, de la probabilité d'exécution et du règlement, de la taille et de la nature de l'ordre.",
-    "status": "draft",
+    "status": "validated",
     "subdomain": "Article 27 — exécution",
-    "supersedes": null,
+    "supersedes": "MIFID-R-009-v1",
     "time_sensitive": false,
     "title": "Meilleure exécution",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -469,11 +502,17 @@
       "attribuer à la fonction conformité la responsabilité qui incombe à l'organe de direction"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Sans préjudice des exigences établies à l’article 88, paragraphe 1, de la directive 2013/36/UE, ce dispositif garantit également que l’organe de direction définisse, approuve et supervise: a) l’organisation de l’entreprise pour la fourniture de services d’investissement, l’exercice d’activités d’investissement et la fourniture de services auxiliaires, y compris les compétences, les connaissances e",
+      "Par dérogation au premier alinéa, les États membres peuvent agréer des entreprises d’investissement qui sont des personnes physiques ou des personnes morales, dirigées par une seule et unique personne physique, conformément à leurs statuts et au droit national.",
+      "Les États membres exigent néanmoins que: a) d’autres mesures garantissant la gestion saine et prudente de telles entreprises d’investissement soient alors mises en place et que l’intérêt des clients et l’intégrité du marché soient dûment pris en compte; b) les personnes physiques concernées jouissent d’une honorabilité suffisante, possèdent les connaissances, les compétences et l’expérience nécess"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": false,
+    "gold_ready_reason": "l'énoncé décrit le texte au lieu de le dire (notamment) : une réponse de référence devrait réinterpréter le droit pour être écrite",
     "id": "MIFID-R-010",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — derogation, conditions_cumulatives || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation) [confirme] STRUCTURES — derogation, conditions_cumulatives || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (derogation)",
     "operational_rule": "La responsabilité de gouvernance n'est pas délégable à la fonction conformité : celle-ci contrôle, l'organe de direction répond.",
     "priority": "MEDIUM",
     "reasoning_traps": [
@@ -492,20 +531,20 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "statement": "L'article 9 de la directive 2014/65/UE fixe les exigences relatives à l'organe de direction des entreprises d'investissement, notamment sa responsabilité dans la définition et la surveillance des dispositifs de gouvernance assurant une gestion efficace et prudente.",
-    "status": "draft",
+    "status": "validated",
     "subdomain": "Article 9 — gouvernance",
-    "supersedes": null,
+    "supersedes": "MIFID-R-010-v1",
     "time_sensitive": false,
     "title": "Responsabilité de l'organe de direction",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 2
   },
   {
     "candidate_question_families": [
@@ -517,11 +556,17 @@
       "attribuer à la directive 2014/65/UE des exigences qui figurent au règlement délégué"
     ],
     "domain": "MIFID",
-    "exceptions": [],
-    "exceptions_status": "unknown",
+    "exceptions": [
+      "Lorsqu'une entreprise d'investissement fournit un service d'investissement à un client professionnel, elle est autorisée à présumer qu'en ce qui concerne les produits, les transactions et les services pour lesquels il est classé comme tel, le client possède le niveau requis d'expérience et de connaissance aux fins du paragraphe 2, point c).",
+      "Lorsque ce service d'investissement consiste en la fourniture d'un conseil en investissement à un client professionnel relevant de l'annexe II, section 1, de la directive 2014/65/UE, l'entreprise d'investissement est autorisée à présumer, aux fins du paragraphe 2, point b), que ce client est financièrement en mesure de supporter tout risque lié à l'investissement compte tenu des objectifs d'invest",
+      "Lorsqu'une entreprise d'investissement fournit un service qui implique de mener périodiquement des évaluations de l'adéquation et d'établir les rapports connexes, les rapports établis après la mise en place du service initial peuvent ne couvrir que les changements affectant les services ou instruments concernés et/ou la situation du client et peuvent ne pas répéter tous les détails du premier rapp"
+    ],
+    "exceptions_status": "identified_and_incorporated",
+    "gold_ready": true,
+    "gold_ready_reason": "énoncé porteur d'un fait vérifiable, ancré sur « Article 54 » (789 caractères), exceptions « identified_and_incorporated »",
     "id": "MIFID-R-011",
     "negative_claims": [],
-    "notes": "",
+    "notes": "[confirme] STRUCTURES — exemption, conditions_cumulatives, regime_particulier, renvoi || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25 [corrige] L'énoncé d'origine (« précise les modalités de l'évaluation de l'adéquation, notamment l'étendue des informations à recueillir et les diligences à accomplir ») décrivait le texte au lieu de le dire : aucune réponse de référence ne pouvait s'en déduire sans réinterpréter le droit. Le nouvel énoncé rattache chaque assertion à son paragraphe. La version 1 est conservée par supersedes. Version consolidée du règlement délégué (UE) 2017/565 applicable au 2 août 2022, récupérée auprès de CELLAR (Office des publications de l'Union). Dates établies dans le texte officiel et non déduites d'une source secondaire : le règlement délégué (UE) 2021/1253 a été publié au JO L 277 du 2.8.2021 ; son article 2 dispose qu'il « entre en vigueur le vingtième jour suivant celui de sa publication » (soit le 22 août 2021) et qu'« il est applicable à partir du 2 août 2022 ». Aucune disposition transitoire n'y figure. [confirme] STRUCTURES — exemption, conditions_cumulatives, regime_particulier, renvoi || CONSTATS — 3 disposition(s) limitante(s) recopiée(s) du texte officiel (exemption) ; renvois vérifiés dans l'acte : articles 25",
     "operational_rule": "Le détail opérationnel de l'adéquation est au niveau 2 ; citer la seule directive pour un point de procédure est une erreur de niveau de norme.",
     "priority": "HIGH",
     "reasoning_traps": [
@@ -539,22 +584,22 @@
     "secondary_sources": [],
     "source": {
       "article": "Article 54",
-      "paragraph": "",
+      "paragraph": "paragraphes 2 et 7",
       "text": "Règlement délégué (UE) 2017/565",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32017R0565",
-      "verification_date": null,
-      "verified_by": "",
-      "version_date": "2020-01-01"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:02017R0565-20220802",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
+      "version_date": "2022-08-02"
     },
-    "statement": "Le règlement délégué (UE) 2017/565 précise les modalités de l'évaluation de l'adéquation, notamment l'étendue des informations à recueillir et les diligences à accomplir pour s'assurer de leur fiabilité.",
-    "status": "draft",
+    "statement": "L'article 54, paragraphe 2, du règlement délégué (UE) 2017/565 impose aux entreprises d'investissement d'obtenir de leurs clients ou clients potentiels toutes les informations nécessaires pour disposer d'une base suffisante permettant de déterminer que la transaction recommandée ou engagée répond aux objectifs d'investissement du client, y compris sa tolérance au risque et ses éventuelles préférences en matière de durabilité, que le client est financièrement en mesure de faire face à tout risque lié, et qu'il possède l'expérience et la connaissance nécessaires pour comprendre les risques inhérents à la transaction. Le paragraphe 7 du même article impose aux entreprises de prendre des mesures raisonnables pour garantir la fiabilité des informations recueillies auprès des clients.",
+    "status": "validated",
     "subdomain": "Règlement délégué 2017/565",
-    "supersedes": null,
+    "supersedes": "MIFID-R-011-v2",
     "time_sensitive": false,
     "title": "Modalités de l'évaluation de l'adéquation au niveau 2",
     "valid_from": "2018-01-03",
     "valid_until": null,
-    "verification_method": "model_knowledge_unverified",
-    "version": 1
+    "verification_method": "primary_text_fetched",
+    "version": 3
   }
 ]

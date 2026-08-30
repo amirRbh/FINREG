@@ -23,10 +23,19 @@ class RuleStatus(str, Enum):
     `source_checked` affirme que la source primaire a été consultée. Ce n'est
     jamais le résultat d'avoir trouvé une page web, et jamais un statut qu'un
     modèle peut s'accorder à lui-même.
+
+    `source_checked` n'est pas `validated` : une source attestée dit que le
+    texte a été lu, pas que la règle est complète. `requires_human_review` est
+    réservé aux blocages **de fond** — un énoncé que le texte ne soutient pas,
+    une ambiguïté juridique que rien de mécanique ne tranche. Une règle qui
+    attend seulement la confirmation de ses exceptions reste `source_checked` :
+    ce n'est pas la règle qui pose problème, c'est ce qu'on ignore encore
+    d'elle.
     """
 
     DRAFT = "draft"
     SOURCE_CHECKED = "source_checked"
+    REQUIRES_HUMAN_REVIEW = "requires_human_review"
     LEGAL_REVIEW = "legal_review"
     VALIDATED = "validated"
 
@@ -71,15 +80,54 @@ class CandidateQuestionFamily(str, Enum):
 
 
 class ExceptionsStatus(str, Enum):
-    """Distingue « aucune exception identifiée » de « exceptions inconnues ».
+    """État de la recherche d'exceptions, exclusions, exemptions et conditions.
 
-    Confondre les deux produit des questions dangereusement simplifiées : une
-    règle présentée sans ses exceptions se teste comme un absolu qu'elle n'est pas.
+    Confondre « on a cherché, il n'y en a pas » avec « on n'a pas cherché »
+    produit des questions dangereusement simplifiées : une règle présentée sans
+    ses exceptions se teste comme un absolu qu'elle n'est pas.
+
+    Cinq issues, et une distinction qui porte tout le reste : **avoir identifié
+    des exceptions ne suffit pas, encore faut-il les avoir incorporées**. Une
+    règle qui sait que des dérogations existent sans les porter est plus
+    dangereuse qu'une règle qui l'ignore : elle a l'air complète.
+
+    `NONE_IDENTIFIED` ne se déduit jamais d'une recherche textuelle
+    infructueuse. Ne pas trouver le mot « dérogation » dans un article ne prouve
+    pas qu'aucun autre article n'y déroge — c'est `REQUIRES_HUMAN_REVIEW` qui
+    porte ce cas.
     """
 
-    LISTED = "listed"
+    #: On a cherché la structure juridique, il n'y a pas d'exception. Jamais
+    #: attribué par une recherche automatique.
     NONE_IDENTIFIED = "none_identified"
+    #: Des exceptions existent et la règle les porte.
+    IDENTIFIED_AND_INCORPORATED = "identified_and_incorporated"
+    #: Des exceptions existent et la règle ne les porte pas encore.
+    IDENTIFIED_BUT_NOT_INCORPORATED = "identified_but_not_incorporated"
+    #: La notion d'exception n'a pas de sens pour cette règle.
+    NOT_APPLICABLE = "not_applicable"
+    #: Il faut un juriste pour trancher : l'automate ne peut pas conclure.
+    REQUIRES_HUMAN_REVIEW = "requires_human_review"
+    #: Personne n'a encore cherché.
     UNKNOWN = "unknown"
+
+
+#: Statuts qui attestent qu'une recherche d'exceptions a réellement eu lieu et
+#: a abouti. Seuls ceux-ci autorisent une règle à passer `validated` : les
+#: autres disent soit qu'on n'a pas cherché, soit qu'on n'a pas conclu, soit
+#: qu'on sait sans avoir intégré.
+EXCEPTIONS_ABOUTIES: frozenset[ExceptionsStatus] = frozenset(
+    {
+        ExceptionsStatus.NONE_IDENTIFIED,
+        ExceptionsStatus.IDENTIFIED_AND_INCORPORATED,
+        ExceptionsStatus.NOT_APPLICABLE,
+    }
+)
+
+#: Statuts qui portent effectivement une liste d'exceptions.
+EXCEPTIONS_PORTEES: frozenset[ExceptionsStatus] = frozenset(
+    {ExceptionsStatus.IDENTIFIED_AND_INCORPORATED}
+)
 
 
 class VerificationMethod(str, Enum):

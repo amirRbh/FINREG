@@ -110,7 +110,10 @@ def generer() -> tuple[list[Rule], dict]:
         objets = [Rule.model_validate(r) for r in regles]
         # Le registre est réappliqué ici : ce que la génération ne sait pas refaire.
         connus = {r.id for r in objets}
-        objets = appliquer(objets, [v for v in registre if v.rule_id in connus])
+        # Le registre est une histoire, pas un état : on la rejoue en entier.
+        objets = appliquer(
+            objets, [v for v in registre if v.rule_id in connus], historique=True
+        )
         ecrire_json(SORTIE / f"{fichier}.json", [o.model_dump(mode="json") for o in objets])
         toutes.extend(objets)
         par_fichier[fichier] = len(objets)

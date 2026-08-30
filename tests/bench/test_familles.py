@@ -42,6 +42,7 @@ from src.bench.familles import (
 from src.bench.qc_familles import (
     COLONNES_MATRICE,
     charger_familles,
+    empreinte_rulebook,
     construire_manifeste,
     controler,
     ecrire_carte,
@@ -50,6 +51,7 @@ from src.bench.qc_familles import (
     rapport_markdown,
 )
 from src.bench.qc_rulebook import charger_rulebook
+from src.io_utils import lire_json
 from src.bench.regles import Rule
 from src.bench.rulebook import RuleStatus
 from src.bench.verification import ENCODAGE_CSV, SEPARATEUR_CSV
@@ -167,7 +169,10 @@ def test_exception_bloquee_quand_les_exceptions_nont_pas_ete_cherchees() -> None
 
 
 def test_exception_exploitable_quand_les_exceptions_sont_listees() -> None:
-    listees = regle(exceptions_status="listed", exceptions=["Exception synthétique"])
+    listees = regle(
+        exceptions_status="identified_and_incorporated",
+        exceptions=["Exception synthétique"],
+    )
     famille = famille_de([listees], listees.id, FamilyKind.EXCEPTION)
     assert famille is not None
     assert famille.family_score == 3
@@ -482,13 +487,29 @@ def test_la_carte_du_depot_passe_son_qc() -> None:
     assert not erreurs(controler(familles, regles))
 
 
-def test_la_carte_du_depot_est_a_jour_du_rulebook() -> None:
+def test_la_carte_declare_le_rulebook_dont_elle_derive() -> None:
+    """La carte peut retarder sur le Rulebook — mais jamais en silence.
+
+    Régénérer la carte est une décision, pas un effet de bord : le Rulebook
+    avance à son rythme, et la carte se refait quand on le veut. Ce que le dépôt
+    doit garantir, c'est que l'écart soit **déclaré** : le manifeste porte
+    l'empreinte du Rulebook dont la carte dérive, et le QC le signale.
+    """
     regles = charger_rulebook()
-    attendues = deriver_familles(regles)
-    ecrites = charger_familles()
-    assert [f.model_dump(mode="json") for f in sorted(ecrites, key=lambda f: f.id)] == [
-        f.model_dump(mode="json") for f in sorted(attendues, key=lambda f: f.id)
-    ]
+    manifeste = lire_json(Path("data/families/family-manifest.json"))
+    declaree = manifeste["rulebook_fingerprint"]
+    assert declaree
+
+    if declaree == empreinte_rulebook(regles):
+        attendues = deriver_familles(regles)
+        ecrites = charger_familles()
+        assert [f.model_dump(mode="json") for f in sorted(ecrites, key=lambda f: f.id)] == [
+            f.model_dump(mode="json") for f in sorted(attendues, key=lambda f: f.id)
+        ]
+    else:
+        # Retard assumé : le QC doit le dire, sans quoi il passerait inaperçu.
+        constats = controler(charger_familles(), regles)
+        assert any(c.controle == "carte_en_retard" for c in constats)
 
 
 def test_aucune_famille_du_depot_nest_exploitable_tant_que_rien_nest_verifie() -> None:

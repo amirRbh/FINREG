@@ -20,6 +20,7 @@ from src.bench.regles import Rule
 from src.bench.rulebook import ExceptionsStatus, RuleStatus, VerificationMethod
 from src.bench.verification import (
     COLONNES,
+    VERDICTS_PROMOTEURS,
     Verdict,
     Verification,
     VerificationInvalide,
@@ -110,7 +111,10 @@ def test_une_refutation_dit_ce_qui_cloche():
 
 def test_les_exceptions_restent_distinctes_du_silence():
     refuse(constat(exceptions=["une exception"]), "sans exceptions_statut")
-    refuse(constat(exceptions_status="listed"), "sans exception constatée")
+    refuse(
+        constat(exceptions_status="identified_and_incorporated"),
+        "sans exception constatée",
+    )
 
 
 # -- application aux règles ---------------------------------------------------------- #
@@ -136,6 +140,8 @@ def test_une_correction_reversionne_au_lieu_decraser():
             target_status="validated",
             statement="Ce que le texte dit réellement.",
             exceptions_status="none_identified",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
         )
     )
     [resultat] = appliquer([regle], [correction])
@@ -167,9 +173,36 @@ def test_une_regle_validee_ne_peut_pas_ignorer_ses_exceptions():
     """Une règle validée sans ses exceptions se teste comme un absolu qu'elle n'est pas."""
     regle = brouillon(exceptions_status="unknown")
     correction = Verification.model_validate(
-        constat(verdict="corrige", target_status="validated", statement="Énoncé rectifié.")
+        constat(
+            verdict="corrige",
+            target_status="validated",
+            statement="Énoncé rectifié.",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+        )
     )
-    with pytest.raises(VerificationInvalide, match="exceptions restent"):
+    with pytest.raises(VerificationInvalide, match="recherche d'exceptions vaut"):
+        appliquer([regle], [correction])
+
+
+def test_des_exceptions_identifiees_mais_non_incorporees_bloquent_la_validation():
+    """Le cas le plus trompeur : la règle sait, et ne porte pas.
+
+    Savoir que des dérogations existent sans les écrire donne à la règle
+    l'apparence de la complétude. C'est pire que de les ignorer.
+    """
+    regle = brouillon(exceptions_status="unknown")
+    correction = Verification.model_validate(
+        constat(
+            verdict="corrige",
+            target_status="validated",
+            statement="Énoncé rectifié.",
+            exceptions_status="identified_but_not_incorporated",
+            gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+        )
+    )
+    with pytest.raises(VerificationInvalide, match="identifiées mais non incorporées"):
         appliquer([regle], [correction])
 
 
@@ -324,14 +357,32 @@ def test_un_registre_absent_vaut_aucune_verification(tmp_path):
     assert charger_registre(tmp_path / "jamais-ecrit.json") == []
 
 
-def test_la_fusion_garde_le_constat_le_plus_recent(tmp_path):
+def test_la_fusion_nefface_aucun_constat(tmp_path):
+    """Le registre est une mémoire, pas un état courant.
+
+    Une règle corrigée deux fois doit rester reconstructible : garder seulement
+    le dernier constat ferait réapparaître une version intermédiaire à la
+    première régénération du Rulebook.
+    """
     chemin = ecrire_registre([Verification.model_validate(constat())], tmp_path / "ledger.json")
     fusionne = fusionner_registre(
-        [Verification.model_validate(constat(target_status="validated", exceptions_status="none_identified"))],
+        [
+            Verification.model_validate(
+                constat(
+                    target_status="validated",
+                    exceptions_status="none_identified",
+                    gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+                )
+            )
+        ],
         chemin,
     )
-    assert len(fusionne) == 1
-    assert fusionne[0].target_status is RuleStatus.VALIDATED
+    assert len(fusionne) == 2
+    assert [v.target_status for v in fusionne] == [
+        RuleStatus.SOURCE_CHECKED,
+        RuleStatus.VALIDATED,
+    ]
 
 
 def test_une_regeneration_neffacerait_pas_la_verification(tmp_path, monkeypatch):
@@ -368,12 +419,29 @@ def test_la_generation_reproduit_le_rulebook_livre(tmp_path, monkeypatch):
         ), produit.name
 
 
-def test_le_registre_livre_est_vide():
-    """Aucune source primaire n'est joignable : le registre ne peut rien contenir."""
+def test_le_registre_livre_consigne_chaque_verification_appliquee():
+    """Le registre est la mémoire du travail de vérification, hors de `data/rules/`.
+
+    Sans lui, régénérer le Rulebook effacerait le seul travail que le script de
+    génération ne sait pas refaire. Chaque constat qui a promu une règle doit
+    donc y porter son vérificateur et sa date.
+    """
     registre = Path("data/verification/rulebook-ledger.json")
     assert registre.is_file()
-    assert lire_json(registre)["entries"] == []
-    assert charger_registre(registre) == []
+    constats = charger_registre(registre)
+
+    statuts = {r.id: r for r in charger_rulebook()}
+    for verification in constats:
+        assert verification.rule_id in statuts, verification.rule_id
+        if verification.verdict in VERDICTS_PROMOTEURS:
+            assert verification.verified_by.strip(), verification.rule_id
+            assert verification.verification_date is not None, verification.rule_id
+
+    promues = {r.id for r in statuts.values() if r.status is not RuleStatus.DRAFT}
+    consignees = {
+        v.rule_id for v in constats if v.verdict in VERDICTS_PROMOTEURS
+    }
+    assert promues == consignees, "toute promotion doit être traçable au registre"
 
 
 # -- contrôles qualité ajoutés -------------------------------------------------------- #
@@ -461,19 +529,35 @@ def test_une_regle_consultee_mais_non_promue_reste_visible():
 # -- le Rulebook livré ----------------------------------------------------------------- #
 
 
-def test_le_rulebook_livre_na_toujours_aucune_promotion():
-    """Les sources primaires restent injoignables : rien n'a pu être vérifié."""
+def test_aucune_regle_livree_nest_utilisable_sans_ses_exceptions():
+    """`source_checked` n'est pas `validated`, et l'écart tient aux exceptions.
+
+    Une source attestée dit que le texte a été lu ; elle ne dit pas que la règle
+    est complète. Tant que ses exceptions n'ont pas été cherchées, une règle se
+    testerait comme un absolu qu'elle n'est peut-être pas — et n'ancre donc
+    aucun gold.
+    """
     regles = charger_rulebook()
-    assert all(r.status is RuleStatus.DRAFT for r in regles)
-    assert all(r.needs_verification for r in regles)
-    assert not any(r.is_usable for r in regles)
+    for regle in regles:
+        if regle.is_usable:
+            assert regle.exceptions_status is not ExceptionsStatus.UNKNOWN, regle.id
+    assert any(
+        r.status is not RuleStatus.DRAFT for r in regles
+    ), "le Rulebook livré porte le travail de vérification déjà appliqué"
 
 
-def test_le_rulebook_livre_sexporte_entierement_en_dossier(tmp_path):
+def test_aucune_regle_a_verifier_nechappe_au_dossier(tmp_path):
+    """Ce qui reste à vérifier doit toujours revenir dans le dossier.
+
+    Une règle non vérifiée qui n'apparaîtrait pas à l'export sortirait
+    silencieusement du circuit : personne ne saurait plus qu'elle attend.
+    """
     regles = charger_rulebook()
-    chemin = exporter_dossier([r for r in regles if r.needs_verification], tmp_path / "v.csv")
+    a_verifier = [r for r in regles if r.needs_verification]
+    chemin = exporter_dossier(a_verifier, tmp_path / "v.csv")
     lignes = list(csv.DictReader(chemin.open(encoding="utf-8-sig"), delimiter=";"))
-    assert len(lignes) == len(regles), "aucune règle ne doit échapper à la vérification"
+    assert {l["rule_id"] for l in lignes} == {r.id for r in a_verifier}
+    assert len(lignes) == len(a_verifier)
 
 
 def test_les_exceptions_inconnues_bloquent_la_validation_des_regles_livrees():
@@ -482,11 +566,18 @@ def test_les_exceptions_inconnues_bloquent_la_validation_des_regles_livrees():
     assert regles
     correction = [
         Verification.model_validate(
-            constat(rule_id=r.id, verdict="corrige", target_status="validated", statement="X.")
+            constat(
+                rule_id=r.id,
+                verdict="corrige",
+                target_status="validated",
+                statement="X.",
+                gold_ready=True,
+            gold_ready_reason="énoncé synthétique porteur d'un fait vérifiable",
+            )
         )
         for r in regles[:1]
     ]
-    with pytest.raises(VerificationInvalide, match="exceptions restent"):
+    with pytest.raises(VerificationInvalide, match="recherche d'exceptions vaut"):
         appliquer(charger_rulebook(), correction)
 
 

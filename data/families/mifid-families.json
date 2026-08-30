@@ -3,9 +3,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -42,8 +40,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -58,9 +56,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -97,8 +93,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -111,9 +107,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -151,8 +145,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -165,9 +159,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -205,8 +197,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -219,9 +211,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -258,8 +248,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -272,9 +262,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -311,8 +299,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -327,9 +315,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -366,8 +352,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -380,9 +366,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -420,8 +404,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -434,9 +418,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -474,8 +456,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -488,9 +470,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -527,8 +507,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -541,9 +521,7 @@
     "abstention_focus": [],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "failure_to_mention_exception",
@@ -582,8 +560,8 @@
       "paragraph": "paragraphe 2",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -596,9 +574,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -635,8 +611,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -651,9 +627,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -690,8 +664,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -704,9 +678,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -744,8 +716,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -758,9 +730,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -798,8 +768,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -812,9 +782,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -851,8 +819,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -865,9 +833,7 @@
     "abstention_focus": [],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "failure_to_mention_exception",
@@ -906,8 +872,8 @@
       "paragraph": "paragraphe 3",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -922,9 +888,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article"
@@ -960,8 +924,8 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -974,9 +938,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1013,8 +975,8 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1027,9 +989,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1066,8 +1026,8 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1080,9 +1040,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article"
@@ -1118,8 +1076,8 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1132,9 +1090,7 @@
     "abstention_focus": [],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "failure_to_mention_exception",
@@ -1172,8 +1128,8 @@
       "paragraph": "paragraphe 4",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1186,9 +1142,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article"
@@ -1224,8 +1178,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1240,9 +1194,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article"
@@ -1278,8 +1230,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1292,9 +1244,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1331,8 +1281,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1345,9 +1295,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1384,8 +1332,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1398,9 +1346,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article"
@@ -1436,8 +1382,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1450,9 +1396,7 @@
     "abstention_focus": [],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "failure_to_mention_exception",
@@ -1490,8 +1434,8 @@
       "paragraph": "paragraphe 6",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1504,9 +1448,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1543,8 +1485,8 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1557,9 +1499,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1597,8 +1537,8 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1611,9 +1551,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1650,8 +1588,8 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1664,9 +1602,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1703,8 +1639,8 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": {
@@ -1724,9 +1660,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -1765,8 +1699,8 @@
       "paragraph": "",
       "text": "Règlement délégué (UE) 2017/565, modifié par le règlement délégué (UE) 2021/1253",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32021R1253",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -1780,7 +1714,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification",
       "affirmation négative non vérifiée absente : « je n'ai pas trouvé » n'est pas « cela n'existe pas »"
     ],
@@ -1838,7 +1771,6 @@
     "answerability": "partially_answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -1890,7 +1822,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -1943,7 +1874,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -1996,7 +1926,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -2048,7 +1977,6 @@
     "answerability": "partially_answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -2102,7 +2030,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -2160,9 +2087,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2200,8 +2125,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2214,9 +2139,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2254,8 +2177,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2268,9 +2191,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2307,8 +2228,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2321,9 +2242,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2360,8 +2279,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": {
@@ -2381,9 +2300,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2422,8 +2339,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2436,9 +2353,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2475,8 +2390,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2491,9 +2406,7 @@
     ],
     "answerability": "partially_answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2530,8 +2443,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2544,9 +2457,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2584,8 +2495,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2598,9 +2509,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2638,8 +2547,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2652,9 +2561,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2691,8 +2598,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2705,9 +2612,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2745,8 +2650,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2759,9 +2664,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2799,8 +2702,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2813,9 +2716,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2852,8 +2753,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2866,9 +2767,7 @@
     "abstention_focus": [],
     "answerability": "answerable",
     "blocking_reasons": [
-      "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
-      "source sans vérificateur nommé ni date de vérification"
+      "règle en « source_checked » : seul « validated » ancre un gold"
     ],
     "candidate_disqualifying_errors": [
       "incorrect_article",
@@ -2907,8 +2806,8 @@
       "paragraph": "",
       "text": "Directive 2014/65/UE (MIFID II)",
       "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32014L0065",
-      "verification_date": null,
-      "verified_by": "",
+      "verification_date": "2026-08-30",
+      "verified_by": "amirRbh",
       "version_date": "2020-01-01"
     },
     "temporal_blueprint": null,
@@ -2925,7 +2824,6 @@
     "answerability": "partially_answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -2977,7 +2875,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -3030,7 +2927,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
@@ -3083,7 +2979,6 @@
     "answerability": "answerable",
     "blocking_reasons": [
       "règle en « draft » : sa source n'a pas été confrontée au texte primaire",
-      "vérification insuffisante (model_knowledge_unverified)",
       "source sans vérificateur nommé ni date de vérification"
     ],
     "candidate_disqualifying_errors": [
